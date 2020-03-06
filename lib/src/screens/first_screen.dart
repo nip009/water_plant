@@ -1,8 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/plante/plante.dart';
-import '../constants.dart' as Constants;
+import 'package:flutter_watering/constants.dart' as Constants;
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -120,11 +118,8 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Column(
           children: <Widget>[
             Container(
-              //width: double.infinity,
               color: Colors.green[700],
-              //height: 500,
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Align(
                     child: Padding(
@@ -137,11 +132,6 @@ class _FirstScreenState extends State<FirstScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.grey[300],
-                          /*gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.grey[100], Colors.grey[400]],
-                            ),*/
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -156,8 +146,6 @@ class _FirstScreenState extends State<FirstScreen> {
                             Expanded(
                               flex: 2,
                               child: Container(
-                                // color: Colors.pink,
-                                //alignment: Alignment.center,
                                 child: Text(
                                   "$waterTankStatus" + " %",
                                   style: TextStyle(
@@ -173,12 +161,9 @@ class _FirstScreenState extends State<FirstScreen> {
                                 borderRadius: BorderRadius.circular(20),
                                 child: Container(
                                   color: Colors.grey,
-                                  //height: 150,
                                   child: Container(
                                     color: Colors.blue[500],
                                     width: 300,
-                                    //height: 150,
-                                    //color: Colors.black,
                                     child: waterTankIndicator(waterTankStatus),
                                   ),
                                 ),
@@ -188,7 +173,6 @@ class _FirstScreenState extends State<FirstScreen> {
                             Expanded(
                               flex: 4,
                               child: Container(
-                                //color: Colors.purple,
                                 child: Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Row(

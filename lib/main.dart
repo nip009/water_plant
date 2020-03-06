@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/plante/plante.dart';
-import './src/plant_info.dart';
-import './src/first_screen.dart';
-import './constants.dart' as Constants;
+import 'package:flutter_watering/src/screens/plant_info.dart';
+import 'package:flutter_watering/src/screens/first_screen.dart';
+import 'package:flutter_watering/constants.dart' as Constants;
 
 void main() => runApp(MyApp());
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../animated/hero_test.dart';
+import 'package:flutter_watering/src/screens/hero_test.dart';
+import 'package:flutter_watering/plante/plante.dart';
+
 import 'dart:math';
-import '../plante/plante.dart';
 
 //void main() => runApp(PlantInfo());
 
