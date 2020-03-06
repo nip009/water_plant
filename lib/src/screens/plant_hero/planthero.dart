@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/plante/plante.dart';
-import 'package:flutter_watering/animated/animert_icon.dart';
-import 'package:flutter_watering/animated/animert_pil.dart';
 
 class PlantHero extends StatelessWidget {
-  MyPlant plant;
+  final MyPlant plant;
 
   PlantHero(this.plant);
 

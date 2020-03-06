@@ -1,42 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/src/screens/hero_test.dart';
+import 'package:flutter_watering/src/screens/plant_hero/planthero.dart';
 import 'package:flutter_watering/plante/plante.dart';
 
 import 'dart:math';
 
-//void main() => runApp(PlantInfo());
-
-class PlantInfo extends StatelessWidget {
-  final Function notifyParent;
-  MyPlant plant;
-
-  PlantInfo(this.plant, this.notifyParent);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      //backgroundColor: Colors.amber,
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(plant.name),
-        centerTitle: true,
-      ),
-      body: MyHomePage(
-        plant: plant,
-        notifyParent: notifyParent,
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage(
+class PlantInfoBody extends StatefulWidget {
+  PlantInfoBody(
       {Key key, this.title, @required this.plant, @required this.notifyParent})
       : super(key: key);
 
@@ -45,10 +14,10 @@ class MyHomePage extends StatefulWidget {
   final Function notifyParent;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PlantInfoBodyState createState() => _PlantInfoBodyState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PlantInfoBodyState extends State<PlantInfoBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
