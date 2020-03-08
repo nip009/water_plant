@@ -25,8 +25,8 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             height: double.infinity,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[400],
-              ),
+                  //color: Colors.grey[400],
+                  ),
               child: Hero(
                 tag: widget.plant.imageName,
                 child: Container(
@@ -65,13 +65,13 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             width: double.infinity,
             child: Container(
               alignment: Alignment.center,
-              color: Colors.green[300],
+              //color: Colors.green,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Divider(
+                  /*Divider(
                     thickness: 2,
-                  ),
+                  ),*/
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +80,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                             decoration: BoxDecoration(),
-                            child: Text(
+                            child: const Text(
                               'Fuktighet',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
@@ -107,7 +107,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                               angle: pi / 4.0,
                               child: Container(
                                 child: RaisedButton(
-                                  color: Colors.lime[300],
+                                  color: Colors.blue[400],
                                   onPressed: () {
                                     print('Vanner plante');
                                     setState(() {

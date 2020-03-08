@@ -120,9 +120,9 @@ class PlantWateringApp extends StatelessWidget {
   Widget build(BuildContext context) {
     List<WaterTankDevice> waterTanks = [];
     WaterTankDevice tank1 = WaterTankDevice('Stue', plants_tank1, 100);
-    WaterTankDevice tank2 = WaterTankDevice('Soverom', plants_tank2, 100);
-    WaterTankDevice tank3 = WaterTankDevice('Bad', plants_tank3, 100);
-    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plants_tank4, 100);
+    WaterTankDevice tank2 = WaterTankDevice('Soverom', plants_tank2, 60);
+    WaterTankDevice tank3 = WaterTankDevice('Bad', plants_tank3, 80);
+    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plants_tank4, 20);
     waterTanks.add(tank1);
     waterTanks.add(tank2);
     waterTanks.add(tank3);
