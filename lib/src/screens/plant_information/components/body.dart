@@ -51,7 +51,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                             context,
                             MaterialPageRoute(
                               builder: (_) {
-                                return PlantHero(widget.plant);
+                                return PlantHeroScreen(widget.plant);
                               },
                             ),
                           );

@@ -64,7 +64,8 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PlantInfo(plant, refresh)));
+                          builder: (context) =>
+                              PlantInfoScreen(plant, refresh)));
                 },
                 child: createPlantInfoCard(plant),
               ),

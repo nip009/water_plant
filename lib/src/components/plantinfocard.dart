@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/src/screens/plant_information/plantinfo.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 
 Widget createPlantInfoCard(Plant plant) {

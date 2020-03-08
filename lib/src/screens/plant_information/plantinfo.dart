@@ -4,11 +4,11 @@ import 'package:flutter_watering/src/screens/plant_information/components/body.d
 
 //void main() => runApp(PlantInfo());
 
-class PlantInfo extends StatelessWidget {
+class PlantInfoScreen extends StatelessWidget {
   final Function notifyParent;
   Plant plant;
 
-  PlantInfo(this.plant, this.notifyParent);
+  PlantInfoScreen(this.plant, this.notifyParent);
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 
-class PlantHero extends StatelessWidget {
+class PlantHeroScreen extends StatelessWidget {
   final Plant plant;
 
-  PlantHero(this.plant);
+  PlantHeroScreen(this.plant);
 
   @override
   Widget build(BuildContext context) {

@@ -21,7 +21,11 @@ class _HomePageBodyState extends State<HomePageBody> {
     assert(widget.tanks != null);
     return ListView(
       children: <Widget>[
-        for (var tank in widget.tanks) tankOverviewCard(tank),
+        for (var tank in widget.tanks)
+          GestureDetector(
+            onTap: () {},
+            child: tankOverviewCard(tank),
+          ),
       ],
     );
   }
