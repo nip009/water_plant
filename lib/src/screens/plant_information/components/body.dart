@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/src/screens/plant_hero/planthero.dart';
-import 'package:flutter_watering/plante/plante.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
 
 import 'dart:math';
 
@@ -10,7 +10,7 @@ class PlantInfoBody extends StatefulWidget {
       : super(key: key);
 
   final String title;
-  final MyPlant plant;
+  final Plant plant;
   final Function notifyParent;
 
   @override
@@ -32,7 +32,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                 color: Colors.grey[400],
               ),
               child: Hero(
-                tag: 'dash',
+                tag: widget.plant.imageName,
                 child: Container(
                   //color: Colors.green,
                   alignment: Alignment.center,

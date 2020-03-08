@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/plante/plante.dart';
+import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
 import 'package:flutter_watering/src/screens/homepage/components/body.dart';
 
 class HomePage extends StatelessWidget {
-  final List<MyPlant> myPlants;
-  final int waterTankStatus;
+  final List<WaterTankDevice> tanks;
 
-  HomePage(this.myPlants, this.waterTankStatus);
+  HomePage(this.tanks);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomePageBody(myPlants, waterTankStatus),
+      body: HomePageBody(tanks),
     );
   }
 }

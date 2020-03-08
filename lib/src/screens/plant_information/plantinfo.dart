@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/plante/plante.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/src/screens/plant_information/components/body.dart';
 
 //void main() => runApp(PlantInfo());
 
 class PlantInfo extends StatelessWidget {
   final Function notifyParent;
-  MyPlant plant;
+  Plant plant;
 
   PlantInfo(this.plant, this.notifyParent);
 

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/src/screens/plant_information/plantinfo.dart';
-import 'package:flutter_watering/plante/plante.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
 
 class PlantsOverviewScreenBody extends StatefulWidget {
-  final List<MyPlant> myPlants;
+  final List<Plant> plants;
 
-  PlantsOverviewScreenBody(this.myPlants);
+  PlantsOverviewScreenBody(this.plants);
 
   @override
-  _MyPlantsOverviewScreenStateBody createState() =>
-      _MyPlantsOverviewScreenStateBody();
+  _PlantsOverviewScreenStateBody createState() =>
+      _PlantsOverviewScreenStateBody();
 }
 
-class _MyPlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
+class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
   String appBarImageName = Constants.PLANT_NAME_1;
 
   // In order to call setState in main.dart from PlantInfo.dart
@@ -54,7 +54,7 @@ class _MyPlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
           ),*/
         SliverList(
           delegate: SliverChildListDelegate([
-            for (var plant in widget.myPlants)
+            for (var plant in widget.plants)
               createPlantInfoCard(context, plant, refresh),
           ]),
         ),
@@ -63,7 +63,7 @@ class _MyPlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
   }
 
   Widget createPlantInfoCard(
-      BuildContext context, MyPlant plant, Function notifyParent) {
+      BuildContext context, Plant plant, Function notifyParent) {
     return Container(
       decoration: BoxDecoration(
           //color: Colors.purple,

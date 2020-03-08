@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/plante/plante.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
 
 class PlantHero extends StatelessWidget {
-  final MyPlant plant;
+  final Plant plant;
 
   PlantHero(this.plant);
 
@@ -27,7 +27,7 @@ class PlantHero extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Hero(
-                    tag: 'dash',
+                    tag: plant.imageName,
                     child: Container(
                       constraints: BoxConstraints.loose(Size(350, 350)),
                       child: ClipRRect(
