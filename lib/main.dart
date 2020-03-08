@@ -60,13 +60,73 @@ class PlantWateringApp extends StatelessWidget {
     ),
   ];
 
+  final List<Plant> plants_tank3 = [
+    Plant(
+      7,
+      name: 'Chinese Evergreen',
+      imageName: Constants.PLANT_NAME_1,
+    ),
+    Plant(
+      4,
+      name: 'Zamioculcas zamiifolia',
+      imageName: Constants.PLANT_NAME_2,
+    ),
+    Plant(
+      6,
+      name: 'Orchid',
+      imageName: Constants.PLANT_NAME_4,
+    ),
+    Plant(
+      10,
+      name: 'Plante',
+      imageName: Constants.PLANT_NAME_2,
+    ),
+    Plant(
+      7,
+      name: 'Chinese Evergreen',
+      imageName: Constants.PLANT_NAME_1,
+    ),
+  ];
+
+  final List<Plant> plants_tank4 = [
+    Plant(
+      7,
+      name: 'Chinese Evergreen',
+      imageName: Constants.PLANT_NAME_1,
+    ),
+    Plant(
+      4,
+      name: 'Zamioculcas zamiifolia',
+      imageName: Constants.PLANT_NAME_2,
+    ),
+    Plant(
+      6,
+      name: 'Orchid',
+      imageName: Constants.PLANT_NAME_4,
+    ),
+    Plant(
+      10,
+      name: 'Plante',
+      imageName: Constants.PLANT_NAME_2,
+    ),
+    Plant(
+      7,
+      name: 'Chinese Evergreen',
+      imageName: Constants.PLANT_NAME_1,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     List<WaterTankDevice> waterTanks = [];
-    WaterTankDevice tank1 = WaterTankDevice(plants_tank1, 100);
-    WaterTankDevice tank2 = WaterTankDevice(plants_tank2, 100);
+    WaterTankDevice tank1 = WaterTankDevice('Stue', plants_tank1, 100);
+    WaterTankDevice tank2 = WaterTankDevice('Soverom', plants_tank2, 100);
+    WaterTankDevice tank3 = WaterTankDevice('Bad', plants_tank3, 100);
+    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plants_tank4, 100);
     waterTanks.add(tank1);
     waterTanks.add(tank2);
+    waterTanks.add(tank3);
+    waterTanks.add(tank4);
 
     List<Plant> allPlants = [];
     for (WaterTankDevice tank in waterTanks) {
@@ -76,9 +136,7 @@ class PlantWateringApp extends StatelessWidget {
     }
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: //HomePage(waterTanks),
-            //);
-            PlantsOverviewScreen(allPlants));
+        debugShowCheckedModeBanner: false, home: HomePage(waterTanks));
+    //PlantsOverviewScreen(allPlants));
   }
 }

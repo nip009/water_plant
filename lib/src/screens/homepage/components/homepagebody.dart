@@ -4,11 +4,10 @@ import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
 import 'package:flutter_watering/src/screens/homepage/components/watertankindicator.dart';
 
 class HomePageBody extends StatefulWidget {
-  List<WaterTankDevice> tanks;
-  HomePageBody(List<WaterTankDevice> tanks) {
-    this.tanks = tanks;
+  final List<WaterTankDevice> tanks;
+  HomePageBody(this.tanks) {
     for (WaterTankDevice tank in tanks) {
-      assert(tanks != null);
+      assert(tank != null);
     }
   }
 
@@ -37,7 +36,7 @@ class _HomePageBodyState extends State<HomePageBody> {
           alignment: Alignment.bottomCenter,
           padding: EdgeInsets.only(left: 5, right: 5, top: 10),
           width: double.infinity,
-          height: 300,
+          height: 250,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.grey[300],
@@ -48,7 +47,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               Expanded(
                 flex: 2,
                 child: Text(
-                  'Stue',
+                  tank.name,
                   style: TextStyle(fontSize: 30),
                 ),
               ),
