@@ -136,8 +136,7 @@ class PlantWateringApp extends StatelessWidget {
     }
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: //HomePageScreen(waterTanks));
-            PlantsOverviewScreen(allPlants));
+        debugShowCheckedModeBanner: false, home: HomePageScreen(waterTanks));
+    //PlantsOverviewScreen(allPlants));
   }
 }

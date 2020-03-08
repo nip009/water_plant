@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
 import 'package:flutter_watering/src/components/plantinfocard.dart';
+import 'package:flutter_watering/src/screens/plant_info/plantinfo.dart';
 
-class PlantsBelongingToTankScreen extends StatelessWidget {
+class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
   PlantsBelongingToTankScreen(this.tank);
 
   @override
+  _PlantsBelongingToTankScreenState createState() =>
+      _PlantsBelongingToTankScreenState();
+}
+
+class _PlantsBelongingToTankScreenState
+    extends State<PlantsBelongingToTankScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: <Widget>[
-        for (var plant in tank.plants)
-          GestureDetector(child: createPlantInfoCard(plant)),
-      ],
-    ));
+    print("Running build in plantsbelongingtoscreen");
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${widget.tank.name}'),
+        centerTitle: true,
+      ),
+      body: Container(
+        color: Colors.blue,
+        child: ListView(
+          children: <Widget>[
+            for (var plant in widget.tank.plants)
+              Container(
+                width: double.infinity,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlantInfoScreen(plant: plant),
+                      ),
+                    );
+                  },
+                  child: createPlantInfoCard(plant),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

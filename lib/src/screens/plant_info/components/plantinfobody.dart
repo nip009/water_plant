@@ -5,13 +5,9 @@ import 'package:flutter_watering/objects/plant/plant.dart';
 import 'dart:math';
 
 class PlantInfoBody extends StatefulWidget {
-  PlantInfoBody(
-      {Key key, this.title, @required this.plant, @required this.notifyParent})
-      : super(key: key);
-
+  PlantInfoBody({Key key, this.title, @required this.plant}) : super(key: key);
   final String title;
   final Plant plant;
-  final Function notifyParent;
 
   @override
   _PlantInfoBodyState createState() => _PlantInfoBodyState();
@@ -34,7 +30,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
               child: Hero(
                 tag: widget.plant.imageName,
                 child: Container(
-                  //color: Colors.green,
                   alignment: Alignment.center,
                   constraints:
                       BoxConstraints.tightFor(width: 200.0, height: 200.0),
@@ -43,10 +38,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                     child: ClipOval(
                       child: GestureDetector(
                         onTap: () {
-                          setState(() {
-                            widget.plant.hydration = 5;
-                            widget.notifyParent();
-                          });
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -58,7 +49,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                         },
                         child: Container(
                           height: 250,
-                          //width: 100,
                           child: Image.asset(widget.plant.imageName),
                         ),
                       ),

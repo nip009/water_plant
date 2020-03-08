@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/src/screens/plant_information/components/body.dart';
+import 'package:flutter_watering/src/screens/plant_info/components/plantinfobody.dart';
 
-//void main() => runApp(PlantInfo());
-
+/// A screen that shows the hydration level of one [Plant], and gives you
+/// the possibility to water the plant by clicking a button.
 class PlantInfoScreen extends StatelessWidget {
-  final Function notifyParent;
-  Plant plant;
+  final Plant plant;
 
-  PlantInfoScreen(this.plant, this.notifyParent);
+  PlantInfoScreen({@required this.plant});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.amber,
       appBar: AppBar(
         backgroundColor: Colors.green,
         leading: IconButton(
@@ -25,10 +23,7 @@ class PlantInfoScreen extends StatelessWidget {
         title: Text(plant.name),
         centerTitle: true,
       ),
-      body: PlantInfoBody(
-        plant: plant,
-        notifyParent: notifyParent,
-      ),
+      body: PlantInfoBody(plant: plant),
     );
   }
 }

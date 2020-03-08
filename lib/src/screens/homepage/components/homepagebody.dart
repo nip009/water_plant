@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
 import 'package:flutter_watering/src/screens/homepage/components/watertankindicator.dart';
+import 'package:flutter_watering/src/screens/plants_belonging_to_tank/plantsbelongingtotankscreen.dart';
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -23,7 +24,13 @@ class _HomePageBodyState extends State<HomePageBody> {
       children: <Widget>[
         for (var tank in widget.tanks)
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PlantsBelongingToTankScreen(tank)),
+              );
+            },
             child: tankOverviewCard(tank),
           ),
       ],
