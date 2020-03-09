@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
-import 'package:flutter_watering/src/screens/homepage/components/watertankindicator.dart';
-import 'package:flutter_watering/src/screens/plants_belonging_to_tank/plantsbelongingtotankscreen.dart';
+import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
+import 'package:flutter_watering/src/screens/homepage/components/water_tank_indicator.dart';
+import 'package:flutter_watering/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -20,20 +20,49 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
-    return ListView(
-      children: <Widget>[
-        for (var tank in widget.tanks)
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PlantsBelongingToTankScreen(tank)),
-              );
-            },
-            child: tankOverviewCard(tank),
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                for (var tank in widget.tanks)
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PlantsBelongingToTankScreen(tank)),
+                      );
+                    },
+                    child: tankOverviewCard(tank),
+                  ),
+              ],
+            ),
           ),
-      ],
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: ClipOval(
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  color: Colors.blue,
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      // get the option to add a new tank
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+          //),
+        ],
+      ),
     );
   }
 

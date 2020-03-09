@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/src/screens/plant_info/plantinfo.dart';
+import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/src/components/plantinfocard.dart';
+import 'package:flutter_watering/src/components/plant_info_card.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
 
 /// A list overview of every single plant owned.

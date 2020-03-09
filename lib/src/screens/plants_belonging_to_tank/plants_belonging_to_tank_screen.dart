@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
-import 'package:flutter_watering/src/components/plantinfocard.dart';
-import 'package:flutter_watering/src/screens/plant_info/plantinfo.dart';
+import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
+import 'package:flutter_watering/src/components/plant_info_card.dart';
+import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
 
 class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
@@ -16,7 +16,6 @@ class _PlantsBelongingToTankScreenState
     extends State<PlantsBelongingToTankScreen> {
   @override
   Widget build(BuildContext context) {
-    print("Running build in plantsbelongingtoscreen");
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.tank.name}'),

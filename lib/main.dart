@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/objects/watertankdevice/watertankdevice.dart';
+import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/screens/homepage/homepage.dart';
-import 'package:flutter_watering/src/screens/plants_overview/plantsoverview.dart';
+import 'package:flutter_watering/src/screens/plants_overview/plants_overview.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
 
 void main() => runApp(PlantWateringApp());
