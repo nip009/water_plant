@@ -138,7 +138,6 @@ class PlantWateringApp extends StatelessWidget {
     return MaterialApp(
         color: Colors.green,
         debugShowCheckedModeBanner: false,
-        home: //HomePageScreen(waterTanks));
-            PlantsOverviewScreen(allPlants));
+        home: HomePageScreen(waterTanks, allPlants));
   }
 }
