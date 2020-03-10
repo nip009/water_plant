@@ -21,6 +21,22 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
     return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment(1, 1),
+          colors: [
+            Colors.green[400],
+            Colors.green[900],
+          ],
+          tileMode: TileMode.repeated,
+        ),
+      ),
+      /* decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.blue[700], Colors.blue[800]])),*/
       child: Column(
         children: <Widget>[
           Expanded(
@@ -41,7 +57,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               ],
             ),
           ),
-          Container(
+          /*Container(
             padding: EdgeInsets.all(10),
             child: Align(
               alignment: Alignment.centerRight,
@@ -60,7 +76,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               ),
             ),
           ),
-          //),
+          //),*/
         ],
       ),
     );

@@ -22,7 +22,7 @@ class _PlantsBelongingToTankScreenState
         centerTitle: true,
       ),
       body: Container(
-        color: Colors.blue,
+        //color: Colors.blue,
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)
