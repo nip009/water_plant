@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/components/plant_info_card.dart';
 import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
+import 'package:flutter_watering/constants.dart' as Constants;
 
 class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
@@ -22,7 +23,7 @@ class _PlantsBelongingToTankScreenState
         centerTitle: true,
       ),
       body: Container(
-        //color: Colors.blue,
+        color: Constants.BACKGROUND_COLOR,
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)

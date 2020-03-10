@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
+import 'package:flutter_watering/constants.dart' as Constants;
 
 class PlantHeroScreen extends StatelessWidget {
   final Plant plant;
@@ -17,7 +18,7 @@ class PlantHeroScreen extends StatelessWidget {
         //MyAnimatedIcon(),
       ),
       body: Container(
-        color: Colors.grey[400],
+        color: Constants.BACKGROUND_COLOR,
         child: Column(
           children: <Widget>[
             Padding(
@@ -29,11 +30,14 @@ class PlantHeroScreen extends StatelessWidget {
                   child: Hero(
                     tag: plant.imageName,
                     child: Container(
-                      constraints: BoxConstraints.loose(Size(350, 350)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(plant.imageName),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Constants.BORDER_COLOR,
+                          width: 3,
+                        ),
                       ),
+                      constraints: BoxConstraints.loose(Size(320, 320)),
+                      child: Image.asset(plant.imageName),
                     ),
                   ),
                 ),

@@ -18,37 +18,48 @@ class PlantsOverviewScreenBody extends StatefulWidget {
 class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
   String appBarImageName = Constants.PLANT_NAME_2;
 
+  /// Sort plants by hydration
+  List<Plant> sort(List<Plant> plants) {
+    plants.sort((a, b) => a.hydration.compareTo(b.hydration));
+    return plants;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          forceElevated: true,
-          elevation: 8,
-          expandedHeight: 280,
-          flexibleSpace: FlexibleSpaceBar(
-            collapseMode: CollapseMode.parallax,
-            background: Image.asset(
-              appBarImageName,
-              fit: BoxFit.cover,
+    sort(widget.plants);
+    return Container(
+      color: Colors.white70,
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            forceElevated: true,
+            elevation: 8,
+            expandedHeight: 280,
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.parallax,
+              background: Image.asset(
+                appBarImageName,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            for (var plant in widget.plants)
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PlantInfoScreen(plant: plant)));
-                },
-                child: createPlantInfoCard(plant),
-              ),
-          ]),
-        ),
-      ],
+          SliverList(
+            delegate: SliverChildListDelegate([
+              for (var plant in widget.plants)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PlantInfoScreen(plant: plant)));
+                  },
+                  child: createPlantInfoCard(plant),
+                ),
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }
