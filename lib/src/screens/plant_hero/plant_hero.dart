@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/plante/plante.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
+import 'package:flutter_watering/constants.dart' as Constants;
 
-class PlantHero extends StatelessWidget {
-  final MyPlant plant;
+class PlantHeroScreen extends StatelessWidget {
+  final Plant plant;
 
-  PlantHero(this.plant);
+  PlantHeroScreen(this.plant);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: Text('Om planten'),
         centerTitle: true,
-        //leading: MyAnimatedArrow(),
-        //MyAnimatedIcon(),
       ),
       body: Container(
-        color: Colors.grey[400],
+        //color: Constants.CARD_BACKGROUND_COLOR,
         child: Column(
           children: <Widget>[
             Padding(
@@ -27,13 +25,16 @@ class PlantHero extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Hero(
-                    tag: 'dash',
+                    tag: plant.imageName,
                     child: Container(
-                      constraints: BoxConstraints.loose(Size(350, 350)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(plant.imageName),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Constants.BORDER_COLOR,
+                          width: 3,
+                        ),
                       ),
+                      constraints: BoxConstraints.loose(Size(320, 320)),
+                      child: Image.asset(plant.imageName),
                     ),
                   ),
                 ),
@@ -52,11 +53,16 @@ class PlantHero extends StatelessWidget {
                   elevation: 8,
                   child: Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text(
-                      "Her har vi massevis av informasjon om det du nettop trykka på. So bra! Kanskje du lurer på noke spesielt? Då står det forhåpentligvis her. Meir informasjon er på vei!",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        Text(
+                          "Her har vi massevis av informasjon om det du nettop trykka på. So bra! Kanskje du lurer på noke spesielt? Då står det forhåpentligvis her. Meir informasjon er på vei!",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
