@@ -20,6 +20,8 @@ class SettingsScreen extends StatelessWidget {
                   elevation: 8,
                   child: Text('Click me'),
                   onPressed: () {
+                    print(MediaQuery.of(context).platformBrightness ==
+                        Brightness.dark);
                     print("Klikk");
                   },
                 )

@@ -19,43 +19,38 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: Constants.CARD_BACKGROUND_COLOR,
       child: Column(
         children: <Widget>[
           Expanded(
             flex: 1,
             child: Container(
-              decoration: BoxDecoration(),
-              child: Hero(
-                tag: widget.plant.imageName,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return PlantHeroScreen(widget.plant);
+                      },
+                    ),
+                  );
+                },
                 child: Container(
                   alignment: Alignment.center,
-                  child: Container(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) {
-                              return PlantHeroScreen(widget.plant);
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(150),
-                          border: Border.all(
-                            color: Constants.BORDER_COLOR,
-                            width: 3,
-                          ),
+                  child: Hero(
+                    tag: widget.plant.imageName,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(150),
+                        border: Border.all(
+                          color: Constants.BORDER_COLOR,
+                          width: 3,
                         ),
-                        padding: EdgeInsets.all(0),
-                        height: 250,
-                        child: ClipOval(
-                          child: Container(
-                              child: Image.asset(widget.plant.imageName)),
-                        ),
+                      ),
+                      height: 250,
+                      child: ClipOval(
+                        child: Container(
+                            child: Image.asset(widget.plant.imageName)),
                       ),
                     ),
                   ),

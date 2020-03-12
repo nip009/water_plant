@@ -22,19 +22,17 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
     return Container(
-      decoration: BoxDecoration(
-          //color: Constants.SCAFFOLD_BACKGROUND_COLOR,
-          //color: Colors.white70,
-          /*gradient: LinearGradient(
+      /*decoration: BoxDecoration(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment(1, 1),
           colors: [
-            Colors.green[400],
+            Colors.green[700],
             Colors.green[900],
           ],
           tileMode: TileMode.repeated,
-        ),*/
-          ),
+        ),
+      ),*/
       /* decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -45,6 +43,9 @@ class _HomePageBodyState extends State<HomePageBody> {
           Expanded(
             child: ListView(
               children: <Widget>[
+                Container(
+                  height: 10,
+                ),
                 for (var tank in widget.tanks)
                   GestureDetector(
                     onTap: () {
@@ -113,17 +114,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                         ),
                         TextSpan(
                           text: '${tank.waterLevel} %',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 25),
                         )
                       ]),
                 ),
-                /*Text(
-                          "${tank.name} ${tank.waterLevel}" + " %",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),*/
               ),
             ),
             Expanded(

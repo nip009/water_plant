@@ -122,7 +122,7 @@ class PlantWateringApp extends StatelessWidget {
     WaterTankDevice tank1 = WaterTankDevice('Stue', plants_tank1, 100);
     WaterTankDevice tank2 = WaterTankDevice('Soverom', plants_tank2, 60);
     WaterTankDevice tank3 = WaterTankDevice('Bad', plants_tank3, 80);
-    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plants_tank4, 20);
+    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plants_tank4, 40);
     waterTanks.add(tank1);
     waterTanks.add(tank2);
     waterTanks.add(tank3);
@@ -138,14 +138,10 @@ class PlantWateringApp extends StatelessWidget {
     return MaterialApp(
         darkTheme: ThemeData(
           brightness: Brightness.dark,
-          //cardColor: Constants.CARD_BACKGROUND_COLOR,
+          //cardColor: Colors.grey[850],
         ),
         theme: ThemeData(
           cardColor: Constants.CARD_BACKGROUND_COLOR,
-          //primaryColor: Colors.green,
-          //accentColor: Colors.blue,
-          //backgroundColor: Colors.orange,
-          //brightness: Brightness.light,
           canvasColor: Colors.white70,
           primaryColorDark: Colors.blue[800],
           appBarTheme: AppBarTheme(
