@@ -9,15 +9,13 @@ Widget createPlantInfoCard(BuildContext context, Plant plant) {
         borderRadius: BorderRadius.circular(20),
       ),
       elevation: 8,
-      //color: Constants.CARD_BACKGROUND_COLOR, // Background color of card
-      //color: Constants.CARD_BACKGROUND_COLOR,
       margin: EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(
+          /*border: Border.all(
             color: Constants.BORDER_COLOR,
             width: 2,
-          ),
+          ),*/
           borderRadius: BorderRadius.circular(20),
         ),
         alignment: Alignment.centerLeft,
@@ -31,7 +29,7 @@ Widget createPlantInfoCard(BuildContext context, Plant plant) {
                 borderRadius: BorderRadius.circular(150),
                 border: Border.all(
                   color: Constants.BORDER_COLOR,
-                  width: 2,
+                  width: 1,
                 ),
               ),
               child: ClipOval(
