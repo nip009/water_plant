@@ -136,8 +136,12 @@ class PlantWateringApp extends StatelessWidget {
     }
 
     return MaterialApp(
-        darkTheme: ThemeData.dark(),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          //cardColor: Constants.CARD_BACKGROUND_COLOR,
+        ),
         theme: ThemeData(
+          cardColor: Constants.CARD_BACKGROUND_COLOR,
           //primaryColor: Colors.green,
           //accentColor: Colors.blue,
           //backgroundColor: Colors.orange,

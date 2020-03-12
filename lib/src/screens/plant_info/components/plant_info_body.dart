@@ -117,7 +117,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                                   ),
                                   child: Container(
                                     child: RaisedButton(
-                                      color: Colors.blue[400],
+                                      color: Colors.blue[600],
                                       onPressed: () {
                                         print('Vanner plante');
                                         setState(() {
@@ -160,7 +160,7 @@ class WaterStatus extends StatelessWidget {
     List<Widget> bars = [];
     Color color;
     for (var i = 0; i < 10; i++) {
-      hydration > i ? color = Colors.blue : color = Colors.white70;
+      hydration > i ? color = Colors.blue[600] : color = Colors.white70;
       bars.add(
         Container(
           width: 15,
@@ -178,7 +178,7 @@ class WaterStatus extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Constants.CARD_BACKGROUND_COLOR,
+        // color: Constants.CARD_BACKGROUND_COLOR,
         border: Border.all(
           color: Constants.BORDER_COLOR,
           width: 3,
