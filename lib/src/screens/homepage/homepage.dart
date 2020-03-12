@@ -21,11 +21,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: GradientAppBar(
+        /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
           backgroundColorEnd: Colors.green[900],
           //backgroundColor: Colors.blue[800],
           title: Text("My tanks"),
+          centerTitle: true,
+        ),*/
+        appBar: AppBar(
+          title: Text('My tanks'),
           centerTitle: true,
         ),
         bottomNavigationBar: BottomNavigationBar(

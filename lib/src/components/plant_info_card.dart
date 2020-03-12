@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
 
-Widget createPlantInfoCard(Plant plant) {
+Widget createPlantInfoCard(BuildContext context, Plant plant) {
+  bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+  print(isDark);
   return Container(
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       elevation: 8,
-      color: Constants.BACKGROUND_COLOR, // Background color of card
+      //color: Constants.CARD_BACKGROUND_COLOR, // Background color of card
+      color: isDark ? Colors.red : Constants.CARD_BACKGROUND_COLOR,
       margin: EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(

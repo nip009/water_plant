@@ -3,6 +3,7 @@ import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/screens/homepage/components/water_tank_indicator.dart';
 import 'package:flutter_watering/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
+import 'package:flutter_watering/constants.dart' as Constants;
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -22,7 +23,9 @@ class _HomePageBodyState extends State<HomePageBody> {
     assert(widget.tanks != null);
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+          //color: Constants.SCAFFOLD_BACKGROUND_COLOR,
+          //color: Colors.white70,
+          /*gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment(1, 1),
           colors: [
@@ -30,8 +33,8 @@ class _HomePageBodyState extends State<HomePageBody> {
             Colors.green[900],
           ],
           tileMode: TileMode.repeated,
-        ),
-      ),
+        ),*/
+          ),
       /* decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -89,66 +92,72 @@ class _HomePageBodyState extends State<HomePageBody> {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
-          alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.only(left: 5, right: 5, top: 10),
-          width: double.infinity,
-          height: 250,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[300],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Text(
-                  tank.name,
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
+          child: Container(
+            alignment: Alignment.bottomCenter,
+            padding: EdgeInsets.only(left: 5, right: 5, top: 10),
+            width: double.infinity,
+            height: 250,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                //color: Colors.grey[800],
+                border: Border.all(color: Colors.grey[800], width: 3)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                /*Expanded(
+                  flex: 2,
                   child: Text(
-                    "${tank.waterLevel}" + " %",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                    overflow: TextOverflow.ellipsis,
+                    tank.name,
+                    style: TextStyle(fontSize: 30),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 4,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                ),*/
+                Expanded(
+                  flex: 3,
                   child: Container(
-                    color: Colors.grey,
-                    child: Container(
-                      color: Colors.blue[500],
-                      width: 300,
-                      child: waterTankIndicator(tank.waterLevel),
+                    child: RichText(
+                      text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '${tank.name} ',
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            TextSpan(
+                              text: '${tank.waterLevel} %',
+                              style: TextStyle(fontSize: 20),
+                            )
+                          ]),
+                    ),
+                    /*Text(
+                      "${tank.name} ${tank.waterLevel}" + " %",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),*/
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: waterTankIndicator(tank.waterLevel),
+                ),
+                Spacer(),
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          for (Plant plant in tank.plants) plantIcon(plant),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Spacer(),
-              Expanded(
-                flex: 4,
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        for (Plant plant in tank.plants) plantIcon(plant),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -136,7 +136,19 @@ class PlantWateringApp extends StatelessWidget {
     }
 
     return MaterialApp(
-        color: Colors.green,
+        darkTheme: ThemeData.dark(),
+        theme: ThemeData(
+          //primaryColor: Colors.green,
+          //accentColor: Colors.blue,
+          //backgroundColor: Colors.orange,
+          //brightness: Brightness.light,
+          canvasColor: Colors.white70,
+          primaryColorDark: Colors.blue[800],
+          appBarTheme: AppBarTheme(
+            color: Colors.green,
+          ),
+        ),
+        themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: HomePageScreen(waterTanks, allPlants));
   }

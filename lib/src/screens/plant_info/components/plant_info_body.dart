@@ -19,7 +19,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Constants.BACKGROUND_COLOR,
+      //color: Constants.CARD_BACKGROUND_COLOR,
       child: Column(
         children: <Widget>[
           Expanded(
@@ -126,7 +126,10 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                                       },
                                       child: Transform.rotate(
                                         angle: -pi / 4.0,
-                                        child: Icon(Icons.local_drink),
+                                        child: Icon(
+                                          Icons.local_drink,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -174,12 +177,13 @@ class WaterStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Constants.BACKGROUND_COLOR,
-          border: Border.all(
-            color: Constants.BORDER_COLOR,
-            width: 3,
-          )),
+        borderRadius: BorderRadius.circular(10),
+        color: Constants.CARD_BACKGROUND_COLOR,
+        border: Border.all(
+          color: Constants.BORDER_COLOR,
+          width: 3,
+        ),
+      ),
       padding: EdgeInsets.all(5),
       child: Row(
         mainAxisSize: MainAxisSize.min,

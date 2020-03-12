@@ -23,7 +23,7 @@ class _PlantsBelongingToTankScreenState
         centerTitle: true,
       ),
       body: Container(
-        color: Constants.BACKGROUND_COLOR,
+        //color: Constants.SCAFFOLD_BACKGROUND_COLOR,
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)
@@ -38,7 +38,7 @@ class _PlantsBelongingToTankScreenState
                       ),
                     );
                   },
-                  child: createPlantInfoCard(plant),
+                  child: createPlantInfoCard(context, plant),
                 ),
               ),
           ],

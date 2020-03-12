@@ -13,7 +13,6 @@ class PlantInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

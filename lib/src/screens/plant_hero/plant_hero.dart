@@ -11,14 +11,11 @@ class PlantHeroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: Text('Om planten'),
         centerTitle: true,
-        //leading: MyAnimatedArrow(),
-        //MyAnimatedIcon(),
       ),
       body: Container(
-        color: Constants.BACKGROUND_COLOR,
+        //color: Constants.CARD_BACKGROUND_COLOR,
         child: Column(
           children: <Widget>[
             Padding(
@@ -56,11 +53,16 @@ class PlantHeroScreen extends StatelessWidget {
                   elevation: 8,
                   child: Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text(
-                      "Her har vi massevis av informasjon om det du nettop trykka på. So bra! Kanskje du lurer på noke spesielt? Då står det forhåpentligvis her. Meir informasjon er på vei!",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        Text(
+                          "Her har vi massevis av informasjon om det du nettop trykka på. So bra! Kanskje du lurer på noke spesielt? Då står det forhåpentligvis her. Meir informasjon er på vei!",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
