@@ -122,7 +122,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),
             Expanded(
               flex: 4,
-              child: waterTankIndicator(tank.waterLevel),
+              child: waterTankIndicator(context, tank.waterLevel),
             ),
             Spacer(),
             Expanded(

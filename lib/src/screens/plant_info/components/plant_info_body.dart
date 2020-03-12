@@ -18,6 +18,7 @@ class PlantInfoBody extends StatefulWidget {
 class _PlantInfoBodyState extends State<PlantInfoBody> {
   @override
   Widget build(BuildContext context) {
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       child: Column(
         children: <Widget>[
@@ -94,7 +95,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                     ),
                     Expanded(
                       child: Container(
-                        //color: Colors.red,
                         child: Container(
                           alignment: Alignment.center,
                           child: SizedBox(
@@ -112,7 +112,11 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                                   ),
                                   child: Container(
                                     child: RaisedButton(
-                                      color: Colors.blue[600],
+                                      color: isDark
+                                          ? Constants
+                                              .WATER_LEVEL_FILL_DARK_THEME
+                                          : Constants
+                                              .WATER_LEVEL_FILL_LIGHT_THEME,
                                       onPressed: () {
                                         print('Vanner plante');
                                         setState(() {
@@ -151,11 +155,18 @@ class WaterStatus extends StatelessWidget {
 
   WaterStatus(this.hydration);
 
-  List<Widget> createWaterStatusBars() {
+  List<Widget> createWaterStatusBars(BuildContext context) {
     List<Widget> bars = [];
     Color color;
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    Color emptyColor = isDark
+        ? Constants.WATER_LEVEL_EMPTY_DARK_THEME
+        : Constants.WATER_LEVEL_EMPTY_LIGHT_THEME;
+    Color fillColor = isDark
+        ? Constants.WATER_LEVEL_FILL_DARK_THEME
+        : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
     for (var i = 0; i < 10; i++) {
-      hydration > i ? color = Colors.blue[600] : color = Colors.white70;
+      hydration > i ? color = fillColor : color = emptyColor;
       bars.add(
         Container(
           width: 15,
@@ -173,7 +184,6 @@ class WaterStatus extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        // color: Constants.CARD_BACKGROUND_COLOR,
         border: Border.all(
           color: Constants.BORDER_COLOR,
           width: 3,
@@ -188,7 +198,7 @@ class WaterStatus extends StatelessWidget {
             padding: EdgeInsets.all(5),
             child: Row(
               children: <Widget>[
-                for (var bar in createWaterStatusBars())
+                for (var bar in createWaterStatusBars(context))
                   Container(
                       padding: EdgeInsets.fromLTRB(4, 0, 4, 0), child: bar),
               ],
