@@ -3,6 +3,7 @@ import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/screens/homepage/components/homepage_body.dart';
 import 'package:flutter_watering/src/screens/plants_overview/plants_overview.dart';
+import 'package:flutter_watering/src/screens/settings/settings_screen.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -28,10 +29,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
           title: Text("My tanks"),
           centerTitle: true,
         ),*/
-        appBar: AppBar(
+        /*appBar: AppBar(
           title: Text('My tanks'),
           centerTitle: true,
-        ),
+        ),*/
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (int index) {
@@ -51,6 +52,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: <Widget>[
               HomePageBody(widget.tanks),
               PlantsOverviewScreen(widget.allPlants),
+              SettingsScreen(),
             ],
           ),
         ));

@@ -152,7 +152,7 @@ class PlantWateringApp extends StatelessWidget {
             color: Colors.green,
           ),
         ),
-        themeMode: ThemeMode.dark,
+        //themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: HomePageScreen(waterTanks, allPlants));
   }
