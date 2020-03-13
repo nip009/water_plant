@@ -4,6 +4,7 @@ import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart'
 import 'package:flutter_watering/src/screens/homepage/components/water_tank_indicator.dart';
 import 'package:flutter_watering/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
+import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -18,6 +19,10 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
+  refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
@@ -44,7 +49,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             child: ListView(
               children: <Widget>[
                 Container(
-                  height: 10,
+                  height: 10, // to add some space above the list of tank cards
                 ),
                 for (var tank in widget.tanks)
                   GestureDetector(
@@ -77,11 +82,11 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   void addPlantToTank() {
     List<Plant> plants = [
-      Plant(10, name: "Plante2", imageName: Constants.PLANT_NAME_2),
-      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_4),
-      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_2),
-      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_4),
-      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+      Plant(100, name: "Plante2", imageName: Constants.PLANT_NAME_2),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
     ];
     if (plants.length > 5) return;
     WaterTankDevice tank = WaterTankDevice('Kjøkken', plants, 40);
@@ -93,7 +98,6 @@ class _HomePageBodyState extends State<HomePageBody> {
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
   /// tank, the name of the tank and the plant(s) that belong to it.
   Widget tankOverviewCard(WaterTankDevice tank) {
-    final _formKey = GlobalKey<FormState>();
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -104,7 +108,7 @@ class _HomePageBodyState extends State<HomePageBody> {
         borderRadius: BorderRadius.circular(20),
         radius: 0,
         onLongPress: () {
-          editTankName(_formKey, tank);
+          editObjectName(context: context, object: tank, callback: refresh);
         },
         onTap: () => Navigator.push(
             context,
@@ -159,53 +163,6 @@ class _HomePageBodyState extends State<HomePageBody> {
           ),
         ),
       ),
-    );
-  }
-
-  Future editTankName(GlobalKey<FormState> _formKey, WaterTankDevice tank) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('Edit name'),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    validator: (input) => input.length > 15
-                        ? 'Maximum amount of characters is 15'
-                        : null,
-                    decoration: const InputDecoration(),
-                    onSaved: (String value) {
-                      setState(() {
-                        tank.name = value;
-                        Navigator.of(context).pop();
-                      });
-                    },
-                    initialValue: tank.name,
-                    autofocus: true,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: RaisedButton(
-                    child: Text("Confirm"),
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
-                      }
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

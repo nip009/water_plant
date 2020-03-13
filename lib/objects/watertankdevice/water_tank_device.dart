@@ -1,8 +1,10 @@
 import 'package:flutter_watering/objects/plant/plant.dart';
 
+import '../IPlantAndWaterTank.dart';
+
 /// This device can have up to five [Plant]s. It keeps track of the water level
 /// of the tank, as well as which plants belong to the device.
-class WaterTankDevice {
+class WaterTankDevice implements IPlantAndWaterTank {
   String name;
   List<Plant> _plants;
   // How many percent water that is left in the tank.

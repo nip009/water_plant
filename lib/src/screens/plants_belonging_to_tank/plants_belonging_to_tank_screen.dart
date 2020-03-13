@@ -30,19 +30,22 @@ class _PlantsBelongingToTankScreenState
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)
-              Container(
-                width: double.infinity,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlantInfoScreen(
-                            plant: plant, callback: refreshState),
-                      ),
-                    );
-                  },
-                  child: createPlantInfoCard(context, plant),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PlantInfoScreen(plant: plant, callback: refreshState),
+                    ),
+                  );
+                },
+                onLongPress: () {},
+                child: Container(
+                  width: double.infinity,
+                  child: GestureDetector(
+                    child: createPlantInfoCard(context, plant),
+                  ),
                 ),
               ),
           ],

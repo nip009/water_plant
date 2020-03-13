@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../IPlantAndWaterTank.dart';
 
-class Plant {
+class Plant implements IPlantAndWaterTank {
   int _hydration;
   String name;
   final String imageName;
