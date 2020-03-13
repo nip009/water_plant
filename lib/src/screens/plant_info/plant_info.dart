@@ -6,7 +6,7 @@ import 'package:flutter_watering/src/screens/plant_info/components/plant_info_bo
 /// the possibility to water the plant by clicking a button.
 class PlantInfoScreen extends StatelessWidget {
   final Plant plant;
-  Function callback;
+  final Function callback;
 
   PlantInfoScreen({@required this.plant, @required this.callback});
 
