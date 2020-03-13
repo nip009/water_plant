@@ -93,57 +93,116 @@ class _HomePageBodyState extends State<HomePageBody> {
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
   /// tank, the name of the tank and the plant(s) that belong to it.
   Widget tankOverviewCard(WaterTankDevice tank) {
+    final _formKey = GlobalKey<FormState>();
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       margin: EdgeInsets.fromLTRB(8, 8, 8, 8),
       elevation: 8,
-      child: Container(
-        padding: const EdgeInsets.all(0.0),
-        height: 250,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.only(top: 10),
-                child: RichText(
-                  text: TextSpan(
-                      style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '${tank.name} ',
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        TextSpan(
-                          text: '${tank.waterLevel} %',
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ]),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: waterTankIndicator(context, tank.waterLevel),
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        focusColor: Colors.pink,
+        //highlightColor: Colors.red,
+        onLongPress: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      for (Plant plant in tank.plants) plantIcon(plant),
+                      Text('Edit name'),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          validator: (input) => input.length > 15
+                              ? 'Maximum amount of characters is 15'
+                              : null,
+                          decoration: const InputDecoration(),
+                          onSaved: (String value) {
+                            setState(() {
+                              print("LOL");
+                              tank.name = value;
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          initialValue: tank.name,
+                          autofocus: true,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RaisedButton(
+                          child: Text("Confirm"),
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              _formKey.currentState.save();
+                            }
+                            //FocusScope.of(context).unfocus(); //remove keyboard
+                          },
+                        ),
+                      )
                     ],
                   ),
                 ),
+              );
+            },
+          );
+        },
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PlantsBelongingToTankScreen(tank))),
+        hoverColor: Colors.red,
+        child: Container(
+          padding: const EdgeInsets.all(0.0),
+          height: 250,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.only(top: 10),
+                  child: RichText(
+                    text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '${tank.name} ',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          TextSpan(
+                            text: '${tank.waterLevel} %',
+                            style: TextStyle(fontSize: 25),
+                          )
+                        ]),
+                  ),
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 4,
+                child: waterTankIndicator(context, tank.waterLevel),
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        for (Plant plant in tank.plants) plantIcon(plant),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
