@@ -6,7 +6,7 @@ import 'package:flutter_watering/constants.dart' as Constants;
 
 /// A list overview of every single plant owned.
 class PlantsOverviewScreenBody extends StatefulWidget {
-  final List<Plant> plants;
+  List<Plant> plants;
 
   PlantsOverviewScreenBody(this.plants);
 

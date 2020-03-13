@@ -51,18 +51,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                 Container(
                   height: 10, // to add some space above the list of tank cards
                 ),
-                for (var tank in widget.tanks)
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PlantsBelongingToTankScreen(tank)),
-                      );
-                    },
-                    child: tankOverviewCard(tank),
-                  ),
+                for (var tank in widget.tanks) tankOverviewCard(tank),
                 Container(
                   alignment: Alignment.center,
                   child: IconButton(
@@ -113,7 +102,8 @@ class _HomePageBodyState extends State<HomePageBody> {
         onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => PlantsBelongingToTankScreen(tank))),
+                builder: (context) =>
+                    PlantsBelongingToTankScreen(tank, callback: refresh))),
         hoverColor: Colors.red,
         child: Container(
           padding: const EdgeInsets.all(0.0),

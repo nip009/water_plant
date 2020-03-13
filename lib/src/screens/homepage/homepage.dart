@@ -8,9 +8,8 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class HomePageScreen extends StatefulWidget {
   final List<WaterTankDevice> tanks;
-  final List<Plant> allPlants;
 
-  HomePageScreen(this.tanks, this.allPlants);
+  HomePageScreen(this.tanks);
 
   @override
   _HomePageScreenState createState() => _HomePageScreenState();
@@ -21,6 +20,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Plant> allPlants = [];
+    for (WaterTankDevice tank in widget.tanks) {
+      for (Plant plant in tank.plants) {
+        allPlants.add(plant);
+      }
+    }
     return Scaffold(
         /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
@@ -51,7 +56,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             index: _currentIndex,
             children: <Widget>[
               HomePageBody(widget.tanks),
-              PlantsOverviewScreen(widget.allPlants),
+              PlantsOverviewScreen(allPlants),
               SettingsScreen(),
             ],
           ),

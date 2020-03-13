@@ -126,13 +126,6 @@ class PlantWateringApp extends StatelessWidget {
     waterTanks.add(tank3);
     waterTanks.add(tank4);
 
-    List<Plant> allPlants = [];
-    for (WaterTankDevice tank in waterTanks) {
-      for (Plant plant in tank.plants) {
-        allPlants.add(plant);
-      }
-    }
-
     return MaterialApp(
         darkTheme: ThemeData(
           brightness: Brightness.dark,
@@ -148,6 +141,6 @@ class PlantWateringApp extends StatelessWidget {
         ),
         //themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
-        home: HomePageScreen(waterTanks, allPlants));
+        home: HomePageScreen(waterTanks));
   }
 }
