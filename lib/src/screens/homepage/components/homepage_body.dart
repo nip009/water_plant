@@ -102,55 +102,9 @@ class _HomePageBodyState extends State<HomePageBody> {
       elevation: 8,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        focusColor: Colors.pink,
-        //highlightColor: Colors.red,
+        radius: 0,
         onLongPress: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                content: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text('Edit name'),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          validator: (input) => input.length > 15
-                              ? 'Maximum amount of characters is 15'
-                              : null,
-                          decoration: const InputDecoration(),
-                          onSaved: (String value) {
-                            setState(() {
-                              print("LOL");
-                              tank.name = value;
-                              Navigator.of(context).pop();
-                            });
-                          },
-                          initialValue: tank.name,
-                          autofocus: true,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: RaisedButton(
-                          child: Text("Confirm"),
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-                            }
-                            //FocusScope.of(context).unfocus(); //remove keyboard
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
+          editTankName(_formKey, tank);
         },
         onTap: () => Navigator.push(
             context,
@@ -205,6 +159,53 @@ class _HomePageBodyState extends State<HomePageBody> {
           ),
         ),
       ),
+    );
+  }
+
+  Future editTankName(GlobalKey<FormState> _formKey, WaterTankDevice tank) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('Edit name'),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    validator: (input) => input.length > 15
+                        ? 'Maximum amount of characters is 15'
+                        : null,
+                    decoration: const InputDecoration(),
+                    onSaved: (String value) {
+                      setState(() {
+                        tank.name = value;
+                        Navigator.of(context).pop();
+                      });
+                    },
+                    initialValue: tank.name,
+                    autofocus: true,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    child: Text("Confirm"),
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
