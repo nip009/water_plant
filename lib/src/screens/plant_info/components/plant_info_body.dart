@@ -8,8 +8,11 @@ import 'dart:math';
 class PlantInfoBody extends StatefulWidget {
   final String title;
   final Plant plant;
+  final Function callback;
 
-  PlantInfoBody({Key key, this.title, @required this.plant}) : super(key: key);
+  PlantInfoBody(
+      {Key key, this.title, @required this.plant, @required this.callback})
+      : super(key: key);
 
   @override
   _PlantInfoBodyState createState() => _PlantInfoBodyState();
@@ -121,6 +124,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                                         print('Vanner plante');
                                         setState(() {
                                           widget.plant.waterPlant();
+                                          widget.callback();
                                         });
                                       },
                                       child: Transform.rotate(

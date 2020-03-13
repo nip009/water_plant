@@ -15,6 +15,10 @@ class PlantsBelongingToTankScreen extends StatefulWidget {
 
 class _PlantsBelongingToTankScreenState
     extends State<PlantsBelongingToTankScreen> {
+  refreshState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +38,8 @@ class _PlantsBelongingToTankScreenState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PlantInfoScreen(plant: plant),
+                        builder: (context) => PlantInfoScreen(
+                            plant: plant, callback: refreshState),
                       ),
                     );
                   },

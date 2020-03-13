@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Plant {
   int _hydration;
-  final String name;
+  String name;
   final String imageName;
   bool _isGrey;
 

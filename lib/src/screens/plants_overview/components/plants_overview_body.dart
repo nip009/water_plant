@@ -24,6 +24,10 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
     return plants;
   }
 
+  refreshState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     sort(widget.plants);
@@ -51,8 +55,8 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                PlantInfoScreen(plant: plant)));
+                            builder: (context) => PlantInfoScreen(
+                                plant: plant, callback: refreshState)));
                   },
                   child: createPlantInfoCard(context, plant),
                 ),

@@ -58,6 +58,15 @@ class _HomePageBodyState extends State<HomePageBody> {
                     },
                     child: tankOverviewCard(tank),
                   ),
+                Container(
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      addPlantToTank();
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -84,6 +93,21 @@ class _HomePageBodyState extends State<HomePageBody> {
         ],
       ),
     );
+  }
+
+  void addPlantToTank() {
+    List<Plant> plants = [
+      Plant(10, name: "Plante2", imageName: Constants.PLANT_NAME_2),
+      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(7, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+    ];
+    if (plants.length > 5) return;
+    WaterTankDevice tank = WaterTankDevice('Kjøkken', plants, 40);
+    setState(() {
+      widget.tanks.add(tank);
+    });
   }
 
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
