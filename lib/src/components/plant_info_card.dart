@@ -92,7 +92,8 @@ List<Widget> createWaterStatusBars(BuildContext context, int hydration) {
       : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
   List<Widget> bars = [];
   for (var i = 0; i < 10; i++) {
-    Color color = hydration > i ? fillColor : emptyColor;
+    double hyd = hydration / 10.0;
+    Color color = hyd > i ? fillColor : emptyColor;
     bars.add(
       Container(
         decoration: BoxDecoration(

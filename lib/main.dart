@@ -9,22 +9,22 @@ void main() => runApp(PlantWateringApp());
 class PlantWateringApp extends StatelessWidget {
   final List<Plant> plantsTank1 = [
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
-      4,
+      40,
       name: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      6,
+      60,
       name: 'Orchid',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
-      10,
+      100,
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
@@ -32,27 +32,27 @@ class PlantWateringApp extends StatelessWidget {
 
   final List<Plant> plantsTank2 = [
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
-      4,
+      40,
       name: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      6,
+      60,
       name: 'Orchid',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
-      10,
+      100,
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
@@ -60,27 +60,27 @@ class PlantWateringApp extends StatelessWidget {
 
   final List<Plant> plantsTank3 = [
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
-      4,
+      40,
       name: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      6,
+      60,
       name: 'Orchid',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
-      10,
+      100,
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
@@ -88,27 +88,27 @@ class PlantWateringApp extends StatelessWidget {
 
   final List<Plant> plantsTank4 = [
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
-      4,
+      40,
       name: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      6,
+      60,
       name: 'Orchid',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
-      10,
+      100,
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
-      7,
+      70,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
@@ -120,7 +120,7 @@ class PlantWateringApp extends StatelessWidget {
     WaterTankDevice tank1 = WaterTankDevice('Stue', plantsTank1, 100);
     WaterTankDevice tank2 = WaterTankDevice('Soverom', plantsTank2, 60);
     WaterTankDevice tank3 = WaterTankDevice('Bad', plantsTank3, 80);
-    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plantsTank4, 40);
+    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plantsTank4, 50);
     waterTanks.add(tank1);
     waterTanks.add(tank2);
     waterTanks.add(tank3);

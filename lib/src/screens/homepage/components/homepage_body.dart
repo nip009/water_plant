@@ -70,26 +70,6 @@ class _HomePageBodyState extends State<HomePageBody> {
               ],
             ),
           ),
-          /*Container(
-            padding: EdgeInsets.all(10),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: ClipOval(
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  color: Colors.blue,
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      // get the option to add a new tank
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-          //),*/
         ],
       ),
     );
@@ -128,6 +108,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             Expanded(
               flex: 3,
               child: Container(
+                padding: EdgeInsets.only(top: 10),
                 child: RichText(
                   text: TextSpan(
                       style: DefaultTextStyle.of(context).style,
@@ -148,7 +129,6 @@ class _HomePageBodyState extends State<HomePageBody> {
               flex: 4,
               child: waterTankIndicator(context, tank.waterLevel),
             ),
-            Spacer(),
             Expanded(
               flex: 5,
               child: Container(
@@ -180,22 +160,13 @@ class _HomePageBodyState extends State<HomePageBody> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              plant.isGrey = !plant.isGrey;
-              /*if (waterTankStatus >= 10) {
-                    waterTankStatus -= 10;
-                  } else {
-                    waterTankStatus = 100;
-                  }*/
+              plant.isVisible = !plant.isVisible;
             });
           },
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 400),
-            opacity: plant.isGrey ? 0.0 : 1.0,
+            opacity: plant.isVisible ? 0.0 : 1.0,
             child: Container(
-              /*foregroundDecoration: BoxDecoration(
-                      color: Colors.grey,
-                      backgroundBlendMode: BlendMode.saturation,
-                    ),*/
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 2.5,

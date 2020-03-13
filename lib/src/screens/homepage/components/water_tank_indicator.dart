@@ -41,8 +41,8 @@ List<Color> makeColorList(BuildContext context, int waterLevel) {
       ? Constants.WATER_LEVEL_FILL_DARK_THEME
       : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
   List<Color> list = [];
-  for (int i = 0; i < 10; i++) {
-    if (waterLevel > i * 10) {
+  for (int i = 0; i < 100; i++) {
+    if (waterLevel > i) {
       list.add(fillColor);
     } else {
       list.add(emptyColor);

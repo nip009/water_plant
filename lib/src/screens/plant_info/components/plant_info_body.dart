@@ -170,7 +170,8 @@ class WaterStatus extends StatelessWidget {
         ? Constants.WATER_LEVEL_FILL_DARK_THEME
         : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
     for (var i = 0; i < 10; i++) {
-      hydration > i ? color = fillColor : color = emptyColor;
+      double hyd = hydration / 10;
+      hyd > i ? color = fillColor : color = emptyColor;
       bars.add(
         Container(
           width: 15,
