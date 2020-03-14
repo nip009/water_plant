@@ -47,13 +47,13 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
               ),
             ),
           ),
-          /*SliverList(
+          SliverList(
             delegate: SliverChildListDelegate([
               for (WaterTankDevice tank in widget.tanks)
                 for (Plant plant in tank.plants)
                   createPlantInfoCard(context, plant, tank, refreshState),
             ]),
-          ),*/
+          ),
         ],
       ),
     );
