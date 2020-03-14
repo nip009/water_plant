@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
+import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
 
-Widget createPlantInfoCard(
-    BuildContext context, Plant plant, Function callback) {
+Widget createPlantInfoCard(BuildContext context, Plant plant,
+    WaterTankDevice tank, Function callback) {
   return Container(
     child: GestureDetector(
       onTap: () {
@@ -12,7 +13,7 @@ Widget createPlantInfoCard(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                PlantInfoScreen(plant: plant, callback: callback),
+                PlantInfoScreen(plant: plant, tank: tank, callback: callback),
           ),
         );
       },

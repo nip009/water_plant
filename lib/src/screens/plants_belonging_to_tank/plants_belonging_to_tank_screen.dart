@@ -16,6 +16,7 @@ class _PlantsBelongingToTankScreenState
     extends State<PlantsBelongingToTankScreen> {
   refreshState() {
     setState(() {});
+    widget.callback();
   }
 
   @override
@@ -31,7 +32,8 @@ class _PlantsBelongingToTankScreenState
             for (var plant in widget.tank.plants)
               Container(
                 width: double.infinity,
-                child: createPlantInfoCard(context, plant, refreshState),
+                child: createPlantInfoCard(
+                    context, plant, widget.tank, refreshState),
               ),
           ],
         ),

@@ -102,8 +102,10 @@ class _HomePageBodyState extends State<HomePageBody> {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                PlantsBelongingToTankScreen(tank, callback: refresh),
+            builder: (context) => PlantsBelongingToTankScreen(
+              tank,
+              callback: refresh,
+            ),
           ),
         ),
         hoverColor: Colors.red,

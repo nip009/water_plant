@@ -11,6 +11,15 @@ class HomePageScreen extends StatefulWidget {
 
   HomePageScreen(this.tanks);
 
+  /// Removes the given plant from the given tank if the tank contains it.
+  /// [setState] is called so that every part of the code using these will
+  /// be updated.
+  static removePlantFromTank(WaterTankDevice tank, Plant plant) {
+    if (tank.plants.contains(plant)) {
+      tank.plants.remove(plant);
+    }
+  }
+
   @override
   _HomePageScreenState createState() => _HomePageScreenState();
 }
@@ -20,12 +29,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Plant> allPlants = [];
-    for (WaterTankDevice tank in widget.tanks) {
-      for (Plant plant in tank.plants) {
-        allPlants.add(plant);
-      }
-    }
     return Scaffold(
       /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
@@ -56,7 +59,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           index: _currentIndex,
           children: <Widget>[
             HomePageBody(widget.tanks),
-            PlantsOverviewScreen(allPlants),
+            PlantsOverviewScreen(widget.tanks),
             SettingsScreen(),
           ],
         ),

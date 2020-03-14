@@ -7,7 +7,7 @@ import 'package:flutter_watering/constants.dart' as Constants;
 void main() => runApp(PlantWateringApp());
 
 class PlantWateringApp extends StatelessWidget {
-  final List<Plant> plantsTank1 = [
+  static final List<Plant> plantsTank1 = [
     Plant(
       70,
       name: 'Chinese Evergreen',
@@ -30,35 +30,7 @@ class PlantWateringApp extends StatelessWidget {
     ),
   ];
 
-  final List<Plant> plantsTank2 = [
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
-    ),
-    Plant(
-      40,
-      name: 'Zamioculcas zamiifolia',
-      imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      60,
-      name: 'Orchid',
-      imageName: Constants.PLANT_NAME_4,
-    ),
-    Plant(
-      100,
-      name: 'Plante',
-      imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
-    ),
-  ];
-
-  final List<Plant> plantsTank3 = [
+  static final List<Plant> plantsTank2 = [
     Plant(
       70,
       name: 'Chinese Evergreen',
@@ -86,7 +58,7 @@ class PlantWateringApp extends StatelessWidget {
     ),
   ];
 
-  final List<Plant> plantsTank4 = [
+  static final List<Plant> plantsTank3 = [
     Plant(
       70,
       name: 'Chinese Evergreen',
@@ -112,20 +84,45 @@ class PlantWateringApp extends StatelessWidget {
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
+  ];
+
+  static final List<Plant> plantsTank4 = [
+    Plant(
+      70,
+      name: 'Chinese Evergreen',
+      imageName: Constants.PLANT_NAME_1,
+    ),
+    Plant(
+      40,
+      name: 'Zamioculcas zamiifolia',
+      imageName: Constants.PLANT_NAME_2,
+    ),
+    Plant(
+      60,
+      name: 'Orchid',
+      imageName: Constants.PLANT_NAME_4,
+    ),
+    Plant(
+      100,
+      name: 'Plante',
+      imageName: Constants.PLANT_NAME_2,
+    ),
+    Plant(
+      70,
+      name: 'Chinese Evergreen',
+      imageName: Constants.PLANT_NAME_1,
+    ),
+  ];
+
+  List<WaterTankDevice> waterTanks = [
+    WaterTankDevice('Stue', plantsTank1, 100),
+    WaterTankDevice('Soverom', plantsTank2, 60),
+    WaterTankDevice('Bad', plantsTank3, 80),
+    WaterTankDevice('Kjøkken', plantsTank4, 50),
   ];
 
   @override
   Widget build(BuildContext context) {
-    List<WaterTankDevice> waterTanks = [];
-    WaterTankDevice tank1 = WaterTankDevice('Stue', plantsTank1, 100);
-    WaterTankDevice tank2 = WaterTankDevice('Soverom', plantsTank2, 60);
-    WaterTankDevice tank3 = WaterTankDevice('Bad', plantsTank3, 80);
-    WaterTankDevice tank4 = WaterTankDevice('Kjøkken', plantsTank4, 50);
-    waterTanks.add(tank1);
-    waterTanks.add(tank2);
-    waterTanks.add(tank3);
-    waterTanks.add(tank4);
-
     return MaterialApp(
         darkTheme: ThemeData(
           brightness: Brightness.dark,

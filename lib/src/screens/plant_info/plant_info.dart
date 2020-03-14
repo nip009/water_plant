@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
+import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
 import 'package:flutter_watering/src/screens/plant_info/components/plant_info_body.dart';
+import 'package:flutter_watering/src/screens/homepage/homepage.dart'
+    as homepage;
 
 enum Options { edit_name, remove }
 
@@ -11,9 +14,11 @@ Options _selection = Options.remove;
 /// the possibility to water the plant by clicking a button.
 class PlantInfoScreen extends StatefulWidget {
   final Plant plant;
+  final WaterTankDevice tank;
   final Function callback;
 
-  PlantInfoScreen({@required this.plant, @required this.callback});
+  PlantInfoScreen(
+      {@required this.plant, @required this.tank, @required this.callback});
 
   @override
   _PlantInfoScreenState createState() => _PlantInfoScreenState();
@@ -49,10 +54,10 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
                     callback: refreshState);
               } else if (_selection == Options.remove) {
                 print("Remove!");
-                /*setState(() {
-                      widget.tank.plants.remove(plant);
-                      widget.callback();
-                   });*/
+                homepage.HomePageScreen.removePlantFromTank(
+                    widget.tank, widget.plant);
+                refreshState();
+                Navigator.pop(context);
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
@@ -74,7 +79,7 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
             padding: EdgeInsets.only(
               bottom: 7,
             ),
-            child: Text('Tank name'),
+            child: Text('${widget.tank.name}'),
           ),
           preferredSize: Size.fromHeight(3),
         ),
