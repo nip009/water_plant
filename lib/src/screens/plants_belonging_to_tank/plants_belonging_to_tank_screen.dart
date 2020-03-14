@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
-import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
 import 'package:flutter_watering/src/components/plant_info_card.dart';
-import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
-
-enum Options { edit_name, remove }
 
 class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
@@ -22,8 +18,6 @@ class _PlantsBelongingToTankScreenState
     setState(() {});
   }
 
-  Options _selection = Options.remove;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +26,6 @@ class _PlantsBelongingToTankScreenState
         centerTitle: true,
       ),
       body: Container(
-        //color: Constants.SCAFFOLD_BACKGROUND_COLOR,
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)

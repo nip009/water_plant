@@ -100,10 +100,12 @@ class _HomePageBodyState extends State<HomePageBody> {
           editObjectName(context: context, object: tank, callback: refresh);
         },
         onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    PlantsBelongingToTankScreen(tank, callback: refresh))),
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PlantsBelongingToTankScreen(tank, callback: refresh),
+          ),
+        ),
         hoverColor: Colors.red,
         child: Container(
           padding: const EdgeInsets.all(0.0),

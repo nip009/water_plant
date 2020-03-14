@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
-import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
 import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
-
-enum Options { edit_name, remove }
-
-Options _selection = Options.remove;
 
 Widget createPlantInfoCard(
     BuildContext context, Plant plant, Function callback) {
-  double x = 0;
-  double y = 0;
   return Container(
     child: GestureDetector(
-      onTapDown: (TapDownDetails details) {
-        x = details.globalPosition.dx;
-        y = details.globalPosition.dy;
-      },
       onTap: () {
         Navigator.push(
           context,
@@ -26,56 +15,6 @@ Widget createPlantInfoCard(
                 PlantInfoScreen(plant: plant, callback: callback),
           ),
         );
-      },
-      onLongPress: () {
-        //TODO: Make use of _selection. Manage to choose either to edit name or remove.
-        showMenu(
-          initialValue: Options.edit_name,
-          context: context,
-          position: RelativeRect.fromSize(
-              Rect.fromCenter(center: Offset(x, y), height: 0, width: 50),
-              Size.fromWidth(50)),
-          items: [
-            const PopupMenuItem<Options>(
-              value: Options.edit_name,
-              child: Text('Edit name'),
-            ),
-            const PopupMenuItem<Options>(
-              value: Options.remove,
-              child: Text('Remove'),
-            ),
-          ],
-        );
-        if (_selection == Options.edit_name) {
-          print("Edit name!");
-          editObjectName(context: context, object: plant, maxLength: 25);
-        } else if (_selection == Options.remove) {
-          print("Remove!");
-          /*setState(() {
-                      widget.tank.plants.remove(plant);
-                      widget.callback();
-                   });*/
-        }
-
-        /*PopupMenuButton<Options>(
-          offset: Offset.fromDirection(0, 1),
-          onSelected: (Options result) {
-            _selection = result;
-            if (callback != null) {
-              callback();
-            }
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
-            const PopupMenuItem<Options>(
-              value: Options.edit_name,
-              child: Text('Edit name'),
-            ),
-            const PopupMenuItem<Options>(
-              value: Options.remove,
-              child: Text('Remove'),
-            ),
-          ],
-        );*/
       },
       child: Card(
         shape: RoundedRectangleBorder(

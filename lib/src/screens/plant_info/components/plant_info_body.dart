@@ -53,21 +53,21 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Container(
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              decoration: BoxDecoration(),
-                              child: const Text(
-                                'Fuktighet',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
+                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            decoration: BoxDecoration(),
+                            child: const Text(
+                              'Fuktighet',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Container(
                             child: Container(
-                                child: WaterStatus(widget.plant.hydration)),
+                              child: WaterStatus(widget.plant.hydration),
+                            ),
                           ),
                         ],
                       ),
