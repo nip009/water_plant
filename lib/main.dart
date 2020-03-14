@@ -114,7 +114,7 @@ class PlantWateringApp extends StatelessWidget {
     ),
   ];
 
-  List<WaterTankDevice> waterTanks = [
+  final List<WaterTankDevice> waterTanks = [
     WaterTankDevice('Stue', plantsTank1, 100),
     WaterTankDevice('Soverom', plantsTank2, 60),
     WaterTankDevice('Bad', plantsTank3, 80),

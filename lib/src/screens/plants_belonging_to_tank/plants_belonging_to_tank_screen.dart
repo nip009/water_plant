@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/components/plant_info_card.dart';
+import 'package:flutter_watering/constants.dart' as Constants;
 
 class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
@@ -35,6 +37,26 @@ class _PlantsBelongingToTankScreenState
                 child: createPlantInfoCard(
                     context, plant, widget.tank, refreshState),
               ),
+            Center(
+              child: widget.tank.plants.length < 5
+                  ? IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        if (widget.tank.plants.length < 5) {
+                          widget.tank.plants.add(
+                            //TODO: Let the user add a custom plant
+                            Plant(
+                              100,
+                              name: 'Plante',
+                              imageName: Constants.PLANT_NAME_2,
+                            ),
+                          );
+                          refreshState();
+                        }
+                      },
+                    )
+                  : null,
+            ),
           ],
         ),
       ),

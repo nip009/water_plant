@@ -3,8 +3,7 @@ import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
 import 'package:flutter_watering/src/screens/plant_info/components/plant_info_body.dart';
-import 'package:flutter_watering/src/screens/homepage/homepage.dart'
-    as homepage;
+import 'package:flutter_watering/src/screens/homepage/homepage.dart';
 
 enum Options { edit_name, remove }
 
@@ -54,8 +53,7 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
                     callback: refreshState);
               } else if (_selection == Options.remove) {
                 print("Remove!");
-                homepage.HomePageScreen.removePlantFromTank(
-                    widget.tank, widget.plant);
+                HomePageScreen.removePlantFromTank(widget.tank, widget.plant);
                 refreshState();
                 Navigator.pop(context);
               }
