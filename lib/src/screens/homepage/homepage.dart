@@ -27,40 +27,41 @@ class _HomePageScreenState extends State<HomePageScreen> {
       }
     }
     return Scaffold(
-        /*appBar: GradientAppBar(
+      /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
           backgroundColorEnd: Colors.green[900],
           //backgroundColor: Colors.blue[800],
           title: Text("My tanks"),
           centerTitle: true,
         ),*/
-        /*appBar: AppBar(
+      /*appBar: AppBar(
           title: Text('My tanks'),
           centerTitle: true,
         ),*/
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            items: allDestinations.map((Destination destination) {
-              return BottomNavigationBarItem(
-                  icon: Icon(destination.icon),
-                  title: Text(destination.title),
-                  backgroundColor: destination.color);
-            }).toList()),
-        body: SafeArea(
-          child: IndexedStack(
-            index: _currentIndex,
-            children: <Widget>[
-              HomePageBody(widget.tanks),
-              PlantsOverviewScreen(allPlants),
-              SettingsScreen(),
-            ],
-          ),
-        ));
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: allDestinations.map((Destination destination) {
+            return BottomNavigationBarItem(
+                icon: Icon(destination.icon),
+                title: Text(destination.title),
+                backgroundColor: destination.color);
+          }).toList()),
+      body: SafeArea(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: <Widget>[
+            HomePageBody(widget.tanks),
+            PlantsOverviewScreen(allPlants),
+            SettingsScreen(),
+          ],
+        ),
+      ),
+    );
   }
 }
 

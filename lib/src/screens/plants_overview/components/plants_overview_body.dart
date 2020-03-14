@@ -32,7 +32,6 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
   Widget build(BuildContext context) {
     sort(widget.plants);
     return Container(
-      //color: Colors.white70,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -58,7 +57,7 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
                             builder: (context) => PlantInfoScreen(
                                 plant: plant, callback: refreshState)));
                   },
-                  child: createPlantInfoCard(context, plant),
+                  child: createPlantInfoCard(context, plant, refreshState),
                 ),
             ]),
           ),

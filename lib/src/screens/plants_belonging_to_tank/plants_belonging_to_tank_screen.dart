@@ -36,53 +36,9 @@ class _PlantsBelongingToTankScreenState
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PlantInfoScreen(plant: plant, callback: refreshState),
-                    ),
-                  );
-                },
-                onLongPress: () {
-                  PopupMenuButton<Options>(
-                    onSelected: (Options result) {
-                      setState(() {
-                        _selection = result;
-                      });
-                    },
-                    itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<Options>>[
-                      const PopupMenuItem<Options>(
-                        value: Options.edit_name,
-                        child: Text('Edit name'),
-                      ),
-                      const PopupMenuItem<Options>(
-                        value: Options.remove,
-                        child: Text('Remove'),
-                      ),
-                    ],
-                  );
-                  if (_selection == Options.edit_name) {
-                    print("Edit name!");
-                    editObjectName(
-                        context: context, object: plant, maxLength: 25);
-                  } else if (_selection == Options.remove) {
-                    print("Remove!");
-                    setState(() {
-                      widget.tank.plants.remove(plant);
-                      widget.callback();
-                    });
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  child: GestureDetector(
-                    child: createPlantInfoCard(context, plant),
-                  ),
-                ),
+              Container(
+                width: double.infinity,
+                child: createPlantInfoCard(context, plant, refreshState),
               ),
           ],
         ),
