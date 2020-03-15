@@ -11,7 +11,7 @@ class Plant implements IPlantAndWaterTank {
   /// hydration, where 0 is not hydrated at all, and 10 is fully hydrated.
   Plant(this._hydration, {@required this.imageName, @required this.name}) {
     assert(_hydration >= 0 && _hydration <= 100);
-    isVisible = false;
+    isVisible = true;
   }
 
   int get hydration {

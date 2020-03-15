@@ -25,7 +25,7 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +58,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
         child: IndexedStack(
           index: _currentIndex,
           children: <Widget>[
-            HomePageBody(widget.tanks),
             PlantsOverviewScreen(widget.tanks),
+            HomePageBody(widget.tanks),
             SettingsScreen(),
           ],
         ),
@@ -77,7 +77,7 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Home', Icons.home, Colors.teal),
-  Destination(1, 'Plants', Icons.filter_vintage, Colors.cyan),
+  Destination(0, 'Plants', Icons.filter_vintage, Colors.cyan),
+  Destination(1, 'Home', Icons.home, Colors.teal),
   Destination(2, 'Settings', Icons.settings, Colors.orange),
 ];

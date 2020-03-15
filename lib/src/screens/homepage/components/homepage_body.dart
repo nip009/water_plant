@@ -162,34 +162,42 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   /// Creates a clickable plant icon which contains a picture of the
   /// incoming [Plant] object. Clicking the icon results in watering the plant
-  /// and the icon disappearing.
+  /// and the icon disappearing and becoming unclickable.
   Widget plantIcon(Plant plant) {
     return SizedBox(
       width: 75,
       height: 75,
-      child: ClipRRect(
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              plant.isVisible = !plant.isVisible;
-            });
-          },
-          child: AnimatedOpacity(
-            duration: Duration(milliseconds: 400),
-            opacity: plant.isVisible ? 0.0 : 1.0,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2.5,
-                  color: Colors.black54,
-                ),
-              ),
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-              padding: EdgeInsets.all(0),
-              child: Image.asset(plant.imageName, fit: BoxFit.contain),
-            ),
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 350),
+        opacity: plant.isVisible ? 1.0 : 0.0,
+        child: plant.isVisible
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    plant.waterPlant();
+                    plant.isVisible = false;
+                  });
+                },
+                child: plantInPicFrame(plant),
+              )
+            : plantInPicFrame(plant),
+      ),
+    );
+  }
+
+  /// Helper method for [plantIcon].
+  /// The picture represetning the plant in the tank.
+  ClipRRect plantInPicFrame(Plant plant) {
+    return ClipRRect(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2.5,
+            color: Colors.black54,
           ),
         ),
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+        child: Image.asset(plant.imageName, fit: BoxFit.contain),
       ),
     );
   }
