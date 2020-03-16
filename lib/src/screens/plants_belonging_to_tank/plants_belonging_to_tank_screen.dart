@@ -46,7 +46,7 @@ class _PlantsBelongingToTankScreenState
                           widget.tank.plants.add(
                             //TODO: Let the user add a custom plant
                             Plant(
-                              100,
+                              60,
                               name: 'Plante',
                               imageName: Constants.PLANT_NAME_2,
                             ),

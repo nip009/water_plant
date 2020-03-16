@@ -57,7 +57,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                   child: IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
-                      addPlantToTank();
+                      addNewTank();
                     },
                   ),
                 ),
@@ -69,7 +69,7 @@ class _HomePageBodyState extends State<HomePageBody> {
     );
   }
 
-  void addPlantToTank() {
+  void addNewTank() {
     List<Plant> plants = [
       Plant(100, name: "Plante2", imageName: Constants.PLANT_NAME_2),
       Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
