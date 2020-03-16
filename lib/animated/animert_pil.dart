@@ -28,7 +28,7 @@ class _MyAnimatedIconState extends State<MyAnimatedArrow>
 
   @override
   Widget build(BuildContext context) {
-    final animation = Tween(begin: 0, end: 1 * pi).animate(controller);
+    //final animation = Tween(begin: 0, end: 1 * pi).animate(controller);
 
     return Container(
       child: RotationTransition(

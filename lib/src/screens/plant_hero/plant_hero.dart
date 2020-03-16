@@ -9,13 +9,14 @@ class PlantHeroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text('Om planten'),
         centerTitle: true,
       ),
       body: Container(
-        //color: Constants.CARD_BACKGROUND_COLOR,
+        color: isDark ? Colors.grey[850] : Constants.CARD_BACKGROUND_COLOR,
         child: Column(
           children: <Widget>[
             Padding(
@@ -49,6 +50,7 @@ class PlantHeroScreen extends StatelessWidget {
             Container(
               child: Flexible(
                 child: Card(
+                  //color: Colors.white70,
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   elevation: 8,
                   child: Padding(

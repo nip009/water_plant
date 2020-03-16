@@ -4,6 +4,7 @@ import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart'
 import 'package:flutter_watering/src/screens/homepage/components/water_tank_indicator.dart';
 import 'package:flutter_watering/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
+import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -18,23 +19,25 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
+  refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
     return Container(
-      decoration: BoxDecoration(
-          //color: Constants.SCAFFOLD_BACKGROUND_COLOR,
-          //color: Colors.white70,
-          /*gradient: LinearGradient(
+      /*decoration: BoxDecoration(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment(1, 1),
           colors: [
-            Colors.green[400],
+            Colors.green[700],
             Colors.green[900],
           ],
           tileMode: TileMode.repeated,
-        ),*/
-          ),
+        ),
+      ),*/
       /* decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -45,44 +48,40 @@ class _HomePageBodyState extends State<HomePageBody> {
           Expanded(
             child: ListView(
               children: <Widget>[
-                for (var tank in widget.tanks)
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PlantsBelongingToTankScreen(tank)),
-                      );
-                    },
-                    child: tankOverviewCard(tank),
-                  ),
-              ],
-            ),
-          ),
-          /*Container(
-            padding: EdgeInsets.all(10),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: ClipOval(
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  color: Colors.blue,
+                Container(
+                  height: 10, // to add some space above the list of tank cards
+                ),
+                for (var tank in widget.tanks) tankOverviewCard(tank),
+                Container(
+                  alignment: Alignment.center,
                   child: IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
-                      // get the option to add a new tank
+                      addNewTank();
                     },
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-          //),*/
         ],
       ),
     );
+  }
+
+  void addNewTank() {
+    List<Plant> plants = [
+      Plant(100, name: "Plante2", imageName: Constants.PLANT_NAME_2),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+    ];
+    if (plants.length > 5) return;
+    WaterTankDevice tank = WaterTankDevice('Kjøkken', plants, 40);
+    setState(() {
+      widget.tanks.add(tank);
+    });
   }
 
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
@@ -94,58 +93,68 @@ class _HomePageBodyState extends State<HomePageBody> {
       ),
       margin: EdgeInsets.fromLTRB(8, 8, 8, 8),
       elevation: 8,
-      child: Container(
-        padding: const EdgeInsets.all(0.0),
-        height: 250,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Container(
-                child: RichText(
-                  text: TextSpan(
-                      style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '${tank.name} ',
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        TextSpan(
-                          text: '${tank.waterLevel} %',
-                          style: TextStyle(fontSize: 20),
-                        )
-                      ]),
-                ),
-                /*Text(
-                          "${tank.name} ${tank.waterLevel}" + " %",
-                          style: TextStyle(
-                            fontSize: 20,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        radius: 0,
+        onLongPress: () {
+          editObjectName(context: context, object: tank, callback: refresh);
+        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlantsBelongingToTankScreen(
+              tank,
+              callback: refresh,
+            ),
+          ),
+        ),
+        hoverColor: Colors.red,
+        child: Container(
+          padding: const EdgeInsets.all(0.0),
+          height: 250,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.only(top: 10),
+                  child: RichText(
+                    text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '${tank.name} ',
+                            style: TextStyle(fontSize: 30),
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),*/
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: waterTankIndicator(tank.waterLevel),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 5,
-              child: Container(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      for (Plant plant in tank.plants) plantIcon(plant),
-                    ],
+                          TextSpan(
+                            text: '${tank.waterLevel} %',
+                            style: TextStyle(fontSize: 25),
+                          )
+                        ]),
                   ),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 4,
+                child: waterTankIndicator(context, tank.waterLevel),
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        for (Plant plant in tank.plants) plantIcon(plant),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -153,43 +162,42 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   /// Creates a clickable plant icon which contains a picture of the
   /// incoming [Plant] object. Clicking the icon results in watering the plant
-  /// and the icon disappearing.
+  /// and the icon disappearing and becoming unclickable.
   Widget plantIcon(Plant plant) {
     return SizedBox(
       width: 75,
       height: 75,
-      child: ClipRRect(
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              plant.isGrey = !plant.isGrey;
-              /*if (waterTankStatus >= 10) {
-                    waterTankStatus -= 10;
-                  } else {
-                    waterTankStatus = 100;
-                  }*/
-            });
-          },
-          child: AnimatedOpacity(
-            duration: Duration(milliseconds: 400),
-            opacity: plant.isGrey ? 0.0 : 1.0,
-            child: Container(
-              /*foregroundDecoration: BoxDecoration(
-                      color: Colors.grey,
-                      backgroundBlendMode: BlendMode.saturation,
-                    ),*/
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2.5,
-                  color: Colors.black54,
-                ),
-              ),
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-              padding: EdgeInsets.all(0),
-              child: Image.asset(plant.imageName, fit: BoxFit.contain),
-            ),
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 350),
+        opacity: plant.isVisible ? 1.0 : 0.0,
+        child: plant.isVisible
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    plant.waterPlant();
+                    plant.isVisible = false;
+                  });
+                },
+                child: plantInPicFrame(plant),
+              )
+            : plantInPicFrame(plant),
+      ),
+    );
+  }
+
+  /// Helper method for [plantIcon].
+  /// The picture represetning the plant in the tank.
+  ClipRRect plantInPicFrame(Plant plant) {
+    return ClipRRect(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2.5,
+            color: Colors.black54,
           ),
         ),
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+        child: Image.asset(plant.imageName, fit: BoxFit.contain),
       ),
     );
   }

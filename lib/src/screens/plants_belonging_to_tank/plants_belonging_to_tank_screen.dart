@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/src/components/plant_info_card.dart';
-import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
 
 class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
-  PlantsBelongingToTankScreen(this.tank);
+  final Function callback;
+  PlantsBelongingToTankScreen(this.tank, {this.callback});
 
   @override
   _PlantsBelongingToTankScreenState createState() =>
@@ -15,6 +16,11 @@ class PlantsBelongingToTankScreen extends StatefulWidget {
 
 class _PlantsBelongingToTankScreenState
     extends State<PlantsBelongingToTankScreen> {
+  refreshState() {
+    setState(() {});
+    widget.callback();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,24 +29,34 @@ class _PlantsBelongingToTankScreenState
         centerTitle: true,
       ),
       body: Container(
-        //color: Constants.SCAFFOLD_BACKGROUND_COLOR,
         child: ListView(
           children: <Widget>[
             for (var plant in widget.tank.plants)
               Container(
                 width: double.infinity,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlantInfoScreen(plant: plant),
-                      ),
-                    );
-                  },
-                  child: createPlantInfoCard(context, plant),
-                ),
+                child: createPlantInfoCard(
+                    context, plant, widget.tank, refreshState),
               ),
+            Center(
+              child: widget.tank.plants.length < 5
+                  ? IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        if (widget.tank.plants.length < 5) {
+                          widget.tank.plants.add(
+                            //TODO: Let the user add a custom plant
+                            Plant(
+                              60,
+                              name: 'Plante',
+                              imageName: Constants.PLANT_NAME_2,
+                            ),
+                          );
+                          refreshState();
+                        }
+                      },
+                    )
+                  : null,
+            ),
           ],
         ),
       ),

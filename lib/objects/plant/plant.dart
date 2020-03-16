@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import '../IPlantAndWaterTank.dart';
 
-class Plant {
+class Plant implements IPlantAndWaterTank {
   int _hydration;
-  final String name;
+  String name;
   final String imageName;
-  bool _isGrey;
+  bool _isVisible;
 
   /// Takes in a name, an image and an int between 0 and 10 representing
   /// hydration, where 0 is not hydrated at all, and 10 is fully hydrated.
   Plant(this._hydration, {@required this.imageName, @required this.name}) {
-    assert(_hydration >= 0 && _hydration <= 10);
-    isGrey = false;
+    assert(_hydration >= 0 && _hydration <= 100);
+    isVisible = true;
   }
 
   int get hydration {
@@ -18,16 +19,16 @@ class Plant {
   }
 
   set hydration(int hydration) {
-    assert(hydration >= 0 && hydration <= 10);
+    assert(hydration >= 0 && hydration <= 100);
     _hydration = hydration;
   }
 
-  bool get isGrey {
-    return this._isGrey;
+  bool get isVisible {
+    return this._isVisible;
   }
 
-  set isGrey(bool b) {
-    this._isGrey = b;
+  set isVisible(bool b) {
+    this._isVisible = b;
   }
 
   void dehydratePlant() {
@@ -35,6 +36,6 @@ class Plant {
   }
 
   void waterPlant() {
-    _hydration = 10;
+    _hydration = 100;
   }
 }

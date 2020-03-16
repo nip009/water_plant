@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
+import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
 import 'package:flutter_watering/objects/plant/plant.dart';
 import 'package:flutter_watering/src/components/plant_info_card.dart';
 import 'package:flutter_watering/constants.dart' as Constants;
 
 /// A list overview of every single plant owned.
 class PlantsOverviewScreenBody extends StatefulWidget {
-  final List<Plant> plants;
+  final List<WaterTankDevice> tanks;
 
-  PlantsOverviewScreenBody(this.plants);
+  PlantsOverviewScreenBody(this.tanks);
 
   @override
   _PlantsOverviewScreenStateBody createState() =>
@@ -24,11 +24,14 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
     return plants;
   }
 
+  refreshState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    sort(widget.plants);
+    //sort(allPlantsInTanks.values);
     return Container(
-      //color: Colors.white70,
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -45,17 +48,9 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              for (var plant in widget.plants)
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PlantInfoScreen(plant: plant)));
-                  },
-                  child: createPlantInfoCard(context, plant),
-                ),
+              for (WaterTankDevice tank in widget.tanks)
+                for (Plant plant in tank.plants)
+                  createPlantInfoCard(context, plant, tank, refreshState),
             ]),
           ),
         ],

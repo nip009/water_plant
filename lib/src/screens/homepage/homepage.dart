@@ -8,54 +8,63 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class HomePageScreen extends StatefulWidget {
   final List<WaterTankDevice> tanks;
-  final List<Plant> allPlants;
 
-  HomePageScreen(this.tanks, this.allPlants);
+  HomePageScreen(this.tanks);
+
+  /// Removes the given plant from the given tank if the tank contains it.
+  /// [setState] is called so that every part of the code using these will
+  /// be updated.
+  static removePlantFromTank(WaterTankDevice tank, Plant plant) {
+    if (tank.plants.contains(plant)) {
+      tank.plants.remove(plant);
+    }
+  }
 
   @override
   _HomePageScreenState createState() => _HomePageScreenState();
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        /*appBar: GradientAppBar(
+      /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
           backgroundColorEnd: Colors.green[900],
           //backgroundColor: Colors.blue[800],
           title: Text("My tanks"),
           centerTitle: true,
         ),*/
-        /*appBar: AppBar(
+      /*appBar: AppBar(
           title: Text('My tanks'),
           centerTitle: true,
         ),*/
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            items: allDestinations.map((Destination destination) {
-              return BottomNavigationBarItem(
-                  icon: Icon(destination.icon),
-                  title: Text(destination.title),
-                  backgroundColor: destination.color);
-            }).toList()),
-        body: SafeArea(
-          child: IndexedStack(
-            index: _currentIndex,
-            children: <Widget>[
-              HomePageBody(widget.tanks),
-              PlantsOverviewScreen(widget.allPlants),
-              SettingsScreen(),
-            ],
-          ),
-        ));
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: allDestinations.map((Destination destination) {
+            return BottomNavigationBarItem(
+                icon: Icon(destination.icon),
+                title: Text(destination.title),
+                backgroundColor: destination.color);
+          }).toList()),
+      body: SafeArea(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: <Widget>[
+            PlantsOverviewScreen(widget.tanks),
+            HomePageBody(widget.tanks),
+            SettingsScreen(),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -68,7 +77,7 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Home', Icons.home, Colors.teal),
-  Destination(1, 'Plants', Icons.filter_vintage, Colors.cyan),
+  Destination(0, 'Plants', Icons.filter_vintage, Colors.cyan),
+  Destination(1, 'Home', Icons.home, Colors.teal),
   Destination(2, 'Settings', Icons.settings, Colors.orange),
 ];
