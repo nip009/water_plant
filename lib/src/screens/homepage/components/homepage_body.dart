@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/screens/homepage/components/water_tank_indicator.dart';
 import 'package:water_plant/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
@@ -31,7 +30,7 @@ class _HomePageBodyState extends State<HomePageBody> {
       appBar: AppBar(
         actions: <Widget>[
           GestureDetector(
-            onTap: () => print("Create new device"),
+            onTap: () => addNewTank(),
             child: Container(
               padding: EdgeInsets.only(right: 15),
               child: Row(
@@ -85,15 +84,6 @@ class _HomePageBodyState extends State<HomePageBody> {
                         10, // to add some space above the list of tank cards
                   ),
                   for (var tank in widget.tanks) tankOverviewCard(tank),
-                  Container(
-                    alignment: Alignment.center,
-                    child: IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        addNewTank();
-                      },
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -105,10 +95,8 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   void addNewTank() {
     List<Plant> plants = [
-      Plant(100, name: "Plante2", imageName: Constants.PLANT_NAME_2),
-      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
-      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
-      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_4),
+      Plant(20, name: "Plante2", imageName: Constants.PLANT_NAME_2),
+      Plant(30, name: "Plante1", imageName: Constants.PLANT_NAME_4),
       Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
     ];
     if (plants.length > 5) return;
