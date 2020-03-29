@@ -133,7 +133,7 @@ class PlantWateringApp extends StatelessWidget {
           canvasColor: Colors.white70,
           primaryColorDark: Colors.blue[800],
           appBarTheme: AppBarTheme(
-            color: Colors.green,
+            color: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
           ),
         ),
         //themeMode: ThemeMode.dark,

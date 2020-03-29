@@ -5,6 +5,7 @@ import 'package:water_plant/src/screens/homepage/components/homepage_body.dart';
 import 'package:water_plant/src/screens/plants_overview/plants_overview.dart';
 import 'package:water_plant/src/screens/settings/settings_screen.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:water_plant/constants.dart' as Constants;
 
 class HomePageScreen extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -42,6 +43,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           centerTitle: true,
         ),*/
       bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
           currentIndex: _currentIndex,
           onTap: (int index) {
             setState(() {
@@ -50,16 +52,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
           },
           items: allDestinations.map((Destination destination) {
             return BottomNavigationBarItem(
-                icon: Icon(destination.icon),
-                title: Text(destination.title),
-                backgroundColor: destination.color);
+              icon: Icon(destination.icon),
+              title: Text(destination.title),
+            );
           }).toList()),
       body: SafeArea(
         child: IndexedStack(
           index: _currentIndex,
           children: <Widget>[
-            PlantsOverviewScreen(widget.tanks),
             HomePageBody(widget.tanks),
+            PlantsOverviewScreen(widget.tanks),
             SettingsScreen(),
           ],
         ),
@@ -77,7 +79,7 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Plants', Icons.filter_vintage, Colors.cyan),
-  Destination(1, 'Home', Icons.home, Colors.teal),
+  Destination(0, 'Overview', Icons.home, Colors.teal),
+  Destination(1, 'Plants', Icons.filter_vintage, Colors.cyan),
   Destination(2, 'Settings', Icons.settings, Colors.orange),
 ];
