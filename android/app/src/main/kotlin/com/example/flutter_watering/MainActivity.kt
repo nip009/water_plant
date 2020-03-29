@@ -1,4 +1,4 @@
-package com.example.flutter_watering
+package com.example.water_plant
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

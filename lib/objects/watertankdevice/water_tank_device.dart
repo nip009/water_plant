@@ -1,4 +1,4 @@
-import 'package:flutter_watering/objects/plant/plant.dart';
+import 'package:water_plant/objects/plant/plant.dart';
 
 import '../IPlantAndWaterTank.dart';
 

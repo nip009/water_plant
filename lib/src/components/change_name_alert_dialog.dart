@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_watering/objects/IPlantAndWaterTank.dart';
+import 'package:water_plant/objects/IPlantAndWaterTank.dart';
 
 Future editObjectName(
     {@required BuildContext context,

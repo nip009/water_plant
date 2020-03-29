@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/constants.dart' as Constants;
-import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
-import 'package:flutter_watering/src/screens/plant_info/plant_info.dart';
+import 'package:water_plant/objects/plant/plant.dart';
+import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
+import 'package:water_plant/src/screens/plant_info/plant_info.dart';
 
 Widget createPlantInfoCard(BuildContext context, Plant plant,
     WaterTankDevice tank, Function callback) {

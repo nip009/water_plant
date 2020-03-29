@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/src/screens/plant_hero/plant_hero.dart';
-import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/constants.dart' as Constants;
+import 'package:water_plant/src/screens/plant_hero/plant_hero.dart';
+import 'package:water_plant/objects/plant/plant.dart';
+import 'package:water_plant/constants.dart' as Constants;
 
 import 'dart:math';
 
