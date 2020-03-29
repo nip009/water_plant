@@ -5,6 +5,7 @@ import 'package:water_plant/src/screens/homepage/components/water_tank_indicator
 import 'package:water_plant/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
+import 'package:water_plant/src/components/water_status.dart';
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -89,13 +90,11 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget tankOverviewCard(WaterTankDevice tank) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      margin: EdgeInsets.fromLTRB(8, 8, 8, 8),
-      elevation: 8,
+          //borderRadius: BorderRadius.circular(20),
+          ),
+      //margin: EdgeInsets.fromLTRB(8, 8, 8, 8),
+      elevation: 3,
       child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        radius: 0,
         onLongPress: () {
           editObjectName(context: context, object: tank, callback: refresh);
         },
@@ -108,7 +107,6 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),
           ),
         ),
-        hoverColor: Colors.red,
         child: Container(
           padding: const EdgeInsets.all(0.0),
           height: 250,
@@ -127,29 +125,23 @@ class _HomePageBodyState extends State<HomePageBody> {
                             text: '${tank.name} ',
                             style: TextStyle(fontSize: 30),
                           ),
-                          TextSpan(
-                            text: '${tank.waterLevel} %',
-                            style: TextStyle(fontSize: 25),
-                          )
                         ]),
                   ),
                 ),
               ),
               Expanded(
                 flex: 4,
-                child: waterTankIndicator(context, tank.waterLevel),
+                child: WaterStatus(tank.waterLevel),
+                //waterTankIndicator(context, tank.waterLevel),
               ),
               Expanded(
                 flex: 5,
                 child: Container(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        for (Plant plant in tank.plants) plantIcon(plant),
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      for (Plant plant in tank.plants) plantIcon(plant),
+                    ],
                   ),
                 ),
               ),
@@ -164,24 +156,37 @@ class _HomePageBodyState extends State<HomePageBody> {
   /// incoming [Plant] object. Clicking the icon results in watering the plant
   /// and the icon disappearing and becoming unclickable.
   Widget plantIcon(Plant plant) {
-    return SizedBox(
-      width: 75,
-      height: 75,
-      child: AnimatedOpacity(
-        duration: Duration(milliseconds: 350),
-        opacity: plant.isVisible ? 1.0 : 0.0,
-        child: plant.isVisible
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    plant.waterPlant();
-                    plant.isVisible = false;
-                  });
-                },
-                child: plantInPicFrame(plant),
-              )
-            : plantInPicFrame(plant),
-      ),
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          width: 75,
+          height: 75,
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 350),
+            opacity: plant.isVisible ? 1.0 : 1.0,
+            child: plant
+                    .isVisible // TODO: switch to plant.hydration < recommended lowest moisture
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        plant.waterPlant();
+                        plant.isVisible = false;
+                      });
+                    },
+                    child: plantInPicFrame(plant),
+                  )
+                : plantInPicFrame(plant),
+          ),
+        ),
+
+        // TODO: show if less than or close to recommended lowest moisture
+        Container(
+          //color: Colors.red,
+          child: Text(
+            '${plant.hydration}%',
+          ),
+        ),
+      ],
     );
   }
 
@@ -190,14 +195,16 @@ class _HomePageBodyState extends State<HomePageBody> {
   ClipRRect plantInPicFrame(Plant plant) {
     return ClipRRect(
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 2.5,
-            color: Colors.black54,
-          ),
-        ),
+        width: 75,
+        height: 75,
         margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-        child: Image.asset(plant.imageName, fit: BoxFit.contain),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(width: 1.8),
+        ),
+        child: plant.isVisible
+            ? Image.asset(plant.imageName, fit: BoxFit.contain)
+            : null,
       ),
     );
   }

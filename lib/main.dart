@@ -9,7 +9,7 @@ void main() => runApp(PlantWateringApp());
 class PlantWateringApp extends StatelessWidget {
   static final List<Plant> plantsTank1 = [
     Plant(
-      70,
+      10,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
@@ -32,12 +32,12 @@ class PlantWateringApp extends StatelessWidget {
 
   static final List<Plant> plantsTank2 = [
     Plant(
-      70,
+      20,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
-      40,
+      10,
       name: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
@@ -50,17 +50,12 @@ class PlantWateringApp extends StatelessWidget {
       100,
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
     ),
   ];
 
   static final List<Plant> plantsTank3 = [
     Plant(
-      70,
+      10,
       name: 'Chinese Evergreen',
       imageName: Constants.PLANT_NAME_1,
     ),
@@ -78,11 +73,6 @@ class PlantWateringApp extends StatelessWidget {
       100,
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
     ),
   ];
 
@@ -107,11 +97,6 @@ class PlantWateringApp extends StatelessWidget {
       name: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
-    ),
   ];
 
   final List<WaterTankDevice> waterTanks = [
@@ -130,7 +115,7 @@ class PlantWateringApp extends StatelessWidget {
         ),
         theme: ThemeData(
           cardColor: Constants.CARD_BACKGROUND_COLOR,
-          canvasColor: Colors.white70,
+          canvasColor: Constants.SCAFFOLD_BACKGROUND_COLOR,
           primaryColorDark: Colors.blue[800],
           appBarTheme: AppBarTheme(
             color: Constants.BOTTOM_NAVIGATION_BAR_COLOR,

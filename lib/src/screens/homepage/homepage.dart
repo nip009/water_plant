@@ -26,11 +26,12 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
           backgroundColorEnd: Colors.green[900],

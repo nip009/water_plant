@@ -8,7 +8,6 @@ class SettingsScreen extends StatelessWidget {
     Color color =
         isDark ? Constants.BORDER_COLOR : Constants.CARD_BACKGROUND_COLOR;
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
         width: double.infinity,
         child: Column(
