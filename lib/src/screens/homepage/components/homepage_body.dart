@@ -27,45 +27,78 @@ class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
-    return Container(
-      /*decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment(1, 1),
-          colors: [
-            Colors.green[700],
-            Colors.green[900],
-          ],
-          tileMode: TileMode.repeated,
-        ),
-      ),*/
-      /* decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.blue[700], Colors.blue[800]])),*/
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  height: 10, // to add some space above the list of tank cards
-                ),
-                for (var tank in widget.tanks) tankOverviewCard(tank),
-                Container(
-                  alignment: Alignment.center,
-                  child: IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      addNewTank();
-                    },
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () => print("Create new device"),
+            child: Container(
+              padding: EdgeInsets.only(right: 15),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Device  ',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-              ],
+                  ClipOval(
+                    child: Container(
+                      color: Colors.white,
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          )
         ],
+      ),
+      body: Container(
+        /*decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment(1, 1),
+            colors: [
+              Colors.green[700],
+              Colors.green[900],
+            ],
+            tileMode: TileMode.repeated,
+          ),
+        ),*/
+        /* decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.blue[700], Colors.blue[800]])),*/
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    height:
+                        10, // to add some space above the list of tank cards
+                  ),
+                  for (var tank in widget.tanks) tankOverviewCard(tank),
+                  Container(
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        addNewTank();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -200,7 +233,10 @@ class _HomePageBodyState extends State<HomePageBody> {
         margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(width: 1.8),
+          border: Border.all(
+            width: 1.8,
+            color: plant.isHydrationCritical() ? Colors.red : Colors.black,
+          ),
         ),
         child: plant.isVisible
             ? Image.asset(plant.imageName, fit: BoxFit.contain)

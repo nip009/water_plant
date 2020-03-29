@@ -14,6 +14,10 @@ class Plant implements IPlantAndWaterTank {
     isVisible = true;
   }
 
+  bool isHydrationCritical() {
+    return _hydration <= 20;
+  }
+
   int get hydration {
     return this._hydration;
   }

@@ -31,7 +31,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       /*appBar: GradientAppBar(
           backgroundColorStart: Colors.green[700],
           backgroundColorEnd: Colors.green[900],
