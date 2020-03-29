@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/constants.dart' as Constants;
+import 'package:water_plant/constants.dart' as Constants;
 
 /// Creates a water tank status indicator.
 /// Shows percentagewise how much water is left in a water tank.

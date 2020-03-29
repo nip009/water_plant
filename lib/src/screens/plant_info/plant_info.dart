@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_watering/objects/plant/plant.dart';
-import 'package:flutter_watering/objects/watertankdevice/water_tank_device.dart';
-import 'package:flutter_watering/src/components/change_name_alert_dialog.dart';
-import 'package:flutter_watering/src/screens/plant_info/components/plant_info_body.dart';
-import 'package:flutter_watering/src/screens/homepage/homepage.dart';
+import 'package:water_plant/objects/plant/plant.dart';
+import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
+import 'package:water_plant/src/components/change_name_alert_dialog.dart';
+import 'package:water_plant/src/screens/plant_info/components/plant_info_body.dart';
+import 'package:water_plant/src/screens/homepage/homepage.dart';
 
 enum Options { edit_name, remove }
 
