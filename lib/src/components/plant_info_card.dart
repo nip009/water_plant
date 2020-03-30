@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
+import 'package:water_plant/src/components/plant_soil_moisture_text.dart';
 import 'package:water_plant/src/screens/plant_info/plant_info.dart';
 
 Widget createPlantInfoCard(BuildContext context, Plant plant,
@@ -66,27 +67,7 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
                       Expanded(
                         child: Container(
                           alignment: Alignment.bottomCenter,
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Soil moisture: ',
-                              style: TextStyle(
-                                color: Colors.grey[700],
-                                fontSize: 18,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: '${plant.hydration}%',
-                                  style: TextStyle(
-                                    color: plant.isHydrationCritical()
-                                        ? Colors.red
-                                        : Colors.grey[700],
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          child: PlantSoilMoistureText(plant: plant),
                         ),
                       )
                     ],

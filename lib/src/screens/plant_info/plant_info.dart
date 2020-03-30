@@ -70,21 +70,11 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
             ],
           ),
         ],
-        title: Text(widget.plant.name),
-        centerTitle: true,
-        bottom: PreferredSize(
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: 7,
-            ),
-            child: Text('${widget.tank.name}'),
-          ),
-          preferredSize: Size.fromHeight(3),
-        ),
       ),
       resizeToAvoidBottomInset:
           false, // to avoid screen being squeezed together when editing name
-      body: PlantInfoBody(plant: widget.plant, callback: widget.callback),
+      body: PlantInfoBody(
+          plant: widget.plant, tank: widget.tank, callback: widget.callback),
     );
   }
 }

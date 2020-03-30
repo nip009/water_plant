@@ -6,12 +6,22 @@ class Plant implements IPlantAndWaterTank {
   String name;
   final String imageName;
   bool _isVisible;
+  bool _automaticWatering;
 
   /// Takes in a name, an image and an int between 0 and 10 representing
   /// hydration, where 0 is not hydrated at all, and 10 is fully hydrated.
   Plant(this._hydration, {@required this.imageName, @required this.name}) {
     assert(_hydration >= 0 && _hydration <= 100);
     isVisible = true;
+    _automaticWatering = false;
+  }
+
+  set automaticWatering(bool value) {
+    _automaticWatering = value;
+  }
+
+  bool isAutomaticWateringActive() {
+    return this._automaticWatering;
   }
 
   bool isHydrationCritical() {

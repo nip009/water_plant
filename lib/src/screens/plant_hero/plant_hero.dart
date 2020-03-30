@@ -29,6 +29,7 @@ class PlantHeroScreen extends StatelessWidget {
                     tag: plant.imageName,
                     child: Container(
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
                         border: Border.all(
                           color: Constants.BORDER_COLOR,
                           width: 3,

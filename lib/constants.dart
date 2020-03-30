@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 const Color BOTTOM_NAVIGATION_BAR_COLOR = const Color(0xff5b7329); // dark green
 
+const Color LIGHT_GREEN_COLOR = const Color(0xFFAEBF2A);
+
 //const Color BORDER_COLOR = Colors.white70;
 const Color BORDER_COLOR = const Color(0xFF424242); // grey[800]
 
