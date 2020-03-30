@@ -34,7 +34,8 @@ class _PlantsBelongingToTankScreenState
                   //TODO: Let the user add a custom plant
                   Plant(
                     60,
-                    name: 'Plante',
+                    name: 'Emerald plant',
+                    latinName: 'Zamioculcas zamiifolia',
                     imageName: Constants.PLANT_NAME_2,
                   ),
                 );

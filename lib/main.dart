@@ -11,21 +11,25 @@ class PlantWateringApp extends StatelessWidget {
     Plant(
       10,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       40,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
   ];
@@ -34,21 +38,25 @@ class PlantWateringApp extends StatelessWidget {
     Plant(
       20,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       10,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
   ];
@@ -57,21 +65,25 @@ class PlantWateringApp extends StatelessWidget {
     Plant(
       10,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       40,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
   ];
@@ -80,21 +92,25 @@ class PlantWateringApp extends StatelessWidget {
     Plant(
       70,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       40,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
   ];

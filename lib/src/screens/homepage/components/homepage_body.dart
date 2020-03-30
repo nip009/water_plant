@@ -104,9 +104,18 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   void addNewTank() {
     List<Plant> plants = [
-      Plant(20, name: "Plante2", imageName: Constants.PLANT_NAME_2),
-      Plant(30, name: "Plante1", imageName: Constants.PLANT_NAME_4),
-      Plant(70, name: "Plante1", imageName: Constants.PLANT_NAME_2),
+      Plant(20,
+          name: "Emerald plant",
+          latinName: 'Zamioculcas zamiifolia',
+          imageName: Constants.PLANT_NAME_2),
+      Plant(30,
+          name: "Orchid",
+          latinName: 'Orchidaceae',
+          imageName: Constants.PLANT_NAME_4),
+      Plant(70,
+          name: "Emerald plant",
+          latinName: 'Zamioculcas zamiifolia',
+          imageName: Constants.PLANT_NAME_2),
     ];
     if (plants.length > 5) return;
     WaterTankDevice tank = WaterTankDevice('Kjøkken', plants, 40);
@@ -191,19 +200,17 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget plantIcon(Plant plant) {
     return Column(
       children: <Widget>[
-        SizedBox(
+        Container(
           width: 75,
           height: 75,
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 350),
-            opacity: plant.isVisible ? 1.0 : 1.0,
-            child: plant
-                    .isVisible // TODO: switch to plant.hydration < recommended lowest moisture
+            opacity: 1.0,
+            child: plant.isHydrationCritical()
                 ? GestureDetector(
                     onTap: () {
                       setState(() {
                         plant.waterPlant();
-                        plant.isVisible = false;
                       });
                     },
                     child: plantInPicFrame(plant),
@@ -211,13 +218,17 @@ class _HomePageBodyState extends State<HomePageBody> {
                 : plantInPicFrame(plant),
           ),
         ),
-
-        // TODO: show if less than or close to recommended lowest moisture
         Container(
-          //color: Colors.red,
-          child: Text(
-            '${plant.hydration}%',
-          ),
+          child: plant.isHydrationCritical()
+              ? Text(
+                  '${plant.hydration}%',
+                  style: TextStyle(
+                    color: plant.isHydrationCritical()
+                        ? Colors.red
+                        : Colors.grey[700],
+                  ),
+                )
+              : null,
         ),
       ],
     );
@@ -228,9 +239,9 @@ class _HomePageBodyState extends State<HomePageBody> {
   ClipRRect plantInPicFrame(Plant plant) {
     return ClipRRect(
       child: Container(
-        width: 75,
-        height: 75,
-        margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+        //width: 75,
+        //height: 75,
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
@@ -238,7 +249,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             color: plant.isHydrationCritical() ? Colors.red : Colors.black,
           ),
         ),
-        child: plant.isVisible
+        child: plant.isHydrationCritical()
             ? Image.asset(plant.imageName, fit: BoxFit.contain)
             : null,
       ),

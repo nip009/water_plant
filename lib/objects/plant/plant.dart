@@ -4,16 +4,20 @@ import '../IPlantAndWaterTank.dart';
 class Plant implements IPlantAndWaterTank {
   int _hydration;
   String name;
+  String latinName;
   final String imageName;
-  bool _isVisible;
   bool _automaticWatering;
+  int _idealHydrationLevel;
 
   /// Takes in a name, an image and an int between 0 and 10 representing
   /// hydration, where 0 is not hydrated at all, and 10 is fully hydrated.
-  Plant(this._hydration, {@required this.imageName, @required this.name}) {
+  Plant(this._hydration,
+      {@required this.imageName,
+      @required this.name,
+      @required this.latinName}) {
     assert(_hydration >= 0 && _hydration <= 100);
-    isVisible = true;
     _automaticWatering = false;
+    _idealHydrationLevel = 25;
   }
 
   set automaticWatering(bool value) {
@@ -25,7 +29,11 @@ class Plant implements IPlantAndWaterTank {
   }
 
   bool isHydrationCritical() {
-    return _hydration <= 20;
+    return _hydration <= _idealHydrationLevel;
+  }
+
+  int get idealHydrationLevel {
+    return this._idealHydrationLevel;
   }
 
   int get hydration {
@@ -35,14 +43,6 @@ class Plant implements IPlantAndWaterTank {
   set hydration(int hydration) {
     assert(hydration >= 0 && hydration <= 100);
     _hydration = hydration;
-  }
-
-  bool get isVisible {
-    return this._isVisible;
-  }
-
-  set isVisible(bool b) {
-    this._isVisible = b;
   }
 
   void dehydratePlant() {
