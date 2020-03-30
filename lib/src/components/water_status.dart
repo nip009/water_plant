@@ -3,8 +3,12 @@ import 'package:water_plant/constants.dart' as Constants;
 
 class WaterStatus extends StatelessWidget {
   final int hydration;
+  final double width;
+  final double height;
+  final double paddingWidth;
 
-  WaterStatus(this.hydration);
+  WaterStatus(this.hydration,
+      {this.width = 17.0, this.height = 45.0, this.paddingWidth = 6});
 
   List<Widget> createWaterStatusBars(BuildContext context) {
     List<Widget> bars = [];
@@ -21,8 +25,8 @@ class WaterStatus extends StatelessWidget {
       hyd > i ? color = fillColor : color = emptyColor;
       bars.add(
         Container(
-          width: 17,
-          height: 45,
+          width: width,
+          height: height,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(5),
@@ -55,7 +59,10 @@ class WaterStatus extends StatelessWidget {
           Row(
             children: <Widget>[
               for (var bar in createWaterStatusBars(context))
-                Container(padding: EdgeInsets.fromLTRB(6, 0, 6, 0), child: bar),
+                Container(
+                    padding:
+                        EdgeInsets.fromLTRB(paddingWidth, 0, paddingWidth, 0),
+                    child: bar),
             ],
           ),
         ],

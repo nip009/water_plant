@@ -127,11 +127,31 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                               ),
                             ],
                           ),
+                          Spacer(),
                           Container(
-                            child: Container(
-                              child: WaterStatus(widget.plant.hydration),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(left: 85, bottom: 5),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Device: ${widget.tank.name}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Container(
+                                    child: WaterStatus(
+                                      widget.plant.hydration,
+                                      paddingWidth: 4,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
