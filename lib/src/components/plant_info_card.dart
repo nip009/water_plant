@@ -19,73 +19,78 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 8,
-        margin: EdgeInsets.all(10),
-        child: Container(
-          decoration: BoxDecoration(
-            /*border: Border.all(
-              color: Constants.BORDER_COLOR,
-              width: 2,
-            ),*/
-            borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: plant.isHydrationCritical() ? Colors.red : Colors.black,
+            width: 1,
           ),
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(10),
-          width: 120,
-          height: 120,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 5,
+        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        color: Colors.white,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          height: 90,
           child: Row(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(150),
-                  border: Border.all(
-                    color: Constants.BORDER_COLOR,
-                    width: 1,
+              ClipRRect(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2.5),
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                child: ClipOval(
                   child: Image.asset(plant.imageName),
                 ),
               ),
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Text(
-                            plant.name,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 40,
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
+              Expanded(
+                child: Container(
+                  //color: Colors.red,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
                         child: Container(
-                          padding: EdgeInsets.only(left: 10),
-                          alignment: Alignment.bottomCenter,
-                          child: Row(
-                            children: <Widget>[
-                              for (var box in createWaterStatusBars(
-                                  context, plant.hydration))
-                                Container(
-                                    padding: EdgeInsets.all(5), child: box),
-                            ],
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              plant.name,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w400),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.bottomCenter,
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Soil moisture: ',
+                              style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: 18,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '${plant.hydration}%',
+                                  style: TextStyle(
+                                    color: plant.isHydrationCritical()
+                                        ? Colors.red
+                                        : Colors.grey[700],
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -97,7 +102,7 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
 }
 
 // Returns the bars that represent how hydrated a plant is
-List<Widget> createWaterStatusBars(BuildContext context, int hydration) {
+/*List<Widget> createWaterStatusBars(BuildContext context, int hydration) {
   bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
   Color emptyColor = isDark
       ? Constants.WATER_LEVEL_EMPTY_DARK_THEME
@@ -120,3 +125,4 @@ List<Widget> createWaterStatusBars(BuildContext context, int hydration) {
   }
   return bars;
 }
+*/

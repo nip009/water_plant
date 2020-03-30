@@ -82,14 +82,12 @@ class _PlantsBelongingToTankScreenState
                     ),
                   ),
                   Container(
-                      padding: EdgeInsets.all(5),
-                      child: WaterStatus(widget.tank.waterLevel)),
+                    padding: EdgeInsets.all(5),
+                    child: WaterStatus(widget.tank.waterLevel),
+                  ),
                   for (var plant in widget.tank.plants)
-                    Container(
-                      width: double.infinity,
-                      child: createPlantInfoCard(
-                          context, plant, widget.tank, refreshState),
-                    ),
+                    createPlantInfoCard(
+                        context, plant, widget.tank, refreshState),
                 ],
               ),
             ),

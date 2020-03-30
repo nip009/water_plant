@@ -49,7 +49,7 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
                 editObjectName(
                     context: context,
                     object: widget.plant,
-                    maxLength: 25,
+                    maxLength: 22,
                     callback: refreshState);
               } else if (_selection == Options.remove) {
                 print("Remove!");

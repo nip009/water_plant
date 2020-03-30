@@ -28,6 +28,15 @@ class _HomePageBodyState extends State<HomePageBody> {
     assert(widget.tanks != null);
     return Scaffold(
       appBar: AppBar(
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
         actions: <Widget>[
           GestureDetector(
             onTap: () => addNewTank(),
@@ -140,6 +149,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                   padding: EdgeInsets.only(top: 10),
                   child: RichText(
                     text: TextSpan(
+                        /*style: TextStyle(
+                          color: Colors.grey[700],
+                        ),*/
                         style: DefaultTextStyle.of(context).style,
                         children: <TextSpan>[
                           TextSpan(

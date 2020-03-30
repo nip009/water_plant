@@ -114,6 +114,13 @@ class PlantWateringApp extends StatelessWidget {
           //cardColor: Colors.grey[850],
         ),
         theme: ThemeData(
+          textTheme: TextTheme(
+            bodyText1: TextStyle(),
+            bodyText2: TextStyle(),
+          ).apply(
+            bodyColor: Colors.grey[700],
+            displayColor: Colors.grey[700],
+          ),
           cardColor: Constants.CARD_BACKGROUND_COLOR,
           canvasColor: Constants.SCAFFOLD_BACKGROUND_COLOR,
           primaryColorDark: Colors.blue[800],
@@ -121,6 +128,7 @@ class PlantWateringApp extends StatelessWidget {
             color: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
           ),
         ),
+
         //themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: HomePageScreen(waterTanks));
