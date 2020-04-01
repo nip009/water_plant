@@ -5,9 +5,19 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Color color =
-        isDark ? Constants.BORDER_COLOR : Constants.CARD_BACKGROUND_COLOR;
+    Color color = isDark ? Constants.BORDER_COLOR : Colors.white;
     return Scaffold(
+      appBar: AppBar(
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         width: double.infinity,
         child: Column(
@@ -51,9 +61,10 @@ class SettingsScreen extends StatelessWidget {
                 color: color,
               ),
             ),
+            Spacer(),
             Expanded(
               child: Container(
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
@@ -70,6 +81,9 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
           ],
         ),
@@ -90,9 +104,6 @@ class ChoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Color color =
-        isDark ? Constants.BORDER_COLOR : Constants.CARD_BACKGROUND_COLOR;
     return Container(
       padding: EdgeInsets.all(0),
       decoration: BoxDecoration(

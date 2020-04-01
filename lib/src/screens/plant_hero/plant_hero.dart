@@ -53,6 +53,7 @@ class PlantHeroScreen extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.only(bottom: 10),
                     alignment: Alignment.center,
                     child: Text(
                       plant.latinName,
@@ -95,7 +96,7 @@ class PlantHeroScreen extends StatelessWidget {
                                 TextSpan(
                                   text:
                                       'Watering habit: Not too often. Soil should be dry\n for periods of time.',
-                                )
+                                ),
                               ],
                             ),
                           ),

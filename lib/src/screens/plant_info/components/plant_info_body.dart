@@ -155,8 +155,14 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Expanded(
                       child: waterButton(isDark),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),

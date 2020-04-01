@@ -108,11 +108,19 @@ class _HomePageBodyState extends State<HomePageBody> {
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2),
-      Plant(30,
+      Plant(20,
           name: "Orchid",
           latinName: 'Orchidaceae',
           imageName: Constants.PLANT_NAME_4),
-      Plant(70,
+      Plant(10,
+          name: "Emerald plant",
+          latinName: 'Zamioculcas zamiifolia',
+          imageName: Constants.PLANT_NAME_2),
+      Plant(10,
+          name: "Emerald plant",
+          latinName: 'Zamioculcas zamiifolia',
+          imageName: Constants.PLANT_NAME_2),
+      Plant(10,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2),
@@ -128,10 +136,6 @@ class _HomePageBodyState extends State<HomePageBody> {
   /// tank, the name of the tank and the plant(s) that belong to it.
   Widget tankOverviewCard(WaterTankDevice tank) {
     return Card(
-      shape: RoundedRectangleBorder(
-          //borderRadius: BorderRadius.circular(20),
-          ),
-      //margin: EdgeInsets.fromLTRB(8, 8, 8, 8),
       elevation: 3,
       child: InkWell(
         onLongPress: () {
@@ -158,9 +162,6 @@ class _HomePageBodyState extends State<HomePageBody> {
                   padding: EdgeInsets.only(top: 10),
                   child: RichText(
                     text: TextSpan(
-                        /*style: TextStyle(
-                          color: Colors.grey[700],
-                        ),*/
                         style: DefaultTextStyle.of(context).style,
                         children: <TextSpan>[
                           TextSpan(
@@ -174,7 +175,6 @@ class _HomePageBodyState extends State<HomePageBody> {
               Expanded(
                 flex: 4,
                 child: WaterStatus(tank.waterLevel),
-                //waterTankIndicator(context, tank.waterLevel),
               ),
               Expanded(
                 flex: 5,
@@ -182,7 +182,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      for (Plant plant in tank.plants) plantIcon(plant),
+                      for (Plant plant in tank.plants)
+                        plant.isHydrationCritical()
+                            ? plantIcon(plant)
+                            : Container(),
                     ],
                   ),
                 ),
@@ -206,16 +209,14 @@ class _HomePageBodyState extends State<HomePageBody> {
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 350),
             opacity: 1.0,
-            child: plant.isHydrationCritical()
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        plant.waterPlant();
-                      });
-                    },
-                    child: plantInPicFrame(plant),
-                  )
-                : plantInPicFrame(plant),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  plant.waterPlant();
+                });
+              },
+              child: plantInPicFrame(plant),
+            ),
           ),
         ),
         Container(
@@ -239,8 +240,6 @@ class _HomePageBodyState extends State<HomePageBody> {
   ClipRRect plantInPicFrame(Plant plant) {
     return ClipRRect(
       child: Container(
-        //width: 75,
-        //height: 75,
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -249,9 +248,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             color: plant.isHydrationCritical() ? Colors.red : Colors.black,
           ),
         ),
-        child: plant.isHydrationCritical()
-            ? Image.asset(plant.imageName, fit: BoxFit.contain)
-            : null,
+        child: Image.asset(plant.imageName, fit: BoxFit.contain),
       ),
     );
   }

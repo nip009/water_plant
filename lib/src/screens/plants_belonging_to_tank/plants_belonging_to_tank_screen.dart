@@ -22,25 +22,51 @@ class _PlantsBelongingToTankScreenState
     widget.callback();
   }
 
+  addNewPlant() {
+    if (widget.tank.plants.length < 5) {
+      widget.tank.plants.add(
+        //TODO: Let the user add a custom plant
+        Plant(
+          60,
+          name: 'Emerald plant',
+          latinName: 'Zamioculcas zamiifolia',
+          imageName: Constants.PLANT_NAME_2,
+        ),
+      );
+      refreshState();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*
+      AppBar(
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
+      ),
+       */
       appBar: AppBar(
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              if (widget.tank.plants.length < 5) {
-                widget.tank.plants.add(
-                  //TODO: Let the user add a custom plant
-                  Plant(
-                    60,
-                    name: 'Emerald plant',
-                    latinName: 'Zamioculcas zamiifolia',
-                    imageName: Constants.PLANT_NAME_2,
-                  ),
-                );
-                refreshState();
-              }
+              addNewPlant();
             },
             child: Container(
               padding: EdgeInsets.only(right: 15),
