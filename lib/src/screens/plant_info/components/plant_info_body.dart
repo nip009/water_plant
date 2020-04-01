@@ -34,44 +34,9 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.info,
-                  color: Constants.LIGHT_GREEN_COLOR,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) {
-                        return PlantHeroScreen(widget.plant);
-                      },
-                    ),
-                  );
-                },
-                iconSize: 30,
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  top: 20,
-                  bottom: 20,
-                  right: 35,
-                ),
-                child: Text(
-                  '${widget.plant.name}',
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          PlantNameAndInfoButton(widget: widget),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               child: GestureDetector(
                 onTap: () {
@@ -89,132 +54,163 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             ),
           ),
           Expanded(
-            flex: 1,
-            child: SizedBox(
-              width: double.infinity,
-              child: Container(
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Auto:',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Checkbox(
-                                value: automaticWatering,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    widget.plant.automaticWatering = value;
-                                  });
-                                },
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                decoration: BoxDecoration(),
-                                child:
-                                    PlantSoilMoistureText(plant: widget.plant),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(left: 85, bottom: 5),
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Device: ${widget.tank.name}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  child: Container(
-                                    child: WaterStatus(
-                                      widget.plant.hydration,
-                                      paddingWidth: 4,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Auto:',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                Checkbox(
+                  value: automaticWatering,
+                  onChanged: (bool value) {
+                    setState(() {
+                      widget.plant.automaticWatering = value;
+                    });
+                  },
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  decoration: BoxDecoration(),
+                  child: PlantSoilMoistureText(plant: widget.plant),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 85, bottom: 5),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Device: ${widget.tank.name}',
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
+                  ),
+                  Container(
+                    child: Container(
+                      child: WaterStatus(
+                        widget.plant.hydration,
+                        paddingWidth: 4,
+                      ),
                     ),
-                    Expanded(
-                      child: waterButton(isDark),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
+          ),
+          Expanded(
+            child: waterButton2(),
           ),
         ],
       ),
     );
   }
 
-  Container waterButton(bool isDark) {
-    return Container(
+  Widget waterButton2() {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Transform.rotate(
+        angle: pi / 4.0,
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+              border: Border.all(
+            width: 2,
+          )),
+        ),
+      ),
+    );
+  }
+
+  Widget waterButton(bool isDark) {
+    return Transform.rotate(
+      angle: pi / 4.0,
       child: Container(
+        height: 80,
+        width: 80,
         alignment: Alignment.center,
-        child: SizedBox(
-          height: 80,
-          width: 80,
-          child: Padding(
-            padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Constants.BORDER_COLOR, width: 3),
+        ),
+        child: Container(
+          child: RaisedButton(
+            color: isDark
+                ? Constants.WATER_LEVEL_FILL_DARK_THEME
+                : Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+            onPressed: () {
+              print('Vanner plante');
+              setState(() {
+                widget.plant.waterPlant();
+                widget.callback();
+              });
+            },
             child: Transform.rotate(
-              angle: pi / 4.0,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Constants.BORDER_COLOR, width: 3),
-                ),
-                child: Container(
-                  child: RaisedButton(
-                    color: isDark
-                        ? Constants.WATER_LEVEL_FILL_DARK_THEME
-                        : Constants.WATER_LEVEL_FILL_LIGHT_THEME,
-                    onPressed: () {
-                      print('Vanner plante');
-                      setState(() {
-                        widget.plant.waterPlant();
-                        widget.callback();
-                      });
-                    },
-                    child: Transform.rotate(
-                      angle: -pi / 4.0,
-                      child: Icon(
-                        Icons.local_drink,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+              angle: -pi / 4.0,
+              child: Icon(
+                Icons.local_drink,
+                color: Colors.black,
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class PlantNameAndInfoButton extends StatelessWidget {
+  const PlantNameAndInfoButton({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final PlantInfoBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.info,
+            color: Constants.LIGHT_GREEN_COLOR,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) {
+                  return PlantHeroScreen(widget.plant);
+                },
+              ),
+            );
+          },
+          iconSize: 30,
+        ),
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(
+            top: 20,
+            bottom: 20,
+            right: 35,
+          ),
+          child: Text(
+            '${widget.plant.name}',
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

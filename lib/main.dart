@@ -125,10 +125,6 @@ class PlantWateringApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          //cardColor: Colors.grey[850],
-        ),
         theme: ThemeData(
           textTheme: TextTheme(
             bodyText1: TextStyle(),
@@ -144,8 +140,6 @@ class PlantWateringApp extends StatelessWidget {
             color: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
           ),
         ),
-
-        //themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: HomePageScreen(waterTanks));
   }
