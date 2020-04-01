@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
+import 'package:water_plant/src/components/plant_soil_moisture_text.dart';
 import 'package:water_plant/src/screens/plant_hero/plant_hero.dart';
 import 'package:water_plant/objects/plant/plant.dart';
+import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 import 'dart:math';
 
 class PlantInfoBody extends StatefulWidget {
   final Plant plant;
+  final WaterTankDevice tank;
   final Function callback;
 
-  PlantInfoBody({Key key, @required this.plant, @required this.callback})
+  PlantInfoBody(
+      {Key key,
+      @required this.plant,
+      @required this.tank,
+      @required this.callback})
       : super(key: key);
 
   @override
@@ -19,12 +27,13 @@ class PlantInfoBody extends StatefulWidget {
 class _PlantInfoBodyState extends State<PlantInfoBody> {
   @override
   Widget build(BuildContext context) {
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    bool automaticWatering = widget.plant.isAutomaticWateringActive();
     return Container(
       child: Column(
         children: <Widget>[
+          PlantNameAndInfoButton(widget: widget),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               child: GestureDetector(
                 onTap: () {
@@ -37,90 +46,96 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                     ),
                   );
                 },
-                child: CircularPlantPicture(widget: widget),
+                child: PlantPicture(widget: widget),
               ),
             ),
           ),
           Expanded(
-            flex: 1,
-            child: SizedBox(
-              width: double.infinity,
-              child: Container(
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            decoration: BoxDecoration(),
-                            child: const Text(
-                              'Fuktighet',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            child: Container(
-                              child: WaterStatus(widget.plant.hydration),
-                            ),
-                          ),
-                        ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Auto:',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                Checkbox(
+                  value: automaticWatering,
+                  onChanged: (bool value) {
+                    setState(() {
+                      widget.plant.automaticWatering = value;
+                    });
+                  },
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  decoration: BoxDecoration(),
+                  child: PlantSoilMoistureText(plant: widget.plant),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 85, bottom: 5),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Device: ${widget.tank.name}',
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
                     ),
-                    Expanded(
-                      child: waterButton(isDark),
+                  ),
+                  Container(
+                    child: Container(
+                      child: WaterStatus(
+                        widget.plant.hydration,
+                        paddingWidth: 4,
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
+          ),
+          Expanded(
+            child: waterButton(),
           ),
         ],
       ),
     );
   }
 
-  Container waterButton(bool isDark) {
-    return Container(
-      child: Container(
-        alignment: Alignment.center,
-        child: SizedBox(
-          height: 80,
-          width: 80,
-          child: Padding(
-            padding: EdgeInsets.all(10),
+  Widget waterButton() {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Transform.rotate(
+        angle: pi / 4.0,
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Constants.BORDER_COLOR,
+              width: 2,
+            ),
+          ),
+          child: RaisedButton(
+            onPressed: () {
+              setState(() {
+                widget.plant.waterPlant();
+                widget.callback();
+              });
+            },
             child: Transform.rotate(
-              angle: pi / 4.0,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Constants.BORDER_COLOR, width: 3),
-                ),
-                child: Container(
-                  child: RaisedButton(
-                    color: isDark
-                        ? Constants.WATER_LEVEL_FILL_DARK_THEME
-                        : Constants.WATER_LEVEL_FILL_LIGHT_THEME,
-                    onPressed: () {
-                      print('Vanner plante');
-                      setState(() {
-                        widget.plant.waterPlant();
-                        widget.callback();
-                      });
-                    },
-                    child: Transform.rotate(
-                      angle: -pi / 4.0,
-                      child: Icon(
-                        Icons.local_drink,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+              angle: -pi / 4.0,
+              child: Icon(
+                Icons.local_drink,
+                color: Colors.black,
               ),
             ),
           ),
@@ -130,8 +145,57 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   }
 }
 
-class CircularPlantPicture extends StatelessWidget {
-  const CircularPlantPicture({
+class PlantNameAndInfoButton extends StatelessWidget {
+  const PlantNameAndInfoButton({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final PlantInfoBody widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.info,
+            color: Constants.LIGHT_GREEN_COLOR,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) {
+                  return PlantHeroScreen(widget.plant);
+                },
+              ),
+            );
+          },
+          iconSize: 30,
+        ),
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(
+            top: 20,
+            bottom: 20,
+            right: 47,
+          ),
+          child: Text(
+            '${widget.plant.name}',
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PlantPicture extends StatelessWidget {
+  const PlantPicture({
     Key key,
     @required this.widget,
   }) : super(key: key);
@@ -146,78 +210,17 @@ class CircularPlantPicture extends StatelessWidget {
         tag: widget.plant.imageName,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(150),
+            borderRadius: BorderRadius.circular(3),
             border: Border.all(
               color: Constants.BORDER_COLOR,
-              width: 3,
+              width: 2.5,
             ),
           ),
           height: 250,
-          child: ClipOval(
+          child: ClipRRect(
             child: Container(child: Image.asset(widget.plant.imageName)),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class WaterStatus extends StatelessWidget {
-  final int hydration;
-
-  WaterStatus(this.hydration);
-
-  List<Widget> createWaterStatusBars(BuildContext context) {
-    List<Widget> bars = [];
-    Color color;
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Color emptyColor = isDark
-        ? Constants.WATER_LEVEL_EMPTY_DARK_THEME
-        : Constants.WATER_LEVEL_EMPTY_LIGHT_THEME;
-    Color fillColor = isDark
-        ? Constants.WATER_LEVEL_FILL_DARK_THEME
-        : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
-    for (var i = 0; i < 10; i++) {
-      double hyd = hydration / 10;
-      hyd > i ? color = fillColor : color = emptyColor;
-      bars.add(
-        Container(
-          width: 15,
-          height: 37,
-          decoration: BoxDecoration(
-              color: color, borderRadius: BorderRadius.circular(20)),
-        ),
-      );
-    }
-    return bars;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Constants.BORDER_COLOR,
-          width: 3,
-        ),
-      ),
-      padding: EdgeInsets.all(5),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: Row(
-              children: <Widget>[
-                for (var bar in createWaterStatusBars(context))
-                  Container(
-                      padding: EdgeInsets.fromLTRB(4, 0, 4, 0), child: bar),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

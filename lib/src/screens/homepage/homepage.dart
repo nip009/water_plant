@@ -1,10 +1,15 @@
+import 'package:custom_navigator/custom_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/homepage/components/homepage_body.dart';
+import 'package:water_plant/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 import 'package:water_plant/src/screens/plants_overview/plants_overview.dart';
 import 'package:water_plant/src/screens/settings/settings_screen.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:custom_navigator/custom_navigator.dart';
+import 'package:water_plant/constants.dart' as Constants;
 
 class HomePageScreen extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -25,59 +30,72 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
+
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /*appBar: GradientAppBar(
-          backgroundColorStart: Colors.green[700],
-          backgroundColorEnd: Colors.green[900],
-          //backgroundColor: Colors.blue[800],
-          title: Text("My tanks"),
-          centerTitle: true,
-        ),*/
-      /*appBar: AppBar(
-          title: Text('My tanks'),
-          centerTitle: true,
-        ),*/
-      bottomNavigationBar: BottomNavigationBar(
+    var _pages = [
+      HomePageBody(widget.tanks),
+      PlantsOverviewScreen(widget.tanks),
+      SettingsScreen(),
+      PlantsBelongingToTankScreen(
+        widget.tanks.sublist(0, 1)[0],
+      ),
+    ];
+
+    return CustomScaffold(
+      scaffold: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
+          type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           onTap: (int index) {
             setState(() {
               _currentIndex = index;
             });
           },
-          items: allDestinations.map((Destination destination) {
-            return BottomNavigationBarItem(
-                icon: Icon(destination.icon),
-                title: Text(destination.title),
-                backgroundColor: destination.color);
-          }).toList()),
-      body: SafeArea(
+          items: _items,
+        ),
+      ),
+      //body: pages[_currentIndex],
+
+      children: _pages,
+
+      onItemTap: (index) {},
+      /*SafeArea(
         child: IndexedStack(
           index: _currentIndex,
           children: <Widget>[
-            PlantsOverviewScreen(widget.tanks),
             HomePageBody(widget.tanks),
+            PlantsOverviewScreen(widget.tanks),
             SettingsScreen(),
+            PlantsBelongingToTankScreen(
+              widget.tanks.sublist(0, 1)[0],
+            ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 }
 
-class Destination {
-  const Destination(this.index, this.title, this.icon, this.color);
-  final int index;
-  final String title;
-  final IconData icon;
-  final MaterialColor color;
-}
-
-const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Plants', Icons.filter_vintage, Colors.cyan),
-  Destination(1, 'Home', Icons.home, Colors.teal),
-  Destination(2, 'Settings', Icons.settings, Colors.orange),
+final _items = [
+  BottomNavigationBarItem(
+    icon: Icon(Icons.home),
+    title: Text('Overview'),
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.filter_vintage),
+    title: Text('Plants'),
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.settings),
+    title: Text('Settings'),
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.search),
+    title: Text('Search'),
+  ),
 ];

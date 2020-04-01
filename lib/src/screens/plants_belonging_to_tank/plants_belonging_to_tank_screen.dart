@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/plant_info_card.dart';
+import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class PlantsBelongingToTankScreen extends StatefulWidget {
@@ -21,41 +22,101 @@ class _PlantsBelongingToTankScreenState
     widget.callback();
   }
 
+  addNewPlant() {
+    if (widget.tank.plants.length < 5) {
+      widget.tank.plants.add(
+        //TODO: Let the user add a custom plant
+        Plant(
+          60,
+          name: 'Emerald plant',
+          latinName: 'Zamioculcas zamiifolia',
+          imageName: Constants.PLANT_NAME_2,
+        ),
+      );
+      refreshState();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${widget.tank.name}'),
+      /*
+      AppBar(
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
         centerTitle: true,
       ),
-      body: Container(
-        child: ListView(
-          children: <Widget>[
-            for (var plant in widget.tank.plants)
-              Container(
-                width: double.infinity,
-                child: createPlantInfoCard(
-                    context, plant, widget.tank, refreshState),
+       */
+      appBar: AppBar(
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              addNewPlant();
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: 15),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Plant ',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  ClipOval(
+                    child: Container(
+                      color: Colors.white,
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            Center(
-              child: widget.tank.plants.length < 5
-                  ? IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        if (widget.tank.plants.length < 5) {
-                          widget.tank.plants.add(
-                            //TODO: Let the user add a custom plant
-                            Plant(
-                              60,
-                              name: 'Plante',
-                              imageName: Constants.PLANT_NAME_2,
-                            ),
-                          );
-                          refreshState();
-                        }
-                      },
-                    )
-                  : null,
+            ),
+          )
+        ],
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${widget.tank.name}',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    child: WaterStatus(widget.tank.waterLevel),
+                  ),
+                  for (var plant in widget.tank.plants)
+                    createPlantInfoCard(
+                        context, plant, widget.tank, refreshState),
+                ],
+              ),
             ),
           ],
         ),

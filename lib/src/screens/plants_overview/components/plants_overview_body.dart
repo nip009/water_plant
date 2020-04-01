@@ -32,27 +32,11 @@ class _PlantsOverviewScreenStateBody extends State<PlantsOverviewScreenBody> {
   Widget build(BuildContext context) {
     //sort(allPlantsInTanks.values);
     return Container(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            forceElevated: true,
-            elevation: 8,
-            expandedHeight: 200,
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.parallax,
-              background: Image.asset(
-                appBarImageName,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              for (WaterTankDevice tank in widget.tanks)
-                for (Plant plant in tank.plants)
-                  createPlantInfoCard(context, plant, tank, refreshState),
-            ]),
-          ),
+      child: ListView(
+        children: <Widget>[
+          for (WaterTankDevice tank in widget.tanks)
+            for (Plant plant in tank.plants)
+              createPlantInfoCard(context, plant, tank, refreshState),
         ],
       ),
     );

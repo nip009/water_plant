@@ -9,80 +9,82 @@ void main() => runApp(PlantWateringApp());
 class PlantWateringApp extends StatelessWidget {
   static final List<Plant> plantsTank1 = [
     Plant(
-      70,
+      10,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       40,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
     ),
   ];
 
   static final List<Plant> plantsTank2 = [
     Plant(
-      70,
+      20,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
-      40,
-      name: 'Zamioculcas zamiifolia',
+      10,
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
     ),
   ];
 
   static final List<Plant> plantsTank3 = [
     Plant(
-      70,
+      10,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       40,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
     ),
   ];
 
@@ -90,27 +92,26 @@ class PlantWateringApp extends StatelessWidget {
     Plant(
       70,
       name: 'Chinese Evergreen',
+      latinName: 'Aglaonema',
       imageName: Constants.PLANT_NAME_1,
     ),
     Plant(
       40,
-      name: 'Zamioculcas zamiifolia',
+      name: 'Emerald palm',
+      latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_NAME_2,
     ),
     Plant(
       60,
       name: 'Orchid',
+      latinName: 'Orchidaceae',
       imageName: Constants.PLANT_NAME_4,
     ),
     Plant(
       100,
       name: 'Plante',
+      latinName: 'Plante',
       imageName: Constants.PLANT_NAME_2,
-    ),
-    Plant(
-      70,
-      name: 'Chinese Evergreen',
-      imageName: Constants.PLANT_NAME_1,
     ),
   ];
 
@@ -124,19 +125,22 @@ class PlantWateringApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          //cardColor: Colors.grey[850],
-        ),
         theme: ThemeData(
+          textTheme: TextTheme(
+            bodyText1: TextStyle(),
+            bodyText2: TextStyle(),
+          ).apply(
+            bodyColor: Colors.grey[700],
+            displayColor: Colors.grey[700],
+          ),
+          primaryColor: Colors.white, // chosen icon on navigation bar
           cardColor: Constants.CARD_BACKGROUND_COLOR,
-          canvasColor: Colors.white70,
+          canvasColor: Constants.SCAFFOLD_BACKGROUND_COLOR,
           primaryColorDark: Colors.blue[800],
           appBarTheme: AppBarTheme(
-            color: Colors.green,
+            color: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
           ),
         ),
-        //themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: HomePageScreen(waterTanks));
   }
