@@ -28,11 +28,8 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   @override
   Widget build(BuildContext context) {
     bool automaticWatering = widget.plant.isAutomaticWateringActive();
-    print(automaticWatering);
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           PlantNameAndInfoButton(widget: widget),
           Expanded(
@@ -106,14 +103,14 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             ),
           ),
           Expanded(
-            child: waterButton2(),
+            child: waterButton(),
           ),
         ],
       ),
     );
   }
 
-  Widget waterButton2() {
+  Widget waterButton() {
     return Align(
       alignment: Alignment.topCenter,
       child: Transform.rotate(
@@ -122,31 +119,13 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
           width: 60,
           height: 60,
           decoration: BoxDecoration(
-              border: Border.all(
-            width: 2,
-          )),
-        ),
-      ),
-    );
-  }
-
-  Widget waterButton(bool isDark) {
-    return Transform.rotate(
-      angle: pi / 4.0,
-      child: Container(
-        height: 80,
-        width: 80,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(color: Constants.BORDER_COLOR, width: 3),
-        ),
-        child: Container(
+            border: Border.all(
+              color: Constants.BORDER_COLOR,
+              width: 2,
+            ),
+          ),
           child: RaisedButton(
-            color: isDark
-                ? Constants.WATER_LEVEL_FILL_DARK_THEME
-                : Constants.WATER_LEVEL_FILL_LIGHT_THEME,
             onPressed: () {
-              print('Vanner plante');
               setState(() {
                 widget.plant.waterPlant();
                 widget.callback();
@@ -201,7 +180,7 @@ class PlantNameAndInfoButton extends StatelessWidget {
           margin: EdgeInsets.only(
             top: 20,
             bottom: 20,
-            right: 35,
+            right: 47,
           ),
           child: Text(
             '${widget.plant.name}',
@@ -231,10 +210,10 @@ class PlantPicture extends StatelessWidget {
         tag: widget.plant.imageName,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(3),
             border: Border.all(
               color: Constants.BORDER_COLOR,
-              width: 3,
+              width: 2.5,
             ),
           ),
           height: 250,

@@ -133,6 +133,7 @@ class PlantWateringApp extends StatelessWidget {
             bodyColor: Colors.grey[700],
             displayColor: Colors.grey[700],
           ),
+          primaryColor: Colors.white, // chosen icon on navigation bar
           cardColor: Constants.CARD_BACKGROUND_COLOR,
           canvasColor: Constants.SCAFFOLD_BACKGROUND_COLOR,
           primaryColorDark: Colors.blue[800],

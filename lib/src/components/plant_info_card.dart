@@ -81,29 +81,3 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
     ),
   );
 }
-
-// Returns the bars that represent how hydrated a plant is
-/*List<Widget> createWaterStatusBars(BuildContext context, int hydration) {
-  bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-  Color emptyColor = isDark
-      ? Constants.WATER_LEVEL_EMPTY_DARK_THEME
-      : Constants.WATER_LEVEL_EMPTY_LIGHT_THEME;
-  Color fillColor = isDark
-      ? Constants.WATER_LEVEL_FILL_DARK_THEME
-      : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
-  List<Widget> bars = [];
-  for (var i = 0; i < 10; i++) {
-    double hyd = hydration / 10.0;
-    Color color = hyd > i ? fillColor : emptyColor;
-    bars.add(
-      Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: color),
-        width: 10,
-        height: 25,
-      ),
-    );
-  }
-  return bars;
-}
-*/
