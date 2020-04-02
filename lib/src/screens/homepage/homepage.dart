@@ -39,10 +39,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
     var _pages = [
       HomePageBody(widget.tanks),
       PlantsOverviewScreen(widget.tanks),
-      SettingsScreen(),
       PlantsBelongingToTankScreen(
         widget.tanks.sublist(0, 1)[0],
       ),
+      SettingsScreen(),
     ];
 
     return CustomScaffold(
@@ -83,19 +83,37 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
 final _items = [
   BottomNavigationBarItem(
-    icon: Icon(Icons.home),
+    icon: Container(
+      //height: 30,
+      //width: 20,
+      child: ImageIcon(
+        AssetImage(
+          'assets/logo_white_transparent.png',
+        ),
+        size: 25,
+      ),
+    ),
     title: Text('Overview'),
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.filter_vintage),
+    icon: Icon(
+      Icons.view_list,
+      size: 25,
+    ),
     title: Text('Plants'),
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.settings),
-    title: Text('Settings'),
+    icon: Icon(
+      Icons.search,
+      size: 25,
+    ),
+    title: Text('Search'),
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.search),
-    title: Text('Search'),
+    icon: Icon(
+      Icons.settings,
+      size: 25,
+    ),
+    title: Text('Settings'),
   ),
 ];

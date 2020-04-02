@@ -39,6 +39,15 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
             Navigator.pop(context);
           },
         ),
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
         actions: <Widget>[
           PopupMenuButton<Options>(
             offset: Offset.fromDirection(0, 1),

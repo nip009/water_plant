@@ -132,10 +132,10 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
               });
             },
             child: Transform.rotate(
-              angle: -pi / 4.0,
-              child: Icon(
-                Icons.local_drink,
-                color: Colors.black,
+              angle: -pi / 2.0,
+              child: Image.asset(
+                'assets/water_plant_button_image.png',
+                fit: BoxFit.fitHeight,
               ),
             ),
           ),
