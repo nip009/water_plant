@@ -66,38 +66,19 @@ class _HomePageBodyState extends State<HomePageBody> {
           )
         ],
       ),
-      body: Container(
-        /*decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment(1, 1),
-            colors: [
-              Colors.green[700],
-              Colors.green[900],
-            ],
-            tileMode: TileMode.repeated,
-          ),
-        ),*/
-        /* decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.blue[700], Colors.blue[800]])),*/
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    height:
-                        10, // to add some space above the list of tank cards
-                  ),
-                  for (var tank in widget.tanks) tankOverviewCard(tank),
-                ],
-              ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  height: 10, // space above the list of tank cards
+                ),
+                for (var tank in widget.tanks) tankOverviewCard(tank),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -146,7 +127,7 @@ class _HomePageBodyState extends State<HomePageBody> {
   /// tank, the name of the tank and the plant(s) that belong to it.
   Widget tankOverviewCard(WaterTankDevice tank) {
     return Card(
-      elevation: 3,
+      elevation: 10,
       child: InkWell(
         onLongPress: () {
           editObjectName(context: context, object: tank, callback: refresh);
@@ -162,32 +143,27 @@ class _HomePageBodyState extends State<HomePageBody> {
         ),
         child: Container(
           padding: const EdgeInsets.all(0.0),
-          height: 250,
+          height: 210,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: Container(
-                  padding: EdgeInsets.only(top: 10),
-                  child: RichText(
-                    text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '${tank.name} ',
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ]),
-                  ),
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                child: RichText(
+                  text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '${tank.name} ',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ]),
                 ),
               ),
+              Container(
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                  child: WaterStatus(tank.waterLevel)),
               Expanded(
-                flex: 4,
-                child: WaterStatus(tank.waterLevel),
-              ),
-              Expanded(
-                flex: 5,
                 child: Container(
                   width: 300,
                   child: Row(
@@ -196,10 +172,11 @@ class _HomePageBodyState extends State<HomePageBody> {
                       children: tank.isEveryPlantAboveCriticalWaterLevel()
                           ? [
                               Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 10),
+                                alignment: Alignment(1, -0.3),
+                                padding: EdgeInsets.only(left: 55),
                                 child: Text(
-                                  'None of your plants need watering right now!',
+                                  'No plants need watering',
+                                  style: TextStyle(fontSize: 18),
                                 ),
                               )
                             ]
@@ -221,27 +198,33 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget plantIcon(Plant plant) {
     return Column(
       children: <Widget>[
-        Container(
-          width: 75,
-          height: 75,
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                plant.waterPlant();
-              });
-            },
-            child: plantInPicFrame(plant),
+        Expanded(
+          flex: 3,
+          child: Container(
+            width: 75,
+            height: 75,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  plant.waterPlant();
+                });
+              },
+              child: plantInPicFrame(plant),
+            ),
           ),
         ),
-        Container(
-          child: plant.isHydrationCritical()
-              ? Text(
-                  '${plant.hydration}%',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                  ),
-                )
-              : null,
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.only(bottom: 5),
+            child: plant.isHydrationCritical()
+                ? Text(
+                    '${plant.hydration}%',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                    ),
+                  )
+                : null,
+          ),
         ),
       ],
     );

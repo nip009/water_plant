@@ -8,33 +8,44 @@ class WaterStatus extends StatelessWidget {
   final double paddingWidth;
 
   WaterStatus(this.hydration,
-      {this.width = 17.0, this.height = 45.0, this.paddingWidth = 6});
+      {this.width = 21.0, this.height = 55.0, this.paddingWidth = 4});
 
   List<Widget> createWaterStatusBars(BuildContext context) {
     List<Widget> bars = [];
     Color color;
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Color emptyColor = isDark
-        ? Constants.WATER_LEVEL_EMPTY_DARK_THEME
-        : Constants.WATER_LEVEL_EMPTY_LIGHT_THEME;
-    Color fillColor = isDark
-        ? Constants.WATER_LEVEL_FILL_DARK_THEME
-        : Constants.WATER_LEVEL_FILL_LIGHT_THEME;
+
+    Color emptyColor = Constants.WATER_LEVEL_EMPTY_LIGHT_THEME;
+    Color fillColor = Constants.WATER_LEVEL_FILL_LIGHT_THEME;
     for (var i = 0; i < 10; i++) {
       double hyd = hydration / 10;
       hyd > i ? color = fillColor : color = emptyColor;
       bars.add(
-        Container(
+        Card(
+          elevation: 5,
+          margin: const EdgeInsets.all(0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3),
+              color: color,
+            ),
+            width: width,
+            height: height,
+          ),
+        ),
+        /*
           width: width,
           height: height,
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 6,
+                color: Colors.grey,
+                offset: Offset(0.0, 1.0),
+              ),
+            ],
             color: color,
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              width: 1,
-            ),
-          ),
-        ),
+            borderRadius: BorderRadius.circular(2),
+          ),*/
       );
     }
     return bars;

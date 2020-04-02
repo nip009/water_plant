@@ -23,7 +23,8 @@ class _PlantsBelongingToTankScreenState
   }
 
   addNewPlant() {
-    if (widget.tank.plants.length < 5) {
+    if (widget.tank.plants.length <
+        Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
       widget.tank.plants.add(
         //TODO: Let the user add a custom plant
         Plant(
@@ -68,27 +69,30 @@ class _PlantsBelongingToTankScreenState
             onTap: () {
               addNewPlant();
             },
-            child: Container(
-              padding: EdgeInsets.only(right: 15),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Plant ',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  ClipOval(
-                    child: Container(
-                      color: Colors.white,
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.black,
-                        size: 20,
-                      ),
+            child: widget.tank.plants.length <
+                    Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK
+                ? Container(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'Plant ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        ClipOval(
+                          child: Container(
+                            color: Colors.white,
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  )
+                : Container(),
           )
         ],
       ),
