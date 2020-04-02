@@ -104,19 +104,19 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   void addNewTank() {
     List<Plant> plants = [
-      Plant(20,
+      Plant(10,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2),
-      Plant(20,
+      Plant(10,
           name: "Orchid",
           latinName: 'Orchidaceae',
           imageName: Constants.PLANT_NAME_4),
-      Plant(10,
+      Plant(20,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2),
-      Plant(10,
+      Plant(20,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2),
@@ -238,9 +238,7 @@ class _HomePageBodyState extends State<HomePageBody> {
               ? Text(
                   '${plant.hydration}%',
                   style: TextStyle(
-                    color: plant.isHydrationCritical()
-                        ? Colors.red
-                        : Colors.grey[700],
+                    color: Colors.grey[700],
                   ),
                 )
               : null,
@@ -253,16 +251,37 @@ class _HomePageBodyState extends State<HomePageBody> {
   /// The picture represetning the plant in the tank.
   ClipRRect plantInPicFrame(Plant plant) {
     return ClipRRect(
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            width: 1.8,
-            color: plant.isHydrationCritical() ? Colors.red : Colors.black,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.all(8),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                plant.imageName,
+              ),
+            ),
           ),
-        ),
-        child: Image.asset(plant.imageName, fit: BoxFit.contain),
+          Positioned(
+            child: ClipOval(
+              child: Container(
+                color: Colors.red,
+                height: 15,
+                width: 15,
+                child: Center(
+                  child: Text(
+                    '!',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
