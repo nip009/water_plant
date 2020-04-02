@@ -29,12 +29,14 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   Widget build(BuildContext context) {
     bool automaticWatering = widget.plant.isAutomaticWateringActive();
     return Container(
+      //color: Colors.yellow,
       child: Column(
         children: <Widget>[
           PlantNameAndInfoButton(widget: widget),
           Expanded(
             flex: 2,
             child: Container(
+              //color: Colors.blue,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -51,63 +53,84 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             ),
           ),
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Auto:',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                Checkbox(
-                  value: automaticWatering,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.plant.automaticWatering = value;
-                    });
-                  },
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  decoration: BoxDecoration(),
-                  child: PlantSoilMoistureText(plant: widget.plant),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
             child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(left: 85, bottom: 5),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Device: ${widget.tank.name}',
-                      style: TextStyle(
-                        fontSize: 18,
+              //color: Colors.red,
+              constraints: BoxConstraints.loose(
+                Size.fromWidth(300),
+              ),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'Auto:',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Checkbox(
+                            value: automaticWatering,
+                            onChanged: (bool value) {
+                              setState(() {
+                                widget.plant.automaticWatering = value;
+                              });
+                            },
+                          ),
+                          Container(
+                            decoration: BoxDecoration(),
+                            child: PlantSoilMoistureText(plant: widget.plant),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  Container(
-                    child: Container(
-                      child: WaterStatus(
-                        widget.plant.hydration,
-                        paddingWidth: 4,
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        //color: Colors.green,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 10, bottom: 5),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Device: ${widget.tank.name}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Container(
+                                child: WaterStatus(
+                                  widget.tank.waterLevel,
+                                  //paddingWidth: 1,
+                                  //height: 15,
+                                  //width: 25,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
           Expanded(
-            child: Container(
-              margin: EdgeInsets.all(20),
-              child: Transform.rotate(
-                angle: pi / 4.0,
-                child: waterButton(),
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                child: Transform.rotate(
+                  angle: pi / 4.0,
+                  child: waterButton(),
+                ),
               ),
             ),
           ),
@@ -243,6 +266,9 @@ class PlantPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      /*constraints: BoxConstraints.loose(
+        Size.fromWidth(250),
+      ),*/
       alignment: Alignment.center,
       child: Hero(
         tag: widget.plant.imageName,
@@ -254,7 +280,7 @@ class PlantPicture extends StatelessWidget {
               width: 2.5,
             ),
           ),
-          height: 250,
+          //height: 250,
           child: ClipRRect(
             child: Container(child: Image.asset(widget.plant.imageName)),
           ),

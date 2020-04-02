@@ -161,7 +161,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                  padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
                   child: WaterStatus(tank.waterLevel)),
               Expanded(
                 child: Container(
@@ -198,33 +198,28 @@ class _HomePageBodyState extends State<HomePageBody> {
   Widget plantIcon(Plant plant) {
     return Column(
       children: <Widget>[
-        Expanded(
-          flex: 3,
-          child: Container(
-            width: 75,
-            height: 75,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  plant.waterPlant();
-                });
-              },
-              child: plantInPicFrame(plant),
-            ),
+        Container(
+          width: 75,
+          height: 75,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                plant.waterPlant();
+              });
+            },
+            child: plantInPicFrame(plant),
           ),
         ),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.only(bottom: 5),
-            child: plant.isHydrationCritical()
-                ? Text(
-                    '${plant.hydration}%',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                    ),
-                  )
-                : null,
-          ),
+        Container(
+          padding: EdgeInsets.only(bottom: 5),
+          child: plant.isHydrationCritical()
+              ? Text(
+                  '${plant.hydration}%',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                  ),
+                )
+              : null,
         ),
       ],
     );
