@@ -1,5 +1,5 @@
 import 'package:water_plant/objects/plant/plant.dart';
-
+import 'package:water_plant/constants.dart' as Constants;
 import '../IPlantAndWaterTank.dart';
 
 /// This device can have up to five [Plant]s. It keeps track of the water level
@@ -11,7 +11,8 @@ class WaterTankDevice implements IPlantAndWaterTank {
   int _waterLevel;
 
   WaterTankDevice(this.name, List<Plant> plants, int waterLevel) {
-    assert(plants.length >= 0 && plants.length <= 5);
+    assert(plants.length >= 0 &&
+        plants.length <= Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK);
     assert(waterLevel >= 0 && waterLevel <= 100);
     this._plants = plants;
     this._waterLevel = waterLevel;

@@ -120,12 +120,11 @@ class _HomePageBodyState extends State<HomePageBody> {
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2),
-      Plant(10,
-          name: "Emerald plant",
-          latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_NAME_2),
     ];
-    if (plants.length > 5) return;
+    if (plants.length > Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
+      print('Too many plants added to the tank');
+      return;
+    }
     WaterTankDevice tank = WaterTankDevice('Kjøkken', plants, 40);
     setState(() {
       widget.tanks.add(tank);
@@ -190,11 +189,15 @@ class _HomePageBodyState extends State<HomePageBody> {
               Expanded(
                 flex: 5,
                 child: Container(
+                  width: 300,
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: tank.isEveryPlantAboveCriticalWaterLevel()
                           ? [
-                              Center(
+                              Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(left: 10),
                                 child: Text(
                                   'None of your plants need watering right now!',
                                 ),
@@ -221,17 +224,13 @@ class _HomePageBodyState extends State<HomePageBody> {
         Container(
           width: 75,
           height: 75,
-          child: AnimatedOpacity(
-            duration: Duration(milliseconds: 350),
-            opacity: 1.0,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  plant.waterPlant();
-                });
-              },
-              child: plantInPicFrame(plant),
-            ),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                plant.waterPlant();
+              });
+            },
+            child: plantInPicFrame(plant),
           ),
         ),
         Container(
