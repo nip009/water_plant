@@ -132,6 +132,17 @@ class _HomePageBodyState extends State<HomePageBody> {
     });
   }
 
+  List<Plant> plantsThatNeedWatering(WaterTankDevice tank) {
+    List<Plant> plantsWithCriticalWaterLevel = [];
+    for (Plant plant in tank.plants) {
+      assert(plant != null);
+      if (plant.isHydrationCritical()) {
+        plantsWithCriticalWaterLevel.add(plant);
+      }
+    }
+    return plantsWithCriticalWaterLevel;
+  }
+
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
   /// tank, the name of the tank and the plant(s) that belong to it.
   Widget tankOverviewCard(WaterTankDevice tank) {
@@ -180,14 +191,18 @@ class _HomePageBodyState extends State<HomePageBody> {
                 flex: 5,
                 child: Container(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      for (Plant plant in tank.plants)
-                        plant.isHydrationCritical()
-                            ? plantIcon(plant)
-                            : Container(),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: tank.isEveryPlantAboveCriticalWaterLevel()
+                          ? [
+                              Center(
+                                child: Text(
+                                  'None of your plants need watering right now!',
+                                ),
+                              )
+                            ]
+                          : plantsThatNeedWatering(tank)
+                              .map((plant) => plantIcon(plant))
+                              .toList()),
                 ),
               ),
             ],

@@ -6,6 +6,7 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/homepage/components/homepage_body.dart';
 import 'package:water_plant/src/screens/plants_belonging_to_tank/plants_belonging_to_tank_screen.dart';
 import 'package:water_plant/src/screens/plants_overview/plants_overview.dart';
+import 'package:water_plant/src/screens/search_plant_info/search_plant_info.dart';
 import 'package:water_plant/src/screens/settings/settings_screen.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:custom_navigator/custom_navigator.dart';
@@ -39,9 +40,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     var _pages = [
       HomePageBody(widget.tanks),
       PlantsOverviewScreen(widget.tanks),
-      PlantsBelongingToTankScreen(
-        widget.tanks.sublist(0, 1)[0],
-      ),
+      SearchPlantInfo(),
       SettingsScreen(),
     ];
 
@@ -81,16 +80,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 }
 
+double _iconSize = 25.0;
 final _items = [
   BottomNavigationBarItem(
     icon: Container(
-      //height: 30,
-      //width: 20,
       child: ImageIcon(
         AssetImage(
           'assets/logo_white_transparent.png',
         ),
-        size: 25,
+        size: _iconSize,
       ),
     ),
     title: Text('Overview'),
@@ -98,21 +96,21 @@ final _items = [
   BottomNavigationBarItem(
     icon: Icon(
       Icons.view_list,
-      size: 25,
+      size: _iconSize,
     ),
     title: Text('Plants'),
   ),
   BottomNavigationBarItem(
     icon: Icon(
       Icons.search,
-      size: 25,
+      size: _iconSize,
     ),
     title: Text('Search'),
   ),
   BottomNavigationBarItem(
     icon: Icon(
       Icons.settings,
-      size: 25,
+      size: _iconSize,
     ),
     title: Text('Settings'),
   ),

@@ -103,7 +103,13 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             ),
           ),
           Expanded(
-            child: waterButton(),
+            child: Container(
+              margin: EdgeInsets.all(20),
+              child: Transform.rotate(
+                angle: pi / 4.0,
+                child: waterButton(),
+              ),
+            ),
           ),
         ],
       ),
@@ -111,6 +117,35 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   }
 
   Widget waterButton() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.plant.waterPlant();
+          widget.callback();
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Constants.BORDER_COLOR,
+              width: 2,
+            )),
+        child: Transform.rotate(
+          angle: -pi / 2.0,
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Image.asset(
+              'assets/water_plant_button_image.png',
+              scale: 3,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget waterButton2() {
     return Align(
       alignment: Alignment.topCenter,
       child: Transform.rotate(
@@ -133,9 +168,12 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             },
             child: Transform.rotate(
               angle: -pi / 2.0,
-              child: Image.asset(
-                'assets/water_plant_button_image.png',
-                fit: BoxFit.fitHeight,
+              child: ImageIcon(
+                AssetImage(
+                  'assets/water_plant_button_image.png',
+                ),
+                semanticLabel:
+                    'Button that tells your device to water the plant',
               ),
             ),
           ),

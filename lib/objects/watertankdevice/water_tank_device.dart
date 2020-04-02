@@ -17,6 +17,15 @@ class WaterTankDevice implements IPlantAndWaterTank {
     this._waterLevel = waterLevel;
   }
 
+  bool isEveryPlantAboveCriticalWaterLevel() {
+    for (Plant p in _plants) {
+      if (p.isHydrationCritical()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   void emptyTank() {
     _waterLevel = 0;
   }
