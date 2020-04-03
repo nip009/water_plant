@@ -28,7 +28,7 @@ class _PlantsBelongingToTankScreenState
       widget.tank.plants.add(
         //TODO: Let the user add a custom plant
         Plant(
-          60,
+          10,
           name: 'Emerald plant',
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_NAME_2,
@@ -36,6 +36,18 @@ class _PlantsBelongingToTankScreenState
       );
       refreshState();
     }
+  }
+
+  Widget addNewPlantButton() {
+    return FloatingActionButton(
+      mini: true,
+      backgroundColor: Colors.white,
+      child: Icon(
+        Icons.add,
+        color: Colors.black,
+      ),
+      onPressed: () => addNewPlant(),
+    );
   }
 
   @override
@@ -103,7 +115,7 @@ class _PlantsBelongingToTankScreenState
               child: ListView(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                     alignment: Alignment.center,
                     child: Text(
                       '${widget.tank.name}',
@@ -113,12 +125,20 @@ class _PlantsBelongingToTankScreenState
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(5),
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 45),
                     child: WaterStatus(widget.tank.waterLevel),
                   ),
                   for (var plant in widget.tank.plants)
                     createPlantInfoCard(
                         context, plant, widget.tank, refreshState),
+                  if (widget.tank.plants.length <
+                      Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK)
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: addNewPlantButton(),
+                    )
+                  else
+                    Container(),
                 ],
               ),
             ),

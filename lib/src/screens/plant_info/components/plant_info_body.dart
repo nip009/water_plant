@@ -82,7 +82,10 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                           ),
                           Container(
                             decoration: BoxDecoration(),
-                            child: PlantSoilMoistureText(plant: widget.plant),
+                            child: PlantSoilMoistureText(
+                              plant: widget.plant,
+                              spaceBeforeText: false,
+                            ),
                           ),
                         ],
                       ),
@@ -103,13 +106,15 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                                 ),
                               ),
                             ),
-                            Container(
+                            Expanded(
                               child: Container(
-                                child: WaterStatus(
-                                  widget.tank.waterLevel,
-                                  //paddingWidth: 1,
-                                  //height: 15,
-                                  //width: 25,
+                                child: Container(
+                                  child: WaterStatus(
+                                    widget.tank.waterLevel,
+                                    //paddingWidth: 1,
+                                    //height: 15,
+                                    //width: 25,
+                                  ),
                                 ),
                               ),
                             ),

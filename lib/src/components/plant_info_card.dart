@@ -8,6 +8,7 @@ import 'package:water_plant/src/screens/plant_info/plant_info.dart';
 Widget createPlantInfoCard(BuildContext context, Plant plant,
     WaterTankDevice tank, Function callback) {
   return Container(
+    padding: EdgeInsets.only(top: 2, bottom: 2),
     child: GestureDetector(
       onTap: () {
         Navigator.push(
@@ -19,33 +20,22 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
         );
       },
       child: Card(
-        shape: RoundedRectangleBorder(
+        /*shape: RoundedRectangleBorder(
           side: BorderSide(
             color: plant.isHydrationCritical() ? Colors.red : Colors.black,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(10),
-        ),
+          borderRadius: BorderRadius.circular(0),
+        ),*/
         elevation: 5,
-        margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        //margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
         color: Colors.white,
         child: Container(
-          padding: const EdgeInsets.all(12),
-          height: 90,
+          padding: const EdgeInsets.all(0),
+          height: 80,
           child: Row(
             children: <Widget>[
-              ClipRRect(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2.5),
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                  child: Image.asset(plant.imageName),
-                ),
-              ),
+              Image.asset(plant.imageName),
               Expanded(
                 child: Container(
                   //color: Colors.red,
@@ -53,21 +43,25 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
                     children: <Widget>[
                       Expanded(
                         child: Container(
+                          //color: Colors.blue,
                           child: Align(
-                            alignment: Alignment.topCenter,
+                            alignment: Alignment.center,
                             child: Text(
                               plant.name,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w400),
+                                  fontSize: 26, fontWeight: FontWeight.w400),
                             ),
                           ),
                         ),
                       ),
                       Expanded(
                         child: Container(
-                          alignment: Alignment.bottomCenter,
-                          child: PlantSoilMoistureText(plant: plant),
+                          //color: Colors.yellow,
+                          alignment: Alignment.center,
+                          child: PlantSoilMoistureText(
+                            plant: plant,
+                          ),
                         ),
                       )
                     ],
