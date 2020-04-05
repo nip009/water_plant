@@ -40,7 +40,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     var _pages = [
       HomePageBody(widget.tanks),
       PlantsOverviewScreen(widget.tanks),
-      SearchPlantInfo(),
+      SearchPlantInfo(widget.tanks),
       SettingsScreen(),
     ];
 
