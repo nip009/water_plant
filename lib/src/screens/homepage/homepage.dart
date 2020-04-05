@@ -17,9 +17,6 @@ class HomePageScreen extends StatefulWidget {
 
   HomePageScreen(this.tanks);
 
-  /// Removes the given plant from the given tank if the tank contains it.
-  /// [setState] is called so that every part of the code using these will
-  /// be updated.
   static removePlantFromTank(WaterTankDevice tank, Plant plant) {
     if (tank.plants.contains(plant)) {
       tank.plants.remove(plant);

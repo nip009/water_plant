@@ -88,19 +88,19 @@ class _HomePageBodyState extends State<HomePageBody> {
       Plant(10,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_NAME_2),
+          imageName: Constants.PLANT_EMERALD_PALM),
       Plant(10,
           name: "Orchid",
           latinName: 'Orchidaceae',
-          imageName: Constants.PLANT_NAME_4),
+          imageName: Constants.PLANT_ORCHID),
       Plant(20,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_NAME_2),
+          imageName: Constants.PLANT_EMERALD_PALM),
       Plant(20,
           name: "Emerald plant",
           latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_NAME_2),
+          imageName: Constants.PLANT_EMERALD_PALM),
     ];
     if (plants.length > Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
       print('Too many plants added to the tank');

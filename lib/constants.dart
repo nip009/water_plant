@@ -25,8 +25,23 @@ const Color WATER_LEVEL_EMPTY_LIGHT_THEME = Colors.white;
 
 const Color WATER_LEVEL_EMPTY_DARK_THEME = Color(0xFF757575); // grey[600]
 
-const String PLANT_NAME_1 = 'assets/plant1.jpg';
+const String PLANT_CHINESE_EVERGREEN =
+    'assets/plants/plant_chinese_evergreen.jpg';
 
-const String PLANT_NAME_2 = 'assets/plant2.jpg';
+const String PLANT_EMERALD_PALM = 'assets/plants/plant_emerald_palm.jpg';
 
-const String PLANT_NAME_4 = 'assets/plant4.jpg';
+const String PLANT_ORCHID = 'assets/plants/plant_orchid.jpg';
+
+const String PLANT_BONSAI_FICUS = 'assets/plants/plant_bonsai_ficus.jpg';
+
+const String PLANT_COCOS_PALM = 'assets/plants/plant_cocos_palm.png';
+
+const String PLANT_MONEY_TREE = 'assets/plants/plant_money_tree.jpg';
+
+const String PLANT_QUEEN_PALM = 'assets/plants/plant_queen_palm.jpg';
+
+const String PLANT_BENJAMIN_FIG = 'assets/plants/plant_benjamin_fig.jpg';
+
+const String PLANT_YUCCA_PALM = 'assets/plants/plant_yucca_palm.jpg';
+
+const String PLANT_JANET_LIND = 'assets/plants/plant_janet_lind.jpg';

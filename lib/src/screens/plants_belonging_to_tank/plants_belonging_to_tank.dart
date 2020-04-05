@@ -31,7 +31,7 @@ class _PlantsBelongingToTankScreenState
           10,
           name: 'Emerald plant',
           latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_NAME_2,
+          imageName: Constants.PLANT_EMERALD_PALM,
         ),
       );
       refreshState();

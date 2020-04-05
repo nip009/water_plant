@@ -12,25 +12,25 @@ class PlantWateringApp extends StatelessWidget {
       10,
       name: 'Chinese Evergreen',
       latinName: 'Aglaonema',
-      imageName: Constants.PLANT_NAME_1,
+      imageName: Constants.PLANT_CHINESE_EVERGREEN,
     ),
     Plant(
       40,
       name: 'Emerald palm',
       latinName: 'Zamioculcas zamiifolia',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
     Plant(
       60,
       name: 'Orchid',
       latinName: 'Orchidaceae',
-      imageName: Constants.PLANT_NAME_4,
+      imageName: Constants.PLANT_ORCHID,
     ),
     Plant(
-      100,
-      name: 'Plante',
-      latinName: 'Plante',
-      imageName: Constants.PLANT_NAME_2,
+      0,
+      name: 'Bonsai Ficus',
+      latinName: 'Ficus microcarpa',
+      imageName: Constants.PLANT_BONSAI_FICUS,
     ),
   ];
 
@@ -39,25 +39,25 @@ class PlantWateringApp extends StatelessWidget {
       10,
       name: 'Chinese Evergreen',
       latinName: 'Aglaonema',
-      imageName: Constants.PLANT_NAME_1,
+      imageName: Constants.PLANT_CHINESE_EVERGREEN,
     ),
     Plant(
       20,
       name: 'Emerald palm',
       latinName: 'Zamioculcas zamiifolia',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
     Plant(
       60,
       name: 'Orchid',
       latinName: 'Orchidaceae',
-      imageName: Constants.PLANT_NAME_4,
+      imageName: Constants.PLANT_ORCHID,
     ),
     Plant(
       100,
       name: 'Plante',
       latinName: 'Plante',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
   ];
 
@@ -66,25 +66,25 @@ class PlantWateringApp extends StatelessWidget {
       0,
       name: 'Chinese Evergreen',
       latinName: 'Aglaonema',
-      imageName: Constants.PLANT_NAME_1,
+      imageName: Constants.PLANT_CHINESE_EVERGREEN,
     ),
     Plant(
       10,
       name: 'Emerald palm',
       latinName: 'Zamioculcas zamiifolia',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
     Plant(
       12,
       name: 'Orchid',
       latinName: 'Orchidaceae',
-      imageName: Constants.PLANT_NAME_4,
+      imageName: Constants.PLANT_ORCHID,
     ),
     Plant(
       20,
       name: 'Plante',
       latinName: 'Plante',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
   ];
 
@@ -93,25 +93,25 @@ class PlantWateringApp extends StatelessWidget {
       10,
       name: 'Chinese Evergreen',
       latinName: 'Aglaonema',
-      imageName: Constants.PLANT_NAME_1,
+      imageName: Constants.PLANT_CHINESE_EVERGREEN,
     ),
     Plant(
       13,
       name: 'Emerald palm',
       latinName: 'Zamioculcas zamiifolia',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
     Plant(
       15,
       name: 'Orchid',
       latinName: 'Orchidaceae',
-      imageName: Constants.PLANT_NAME_4,
+      imageName: Constants.PLANT_ORCHID,
     ),
     Plant(
       20,
       name: 'Plante',
       latinName: 'Plante',
-      imageName: Constants.PLANT_NAME_2,
+      imageName: Constants.PLANT_EMERALD_PALM,
     ),
   ];
 
