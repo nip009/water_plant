@@ -215,7 +215,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
       child: Card(
         elevation: 5,
         //margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-        color: Colors.white,
+        color: Colors.grey[100],
         child: Container(
           padding: const EdgeInsets.all(0),
           height: 80,

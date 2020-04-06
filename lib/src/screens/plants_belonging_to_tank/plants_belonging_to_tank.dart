@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
+import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/components/plant_info_card.dart';
 import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
@@ -8,12 +9,17 @@ import 'package:water_plant/constants.dart' as Constants;
 class PlantsBelongingToTankScreen extends StatefulWidget {
   final WaterTankDevice tank;
   final Function callback;
-  PlantsBelongingToTankScreen(this.tank, {this.callback});
+  final Function removeTank;
+  PlantsBelongingToTankScreen(this.tank, {this.callback, this.removeTank});
 
   @override
   _PlantsBelongingToTankScreenState createState() =>
       _PlantsBelongingToTankScreenState();
 }
+
+enum Options { edit_name, remove }
+
+Options _selection = Options.remove;
 
 class _PlantsBelongingToTankScreenState
     extends State<PlantsBelongingToTankScreen> {
@@ -53,19 +59,6 @@ class _PlantsBelongingToTankScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*
-      AppBar(
-        title: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
-        ),
-        centerTitle: true,
-      ),
-       */
       appBar: AppBar(
         title: ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -77,35 +70,37 @@ class _PlantsBelongingToTankScreenState
         ),
         centerTitle: true,
         actions: <Widget>[
-          GestureDetector(
-            onTap: () {
-              addNewPlant();
+          PopupMenuButton<Options>(
+            offset: Offset.fromDirection(0, 1),
+            onSelected: (Options result) {
+              _selection = result;
+              if (_selection == Options.edit_name) {
+                print("Edit name!");
+                editObjectName(
+                    context: context,
+                    object: widget.tank,
+                    maxLength: 22,
+                    callback: refreshState);
+              } else if (_selection == Options.remove) {
+                print("Remove!");
+                if (widget.removeTank != null) {
+                  widget.removeTank(widget.tank);
+                }
+                refreshState();
+                Navigator.pop(context);
+              }
             },
-            child: widget.tank.plants.length <
-                    Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK
-                ? Container(
-                    padding: EdgeInsets.only(right: 15),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          'Plant ',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        ClipOval(
-                          child: Container(
-                            color: Colors.white,
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.black,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : Container(),
-          )
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
+              const PopupMenuItem<Options>(
+                value: Options.edit_name,
+                child: Text('Edit name'),
+              ),
+              const PopupMenuItem<Options>(
+                value: Options.remove,
+                child: Text('Remove'),
+              ),
+            ],
+          ),
         ],
       ),
       body: Container(

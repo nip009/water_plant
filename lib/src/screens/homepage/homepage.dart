@@ -13,7 +13,7 @@ import 'package:custom_navigator/custom_navigator.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class HomePageScreen extends StatefulWidget {
-  final List<WaterTankDevice> tanks;
+  List<WaterTankDevice> tanks;
 
   HomePageScreen(this.tanks);
 
@@ -21,6 +21,14 @@ class HomePageScreen extends StatefulWidget {
     if (tank.plants.contains(plant)) {
       tank.plants.remove(plant);
     }
+  }
+
+  removeTank(WaterTankDevice tank) {
+    print(tanks);
+    if (tanks.contains(tank)) {
+      tanks.remove(tank);
+    }
+    print(tanks);
   }
 
   @override
@@ -35,7 +43,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     var _pages = [
-      HomePageBody(widget.tanks),
+      HomePageBody(widget.tanks, widget.removeTank),
       PlantsOverviewScreen(widget.tanks),
       SearchPlantInfo(widget.tanks),
       SettingsScreen(),

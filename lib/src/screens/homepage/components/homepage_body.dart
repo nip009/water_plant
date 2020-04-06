@@ -8,11 +8,8 @@ import 'package:water_plant/src/components/water_status.dart';
 
 class HomePageBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
-  HomePageBody(this.tanks) {
-    for (WaterTankDevice tank in tanks) {
-      assert(tank != null);
-    }
-  }
+  final Function removeTank;
+  HomePageBody(this.tanks, this.removeTank);
 
   @override
   _HomePageBodyState createState() => _HomePageBodyState();
@@ -129,15 +126,13 @@ class _HomePageBodyState extends State<HomePageBody> {
     return Card(
       elevation: 10,
       child: InkWell(
-        onLongPress: () {
-          editObjectName(context: context, object: tank, callback: refresh);
-        },
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => PlantsBelongingToTankScreen(
               tank,
               callback: refresh,
+              removeTank: widget.removeTank,
             ),
           ),
         ),
