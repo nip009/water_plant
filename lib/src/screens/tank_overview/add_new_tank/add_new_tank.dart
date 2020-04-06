@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 
 /// Screen for adding a new [WaterTankDevice].
 class AddNewTank extends StatefulWidget {
+  final Function addTank;
+
+  AddNewTank(this.addTank);
+
   @override
   _AddNewTankState createState() => _AddNewTankState();
 }
@@ -123,6 +128,9 @@ class _AddNewTankState extends State<AddNewTank> {
       //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
       print(_tankName);
+      WaterTankDevice tank = WaterTankDevice(_tankName);
+      widget.addTank(tank);
+      Navigator.pop(context);
     }
   }
 }

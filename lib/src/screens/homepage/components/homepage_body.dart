@@ -21,6 +21,13 @@ class _HomePageBodyState extends State<HomePageBody> {
     setState(() {});
   }
 
+  addTank(WaterTankDevice tank) {
+    assert(tank != null);
+    setState(() {
+      widget.tanks.add(tank);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     assert(widget.tanks != null);
@@ -38,11 +45,10 @@ class _HomePageBodyState extends State<HomePageBody> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              //addNewTank();
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddNewTank(),
+                  builder: (context) => AddNewTank(addTank),
                 ),
               );
             },
@@ -89,36 +95,7 @@ class _HomePageBodyState extends State<HomePageBody> {
     );
   }
 
-  void addNewTank() {
-    List<Plant> plants = [
-      Plant(10,
-          name: "Emerald plant",
-          latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_EMERALD_PALM),
-      Plant(10,
-          name: "Orchid",
-          latinName: 'Orchidaceae',
-          imageName: Constants.PLANT_ORCHID),
-      Plant(20,
-          name: "Emerald plant",
-          latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_EMERALD_PALM),
-      Plant(20,
-          name: "Emerald plant",
-          latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_EMERALD_PALM),
-    ];
-    if (plants.length > Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
-      print('Too many plants added to the tank');
-      return;
-    }
-    WaterTankDevice tank = WaterTankDevice('Kjøkken', plants, 40);
-    setState(() {
-      widget.tanks.add(tank);
-    });
-  }
-
-  List<Plant> plantsThatNeedWatering(WaterTankDevice tank) {
+  List<Plant> getPlantsThatNeedWatering(WaterTankDevice tank) {
     List<Plant> plantsWithCriticalWaterLevel = [];
     for (Plant plant in tank.plants) {
       assert(plant != null);
@@ -184,7 +161,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                                 ),
                               )
                             ]
-                          : plantsThatNeedWatering(tank)
+                          : getPlantsThatNeedWatering(tank)
                               .map((plant) => plantIcon(plant))
                               .toList()),
                 ),

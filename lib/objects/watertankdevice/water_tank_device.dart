@@ -8,14 +8,17 @@ class WaterTankDevice implements IPlantAndWaterTank {
   String name;
   List<Plant> _plants;
   // How many percent water that is left in the tank.
-  int _waterLevel;
+  int waterLevel;
 
-  WaterTankDevice(this.name, List<Plant> plants, int waterLevel) {
-    assert(plants.length >= 0 &&
-        plants.length <= Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK);
-    assert(waterLevel >= 0 && waterLevel <= 100);
-    this._plants = plants;
-    this._waterLevel = waterLevel;
+  WaterTankDevice(this.name, {this.waterLevel = 60}) {
+    this._plants = [];
+  }
+
+  void addPlant(Plant plant) {
+    assert(plant != null);
+    if (this._plants.length < Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
+      this._plants.add(plant);
+    }
   }
 
   bool isEveryPlantAboveCriticalWaterLevel() {
@@ -25,18 +28,6 @@ class WaterTankDevice implements IPlantAndWaterTank {
       }
     }
     return true;
-  }
-
-  void emptyTank() {
-    _waterLevel = 0;
-  }
-
-  int get waterLevel {
-    return _waterLevel;
-  }
-
-  set waterLevel(int waterLevel) {
-    this._waterLevel = waterLevel;
   }
 
   List<Plant> get plants {

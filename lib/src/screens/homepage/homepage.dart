@@ -13,7 +13,7 @@ import 'package:custom_navigator/custom_navigator.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class HomePageScreen extends StatefulWidget {
-  List<WaterTankDevice> tanks;
+  final List<WaterTankDevice> tanks;
 
   HomePageScreen(this.tanks);
 
