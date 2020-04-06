@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 const int ALLOWED_NUMBER_OF_PLANTS_IN_TANK = 4;
 
+const int MAX_CHARS_DEVICE_NAME = 22;
+
 const Color BOTTOM_NAVIGATION_BAR_COLOR = const Color(0xff5b7329); // dark green
 
 const Color LIGHT_GREEN_COLOR = const Color(0xFFAEBF2A);

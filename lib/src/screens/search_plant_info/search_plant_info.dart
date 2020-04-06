@@ -18,19 +18,19 @@ class SearchPlantInfo extends StatelessWidget {
   /// In the future this would be fetched from a database.
   final List<Plant> allPlants = [
     Plant(
-      10,
+      0,
       name: 'Chinese Evergreen',
       latinName: 'Aglaonema',
       imageName: Constants.PLANT_CHINESE_EVERGREEN,
     ),
     Plant(
-      13,
+      0,
       name: 'Emerald palm',
       latinName: 'Zamioculcas zamiifolia',
       imageName: Constants.PLANT_EMERALD_PALM,
     ),
     Plant(
-      15,
+      0,
       name: 'Orchid',
       latinName: 'Orchidaceae',
       imageName: Constants.PLANT_ORCHID,
@@ -195,8 +195,8 @@ class CustomSearchDelegate extends SearchDelegate {
 
 /// Creates a card that contains information about the plant given to it.
 /// Displays a picture of the [Plant] using [Plant.imageName]. Also shows the
-/// name of it in Latin and English. Clicking on the card shows information
-/// about the plant.
+/// name of it in Latin and English. Clicking on the card shows further
+/// information about the plant.
 Widget createPlantCard(BuildContext context, Plant plant) {
   return Container(
     padding: EdgeInsets.only(top: 2, bottom: 2),

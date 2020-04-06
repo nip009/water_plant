@@ -2,7 +2,7 @@ import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import '../IPlantAndWaterTank.dart';
 
-/// This device can have up to five [Plant]s. It keeps track of the water level
+/// This device can have up to four [Plant]s. It keeps track of the water level
 /// of the tank, as well as which plants belong to the device.
 class WaterTankDevice implements IPlantAndWaterTank {
   String name;

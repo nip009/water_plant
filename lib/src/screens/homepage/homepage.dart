@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/homepage/components/homepage_body.dart';
-import 'package:water_plant/src/screens/plants_belonging_to_tank/plants_belonging_to_tank.dart';
+import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 import 'package:water_plant/src/screens/plants_overview/plants_overview.dart';
 import 'package:water_plant/src/screens/search_plant_info/search_plant_info.dart';
 import 'package:water_plant/src/screens/settings/settings_screen.dart';
@@ -24,11 +24,9 @@ class HomePageScreen extends StatefulWidget {
   }
 
   removeTank(WaterTankDevice tank) {
-    print(tanks);
     if (tanks.contains(tank)) {
       tanks.remove(tank);
     }
-    print(tanks);
   }
 
   @override

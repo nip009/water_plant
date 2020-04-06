@@ -6,23 +6,21 @@ import 'package:water_plant/src/components/plant_info_card.dart';
 import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
-class PlantsBelongingToTankScreen extends StatefulWidget {
+class TankOverview extends StatefulWidget {
   final WaterTankDevice tank;
   final Function callback;
   final Function removeTank;
-  PlantsBelongingToTankScreen(this.tank, {this.callback, this.removeTank});
+  TankOverview(this.tank, {this.callback, this.removeTank});
 
   @override
-  _PlantsBelongingToTankScreenState createState() =>
-      _PlantsBelongingToTankScreenState();
+  _TankOverviewState createState() => _TankOverviewState();
 }
 
 enum Options { edit_name, remove }
 
 Options _selection = Options.remove;
 
-class _PlantsBelongingToTankScreenState
-    extends State<PlantsBelongingToTankScreen> {
+class _TankOverviewState extends State<TankOverview> {
   refreshState() {
     setState(() {});
     widget.callback();

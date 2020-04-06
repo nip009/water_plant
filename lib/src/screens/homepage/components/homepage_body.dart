@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/screens/plants_belonging_to_tank/plants_belonging_to_tank.dart';
+import 'package:water_plant/src/screens/tank_overview/add_new_tank/add_new_tank.dart';
+import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/components/water_status.dart';
@@ -36,7 +37,15 @@ class _HomePageBodyState extends State<HomePageBody> {
         centerTitle: true,
         actions: <Widget>[
           GestureDetector(
-            onTap: () => addNewTank(),
+            onTap: () {
+              //addNewTank();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddNewTank(),
+                ),
+              );
+            },
             child: Container(
               padding: EdgeInsets.only(right: 15),
               child: Row(
@@ -129,7 +138,7 @@ class _HomePageBodyState extends State<HomePageBody> {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PlantsBelongingToTankScreen(
+            builder: (context) => TankOverview(
               tank,
               callback: refresh,
               removeTank: widget.removeTank,
