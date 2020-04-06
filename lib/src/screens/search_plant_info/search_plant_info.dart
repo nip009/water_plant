@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/src/screens/plant_hero/plant_hero.dart';
 
 class SearchPlantInfo extends StatelessWidget {
   final List<WaterTankDevice> tanks;
@@ -105,7 +106,7 @@ class SearchPlantInfo extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          for (Plant plant in allPlants) createPlantCard(plant),
+          for (Plant plant in allPlants) createPlantCard(context, plant),
         ],
       ),
     );
@@ -123,6 +124,7 @@ class CustomSearchDelegate extends SearchDelegate {
         );
 
   List<Plant> allPlants;
+  List<Plant> history = [];
 
   List<Plant> searchForPlants(String name) {
     List<Plant> found = [];
@@ -132,6 +134,17 @@ class CustomSearchDelegate extends SearchDelegate {
       }
     }
     return found;
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      primaryColor: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
+      primaryIconTheme: theme.primaryIconTheme,
+      primaryColorBrightness: theme.primaryColorBrightness,
+      primaryTextTheme: theme.primaryTextTheme,
+    );
   }
 
   @override
@@ -147,14 +160,14 @@ class CustomSearchDelegate extends SearchDelegate {
     if (this.query == '') {
       return ListView(
         children: <Widget>[
-          for (Plant plant in allPlants) createPlantCard(plant),
+          for (Plant plant in allPlants) createPlantCard(context, plant),
         ],
       );
     } else {
       List<Plant> foundPlants = searchForPlants(this.query);
       return ListView(
         children: <Widget>[
-          for (Plant p in foundPlants) createPlantCard(p),
+          for (Plant plant in foundPlants) createPlantCard(context, plant),
         ],
       );
     }
@@ -165,32 +178,98 @@ class CustomSearchDelegate extends SearchDelegate {
     List<Plant> foundPlants = searchForPlants(this.query);
     return ListView(
       children: <Widget>[
-        for (Plant plant in foundPlants) createPlantCard(plant),
+        for (Plant plant in foundPlants) createPlantCard(context, plant),
       ],
     );
   }
 
   @override
   List<Widget> buildActions(BuildContext context) => [
-        Container(
-          child: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              this.query = '';
-            },
-          ),
-        )
+        this.query.length > 0
+            ? Container(
+                child: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    this.query = '';
+                  },
+                ),
+              )
+            : Container(),
       ];
 }
 
-Widget createPlantCard(Plant plant) {
+Widget createPlantCard(BuildContext context, Plant plant) {
+  return Container(
+    padding: EdgeInsets.only(top: 2, bottom: 2),
+    child: GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) {
+              return PlantHeroScreen(plant);
+            },
+          ),
+        );
+      },
+      child: Card(
+        elevation: 5,
+        //margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        color: Colors.white,
+        child: Container(
+          padding: const EdgeInsets.all(0),
+          height: 80,
+          child: Row(
+            children: <Widget>[
+              Image.asset(plant.imageName),
+              Expanded(
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              plant.name,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 26, fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${plant.latinName}',
+                            style: TextStyle(
+                                fontSize: 18, fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+/*Widget createPlantCard(Plant plant) {
   return GestureDetector(
     onTap: () {
       print('${plant.name}');
     },
     child: Container(
       padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-      height: 100,
+      height: 120,
       child: Card(
         child: Container(
           padding: EdgeInsets.all(10),
@@ -218,7 +297,7 @@ Widget createPlantCard(Plant plant) {
                       Container(
                         alignment: Alignment.center,
                         child: Text(
-                          '${plant.name}',
+                          '${plant.name.toUpperCase()}',
                           style: TextStyle(
                             fontSize: 25,
                           ),
@@ -243,4 +322,4 @@ Widget createPlantCard(Plant plant) {
       ),
     ),
   );
-}
+}*/
