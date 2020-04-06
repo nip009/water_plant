@@ -9,8 +9,6 @@ class Plant implements IPlantAndWaterTank {
   bool _automaticWatering;
   int _idealHydrationLevel;
 
-  /// Takes in a name, an image and an int between 0 and 10 representing
-  /// hydration, where 0 is not hydrated at all, and 10 is fully hydrated.
   Plant(this._hydration,
       {@required this.imageName,
       @required this.name,

@@ -124,16 +124,23 @@ class CustomSearchDelegate extends SearchDelegate {
         );
 
   List<Plant> allPlants;
-  List<Plant> history = [];
 
   List<Plant> searchForPlants(String name) {
     List<Plant> found = [];
-    for (Plant p in allPlants) {
-      if (p.name.toLowerCase().contains(name.toLowerCase())) {
-        found.add(p);
+    for (Plant plant in allPlants) {
+      if (plant.name.toLowerCase().contains(name.toLowerCase())) {
+        found.add(plant);
       }
     }
     return found;
+  }
+
+  Widget displayPlants(BuildContext context, List<Plant> plants) {
+    return ListView(
+      children: <Widget>[
+        for (Plant plant in plants) createPlantCard(context, plant),
+      ],
+    );
   }
 
   @override
@@ -158,29 +165,17 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (this.query == '') {
-      return ListView(
-        children: <Widget>[
-          for (Plant plant in allPlants) createPlantCard(context, plant),
-        ],
-      );
+      return displayPlants(context, allPlants);
     } else {
       List<Plant> foundPlants = searchForPlants(this.query);
-      return ListView(
-        children: <Widget>[
-          for (Plant plant in foundPlants) createPlantCard(context, plant),
-        ],
-      );
+      return displayPlants(context, foundPlants);
     }
   }
 
   @override
   Widget buildResults(BuildContext context) {
     List<Plant> foundPlants = searchForPlants(this.query);
-    return ListView(
-      children: <Widget>[
-        for (Plant plant in foundPlants) createPlantCard(context, plant),
-      ],
-    );
+    return displayPlants(context, foundPlants);
   }
 
   @override
@@ -198,6 +193,10 @@ class CustomSearchDelegate extends SearchDelegate {
       ];
 }
 
+/// Creates a card that contains information about the plant given to it.
+/// Displays a picture of the [Plant] using [Plant.imageName]. Also shows the
+/// name of it in Latin and English. Clicking on the card shows information
+/// about the plant.
 Widget createPlantCard(BuildContext context, Plant plant) {
   return Container(
     padding: EdgeInsets.only(top: 2, bottom: 2),
@@ -214,10 +213,8 @@ Widget createPlantCard(BuildContext context, Plant plant) {
       },
       child: Card(
         elevation: 5,
-        //margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-        color: Colors.grey[100],
+        color: Colors.white,
         child: Container(
-          padding: const EdgeInsets.all(0),
           height: 80,
           child: Row(
             children: <Widget>[
@@ -261,65 +258,3 @@ Widget createPlantCard(BuildContext context, Plant plant) {
     ),
   );
 }
-
-/*Widget createPlantCard(Plant plant) {
-  return GestureDetector(
-    onTap: () {
-      print('${plant.name}');
-    },
-    child: Container(
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-      height: 120,
-      child: Card(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-            ),
-          ),
-          child: Row(
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
-                  border: Border.all(width: 1),
-                ),
-                child: Image.asset(plant.imageName),
-              ),
-              Expanded(
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${plant.name.toUpperCase()}',
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          '${plant.latinName}',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-}*/

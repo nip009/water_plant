@@ -40,6 +40,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
   }
 
   List<Plant> get plants {
+    _plants.sort((a, b) => a.hydration.compareTo(b.hydration));
     return this._plants;
   }
 }
