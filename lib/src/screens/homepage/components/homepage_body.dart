@@ -80,16 +80,24 @@ class _HomePageBodyState extends State<HomePageBody> {
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  height: 10, // space above the list of tank cards
+          widget.tanks.length == 0
+              ? Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                        'Press the button in the top right to add a new device'),
+                  ),
+                )
+              : Expanded(
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        height: 10, // space above the list of tank cards
+                      ),
+                      for (var tank in widget.tanks) tankOverviewCard(tank),
+                    ],
+                  ),
                 ),
-                for (var tank in widget.tanks) tankOverviewCard(tank),
-              ],
-            ),
-          ),
         ],
       ),
     );
