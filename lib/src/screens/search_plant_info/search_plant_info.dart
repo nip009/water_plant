@@ -37,9 +37,9 @@ class SearchPlantInfo extends StatelessWidget {
     ),
     Plant(
       0,
-      name: 'Bonsai Ficus',
-      latinName: 'Ficus microcarpa',
-      imageName: Constants.PLANT_BONSAI_FICUS,
+      name: 'Yucca Palm',
+      latinName: 'Yucca elephantipes',
+      imageName: Constants.PLANT_YUCCA_PALM,
     ),
     Plant(
       0,
@@ -67,9 +67,9 @@ class SearchPlantInfo extends StatelessWidget {
     ),
     Plant(
       0,
-      name: 'Yucca Palm',
-      latinName: 'Yucca elephantipes',
-      imageName: Constants.PLANT_YUCCA_PALM,
+      name: 'Bonsai Ficus',
+      latinName: 'Ficus microcarpa',
+      imageName: Constants.PLANT_BONSAI_FICUS,
     ),
     Plant(
       0,

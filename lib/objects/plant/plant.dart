@@ -43,10 +43,6 @@ class Plant implements IPlantAndWaterTank {
     _hydration = hydration;
   }
 
-  void dehydratePlant() {
-    _hydration = 0;
-  }
-
   void waterPlant() {
     _hydration = 100;
   }
