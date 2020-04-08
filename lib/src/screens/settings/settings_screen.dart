@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/src/screens/settings/components/account.dart';
+import 'package:water_plant/src/screens/settings/components/notifications.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -30,18 +32,33 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ChoiceButton(
-                text: 'ACCOUNT',
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AccountSettings(),
+                    ),
+                  );
+                },
+                child: ChoiceButton(
+                  text: 'ACCOUNT',
+                ),
               ),
             ),
             Expanded(
-              child: ChoiceButton(
-                text: 'NOTIFICATIONS',
-              ),
-            ),
-            Expanded(
-              child: ChoiceButton(
-                text: 'WIFI',
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationSettings(),
+                    ),
+                  );
+                },
+                child: ChoiceButton(
+                  text: 'NOTIFICATIONS',
+                ),
               ),
             ),
             Expanded(
@@ -53,30 +70,6 @@ class SettingsScreen extends StatelessWidget {
               child: ChoiceButton(
                 text: 'ABOUT',
               ),
-            ),
-            Spacer(),
-            Expanded(
-              child: Card(
-                color: Colors.white,
-                margin: EdgeInsets.all(10),
-                elevation: 5,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Align(
-                    widthFactor: 3,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Log out",
-                      style: TextStyle(color: Colors.red, fontSize: 20),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
             ),
           ],
         ),
