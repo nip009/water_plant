@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/src/screens/settings/components/about.dart';
 import 'package:water_plant/src/screens/settings/components/account.dart';
 import 'package:water_plant/src/screens/settings/components/notifications.dart';
 
@@ -67,8 +68,18 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ChoiceButton(
-                text: 'ABOUT',
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => About(),
+                    ),
+                  );
+                },
+                child: ChoiceButton(
+                  text: 'ABOUT',
+                ),
               ),
             ),
           ],

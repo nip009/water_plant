@@ -4,6 +4,7 @@ import 'package:water_plant/src/screens/settings/components/widgets/form_card.da
 import 'package:water_plant/src/screens/settings/components/widgets/form_title.dart';
 import 'package:water_plant/src/screens/settings/components/widgets/page_title.dart';
 
+/// Notification settings in Settings
 class NotificationSettings extends StatefulWidget {
   @override
   _NotificationSettingsState createState() => _NotificationSettingsState();
@@ -36,7 +37,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              pageTitle('Notifications'),
+              PageTitle('Notifications'),
               Row(
                 children: <Widget>[
                   formTitle('Push notifications'),

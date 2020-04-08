@@ -4,6 +4,7 @@ import 'package:water_plant/src/screens/settings/components/widgets/form_card.da
 import 'package:water_plant/src/screens/settings/components/widgets/form_title.dart';
 import 'package:water_plant/src/screens/settings/components/widgets/page_title.dart';
 
+/// Account settings in settings
 class AccountSettings extends StatefulWidget {
   @override
   _AccountSettingsState createState() => _AccountSettingsState();
@@ -40,7 +41,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                pageTitle('Settings'),
+                PageTitle('Settings'),
                 formTitle('Username'),
                 FormCard(
                   child: Form(
