@@ -38,12 +38,10 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
               Image.asset(plant.imageName),
               Expanded(
                 child: Container(
-                  //color: Colors.red,
                   child: Column(
                     children: <Widget>[
                       Expanded(
                         child: Container(
-                          //color: Colors.blue,
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -57,7 +55,6 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
                       ),
                       Expanded(
                         child: Container(
-                          //color: Colors.yellow,
                           alignment: Alignment.center,
                           child: PlantSoilMoistureText(
                             plant: plant,
