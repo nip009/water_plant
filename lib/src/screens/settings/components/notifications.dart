@@ -70,7 +70,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                 child: Row(
                   children: <Widget>[
                     Text('Every'),
-                    //30 min thingy
+                    //TODO: Let the user choose from a list how often (30 min, every hour, every second hour etc.)
                   ],
                 ),
               ),

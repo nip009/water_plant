@@ -77,6 +77,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                   ),
                 ),
                 formTitle('Mobile number'),
+                //TODO: Let user choose country code
                 FormCard(
                   child: Form(
                     key: _formKeyMobileNumber,
