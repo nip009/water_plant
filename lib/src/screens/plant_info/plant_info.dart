@@ -40,7 +40,7 @@ class _PlantInfoScreenState extends State<PlantInfoScreen> {
           },
         ),
         title: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          //borderRadius: BorderRadius.circular(10),
           child: Container(
             height: kToolbarHeight,
             width: kToolbarHeight,

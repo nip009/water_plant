@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/screens/tank_overview/add_new_tank/add_new_tank.dart';
+import 'package:water_plant/src/screens/tank_overview/components/add_new_tank.dart';
 import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
@@ -33,13 +33,10 @@ class _HomePageBodyState extends State<HomePageBody> {
     assert(widget.tanks != null);
     return Scaffold(
       appBar: AppBar(
-        title: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
         ),
         centerTitle: true,
         actions: <Widget>[

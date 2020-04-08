@@ -11,7 +11,17 @@ class PlantHeroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: ClipRRect(
+          //borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         color: isDark ? Colors.grey[850] : Constants.CARD_BACKGROUND_COLOR,
         child: Column(

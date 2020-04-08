@@ -5,6 +5,7 @@ import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/components/plant_info_card.dart';
 import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/src/screens/tank_overview/components/add_new_plant.dart';
 
 class TankOverview extends StatefulWidget {
   final WaterTankDevice tank;
@@ -27,7 +28,7 @@ class _TankOverviewState extends State<TankOverview> {
   }
 
   addNewPlant() {
-    if (widget.tank.plants.length <
+    /*if (widget.tank.plants.length <
         Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
       widget.tank.plants.add(
         //TODO: Let the user add a custom plant
@@ -37,9 +38,15 @@ class _TankOverviewState extends State<TankOverview> {
           latinName: 'Zamioculcas zamiifolia',
           imageName: Constants.PLANT_EMERALD_PALM,
         ),
-      );
-      refreshState();
-    }
+      );*/
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddNewPlant(widget.tank),
+      ),
+    );
+
+    refreshState();
   }
 
   Widget addNewPlantButton() {
@@ -59,7 +66,7 @@ class _TankOverviewState extends State<TankOverview> {
     return Scaffold(
       appBar: AppBar(
         title: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          //borderRadius: BorderRadius.circular(10),
           child: Container(
             height: kToolbarHeight,
             width: kToolbarHeight,
