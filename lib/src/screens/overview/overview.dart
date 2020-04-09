@@ -116,7 +116,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     var _pages = [
       OverviewBody(widget.tanks, widget.removeTank),
       AllPlantsScreen(widget.tanks),
-      SearchPlantInfo(widget.tanks),
+      SearchPlantInfoScreen(widget.tanks),
       SettingsScreen(),
     ];
 

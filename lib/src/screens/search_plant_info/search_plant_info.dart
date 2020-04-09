@@ -4,10 +4,10 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/screens/plant_information/plant_information.dart';
 
-class SearchPlantInfo extends StatelessWidget {
+class SearchPlantInfoScreen extends StatelessWidget {
   final List<WaterTankDevice> tanks;
 
-  SearchPlantInfo(this.tanks) {
+  SearchPlantInfoScreen(this.tanks) {
     for (WaterTankDevice tank in tanks) {
       assert(tank != null);
     }

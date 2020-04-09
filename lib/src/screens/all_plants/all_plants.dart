@@ -21,7 +21,7 @@ class AllPlantsScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: AllPlantsBodyScreen(tanks),
+      body: AllPlantsBody(tanks),
     );
   }
 }

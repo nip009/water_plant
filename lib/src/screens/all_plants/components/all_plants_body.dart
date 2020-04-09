@@ -5,17 +5,17 @@ import 'package:water_plant/src/components/plant_info_card.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 /// A list overview of every single plant owned.
-class AllPlantsBodyScreen extends StatefulWidget {
+class AllPlantsBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
 
-  AllPlantsBodyScreen(this.tanks);
+  AllPlantsBody(this.tanks);
 
   @override
   _PlantsOverviewScreenStateBody createState() =>
       _PlantsOverviewScreenStateBody();
 }
 
-class _PlantsOverviewScreenStateBody extends State<AllPlantsBodyScreen> {
+class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
   String appBarImageName = Constants.PLANT_EMERALD_PALM;
 
   /// Sort plants by hydration
@@ -30,13 +30,18 @@ class _PlantsOverviewScreenStateBody extends State<AllPlantsBodyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //sort(allPlantsInTanks.values);
     return Container(
       child: ListView(
         children: <Widget>[
           for (WaterTankDevice tank in widget.tanks)
             for (Plant plant in tank.plants)
-              createPlantInfoCard(context, plant, tank, refreshState),
+              CreatePlantInfoCard(
+                context: context,
+                plant: plant,
+                tank: tank,
+                callback: refreshState,
+                showHydrationMessage: true,
+              ),
         ],
       ),
     );

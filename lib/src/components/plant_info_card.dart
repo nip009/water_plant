@@ -4,70 +4,161 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/plant_soil_moisture_text.dart';
 import 'package:water_plant/src/screens/plant_actions/plant_actions.dart';
 
-Widget createPlantInfoCard(BuildContext context, Plant plant,
-    WaterTankDevice tank, Function callback) {
-  return Container(
-    padding: EdgeInsets.only(top: 2, bottom: 2),
-    child: GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PlantActionsScreen(
-                plant: plant, tank: tank, callback: callback),
-          ),
-        );
-      },
-      child: Card(
-        /*shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: plant.isHydrationCritical() ? Colors.red : Colors.black,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(0),
-        ),*/
-        elevation: 5,
-        //margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-        color: Colors.white,
-        child: Container(
-          padding: const EdgeInsets.all(0),
-          height: 80,
-          child: Row(
-            children: <Widget>[
-              Image.asset(plant.imageName),
-              Expanded(
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              plant.name,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: 26, fontWeight: FontWeight.w400),
+class CreatePlantInfoCard extends StatelessWidget {
+  CreatePlantInfoCard({
+    @required this.context,
+    @required this.plant,
+    @required this.tank,
+    @required this.callback,
+    this.showHydrationMessage = false,
+  });
+
+  final BuildContext context;
+  final Plant plant;
+  final WaterTankDevice tank;
+  final Function callback;
+  final bool showHydrationMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 2, bottom: 2),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlantActionsScreen(
+                  plant: plant, tank: tank, callback: callback),
+            ),
+          );
+        },
+        child: Card(
+          elevation: 5,
+          color: Colors.white,
+          child: Container(
+            padding: const EdgeInsets.all(0),
+            height: 80,
+            child: Row(
+              children: <Widget>[
+                Image.asset(plant.imageName),
+                Expanded(
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                plant.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 26, fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: PlantSoilMoistureText(
-                            plant: plant,
-                          ),
-                        ),
-                      )
-                    ],
+                        Expanded(
+                          child: showHydrationMessage
+                              ? Container(
+                                  child: PlantSoilMoistureMessage(plant: plant),
+                                )
+                              : Container(
+                                  alignment: Alignment.center,
+                                  child: PlantSoilMoistureText(
+                                    plant: plant,
+                                  ),
+                                ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
+}
+
+class PlantSoilMoistureMessage extends StatelessWidget {
+  const PlantSoilMoistureMessage({
+    Key key,
+    this.showMessageStatus = true,
+    @required this.plant,
+    this.spaceBeforeText = false,
+  }) : super(key: key);
+
+  final Plant plant;
+  final bool spaceBeforeText;
+
+  final bool showMessageStatus;
+
+  @override
+  Widget build(BuildContext context) {
+    String space = '';
+    if (spaceBeforeText) {
+      space = '    ';
+    }
+    return Container(
+      //width: 200,
+      color: Colors.yellow,
+      child: Stack(
+        //TODO: Bytt ut stack. Få alert merket til å vise riktig etter f.eks "Critical"
+        children: <Widget>[
+          RichText(
+            text: TextSpan(
+              text: space + 'Soil moisture: ',
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontSize: 18,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: '${plant.getHydrationStatus()}',
+                  style: TextStyle(
+                    color: plant.isHydrationCritical()
+                        ? Colors.red
+                        : Colors.grey[700],
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ],
+            ),
+          ),
+          plant.isHydrationCritical()
+              ? Positioned(
+                  top: 4,
+                  right: 0,
+                  child: ClipOval(
+                    child: Container(
+                      color: Colors.red,
+                      width: 15,
+                      height: 15,
+                      child: Center(
+                        child: Text(
+                          '!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Positioned(
+                  top: 4,
+                  right: 0,
+                  child: Container(),
+                ),
+        ],
+      ),
+    );
+  }
 }
