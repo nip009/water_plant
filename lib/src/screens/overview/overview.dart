@@ -3,19 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/screens/homepage/components/homepage_body.dart';
-import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
+import 'package:water_plant/src/screens/overview/components/overview_body.dart';
 import 'package:water_plant/src/screens/all_plants/all_plants.dart';
 import 'package:water_plant/src/screens/search_plant_info/search_plant_info.dart';
 import 'package:water_plant/src/screens/settings/settings_screen.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
-import 'package:custom_navigator/custom_navigator.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
-class HomePageScreen extends StatefulWidget {
+class OverviewScreen extends StatefulWidget {
   final List<WaterTankDevice> tanks;
 
-  HomePageScreen(this.tanks);
+  OverviewScreen(this.tanks);
 
   static removePlantFromTank(WaterTankDevice tank, Plant plant) {
     if (tank.plants.contains(plant)) {
@@ -30,10 +27,10 @@ class HomePageScreen extends StatefulWidget {
   }
 
   @override
-  _HomePageScreenState createState() => _HomePageScreenState();
+  _OverviewScreenState createState() => _OverviewScreenState();
 }
 
-class _HomePageScreenState extends State<HomePageScreen> {
+class _OverviewScreenState extends State<OverviewScreen> {
   int _currentIndex = 0;
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -117,7 +114,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     }
 
     var _pages = [
-      HomePageBody(widget.tanks, widget.removeTank),
+      OverviewBody(widget.tanks, widget.removeTank),
       AllPlantsScreen(widget.tanks),
       SearchPlantInfo(widget.tanks),
       SettingsScreen(),

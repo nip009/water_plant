@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/screens/settings/components/widgets/form_card.dart';
 import 'package:water_plant/src/screens/settings/components/widgets/form_title.dart';
 import 'package:water_plant/src/screens/settings/components/widgets/page_title.dart';

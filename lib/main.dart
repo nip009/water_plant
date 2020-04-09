@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/screens/homepage/homepage.dart';
+import 'package:water_plant/src/screens/overview/overview.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 void main() => runApp(PlantWateringApp());
@@ -29,6 +28,6 @@ class PlantWateringApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: HomePageScreen(waterTanks));
+        home: OverviewScreen(waterTanks));
   }
 }

@@ -3,20 +3,18 @@ import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/tank_overview/components/add_new_tank.dart';
 import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
-import 'package:water_plant/constants.dart' as Constants;
-import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/components/water_status.dart';
 
-class HomePageBody extends StatefulWidget {
+class OverviewBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
   final Function removeTank;
-  HomePageBody(this.tanks, this.removeTank);
+  OverviewBody(this.tanks, this.removeTank);
 
   @override
-  _HomePageBodyState createState() => _HomePageBodyState();
+  _OverviewBodyState createState() => _OverviewBodyState();
 }
 
-class _HomePageBodyState extends State<HomePageBody> {
+class _OverviewBodyState extends State<OverviewBody> {
   refresh() {
     setState(() {});
   }
@@ -196,16 +194,24 @@ class _HomePageBodyState extends State<HomePageBody> {
             child: plantInPicFrame(plant),
           ),
         ),
-        Container(
-          padding: EdgeInsets.only(bottom: 5),
-          child: plant.isHydrationCritical()
-              ? Text(
-                  '${plant.hydration}%',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                  ),
-                )
-              : null,
+        Expanded(
+          child: Container(
+            //color: Colors.red,
+            alignment: Alignment.center,
+            width: 75,
+            height: 75,
+            padding: EdgeInsets.only(bottom: 5),
+            child: plant.isHydrationCritical()
+                ? Text(
+                    '${plant.name}',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                    ),
+                    overflow: TextOverflow.fade,
+                    textAlign: TextAlign.center,
+                  )
+                : null,
+          ),
         ),
       ],
     );
