@@ -99,14 +99,14 @@ class _OverviewBodyState extends State<OverviewBody> {
   }
 
   List<Plant> getPlantsThatNeedWatering(WaterTankDevice tank) {
-    List<Plant> plantsWithCriticalWaterLevel = [];
+    List<Plant> plantsThatNeedWatering = [];
     for (Plant plant in tank.plants) {
       assert(plant != null);
-      if (plant.isHydrationCritical()) {
-        plantsWithCriticalWaterLevel.add(plant);
+      if (plant.isHydrationCritical() || plant.isHydrationLow()) {
+        plantsThatNeedWatering.add(plant);
       }
     }
-    return plantsWithCriticalWaterLevel;
+    return plantsThatNeedWatering;
   }
 
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
@@ -196,22 +196,19 @@ class _OverviewBodyState extends State<OverviewBody> {
         ),
         Expanded(
           child: Container(
-            //color: Colors.red,
-            alignment: Alignment.center,
-            width: 75,
-            height: 75,
-            padding: EdgeInsets.only(bottom: 5),
-            child: plant.isHydrationCritical()
-                ? Text(
-                    '${plant.name}',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                    ),
-                    overflow: TextOverflow.fade,
-                    textAlign: TextAlign.center,
-                  )
-                : null,
-          ),
+              //color: Colors.red,
+              alignment: Alignment.center,
+              width: 75,
+              height: 75,
+              padding: EdgeInsets.only(bottom: 5),
+              child: Text(
+                '${plant.name}',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                ),
+                overflow: TextOverflow.fade,
+                textAlign: TextAlign.center,
+              )),
         ),
       ],
     );
@@ -232,25 +229,27 @@ class _OverviewBodyState extends State<OverviewBody> {
               ),
             ),
           ),
-          Positioned(
-            child: ClipOval(
-              child: Container(
-                color: Colors.red,
-                height: 15,
-                width: 15,
-                child: Center(
-                  child: Text(
-                    '!',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+          plant.isHydrationCritical()
+              ? Positioned(
+                  child: ClipOval(
+                    child: Container(
+                      color: Colors.red,
+                      height: 15,
+                      width: 15,
+                      child: Center(
+                        child: Text(
+                          '!',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          ),
+                )
+              : Container(),
         ],
       ),
     );
