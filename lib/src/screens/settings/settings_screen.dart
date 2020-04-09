@@ -22,63 +22,62 @@ class SettingsScreen extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  'Settings',
-                  style: TextStyle(fontSize: 35),
-                ),
+            Container(
+              padding: EdgeInsets.all(20),
+              alignment: Alignment.center,
+              child: Text(
+                'Settings',
+                style: TextStyle(fontSize: 35),
               ),
             ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AccountSettings(),
+            Container(
+              padding: EdgeInsets.only(top: 140),
+              alignment: Alignment.center,
+              child: Column(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AccountSettings(),
+                        ),
+                      );
+                    },
+                    child: ChoiceButton(
+                      text: 'ACCOUNT',
                     ),
-                  );
-                },
-                child: ChoiceButton(
-                  text: 'ACCOUNT',
-                ),
-              ),
-            ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NotificationSettings(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationSettings(),
+                        ),
+                      );
+                    },
+                    child: ChoiceButton(
+                      text: 'NOTIFICATIONS',
                     ),
-                  );
-                },
-                child: ChoiceButton(
-                  text: 'NOTIFICATIONS',
-                ),
-              ),
-            ),
-            Expanded(
-              child: ChoiceButton(
-                text: 'APPEARANCE',
-              ),
-            ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => About(),
+                  ),
+                  ChoiceButton(
+                    text: 'APPEARANCE',
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => About(),
+                        ),
+                      );
+                    },
+                    child: ChoiceButton(
+                      text: 'ABOUT',
                     ),
-                  );
-                },
-                child: ChoiceButton(
-                  text: 'ABOUT',
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -99,10 +98,11 @@ class ChoiceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
       color: Colors.white,
       elevation: 5,
       child: Container(
+        height: 48,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.white,

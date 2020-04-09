@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 
-class PlantSoilMoistureText extends StatelessWidget {
-  const PlantSoilMoistureText({
+class PlantSoilMoisturePercentage extends StatelessWidget {
+  const PlantSoilMoisturePercentage({
     Key key,
     @required this.plant,
     this.spaceBeforeText = false,

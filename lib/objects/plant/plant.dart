@@ -15,7 +15,7 @@ class Plant implements IPlantAndWaterTank {
       @required this.latinName}) {
     assert(_hydration >= 0 && _hydration <= 100);
     _automaticWatering = false;
-    _idealHydration = 25;
+    _idealHydration = 40;
   }
 
   set automaticWatering(bool value) {
@@ -29,6 +29,20 @@ class Plant implements IPlantAndWaterTank {
   bool isHydrationCritical() {
     double critical = _idealHydration - ((_idealHydration * 50) / 100);
     return _hydration <= critical;
+  }
+
+  bool isHydrationLow() {
+    double critical = _idealHydration - ((_idealHydration * 50) / 100);
+    return (this.hydration > critical && this.hydration < _idealHydration - 10);
+  }
+
+  bool isHydrationOptimal() {
+    return (this.hydration <= _idealHydration + 10 &&
+        this.hydration >= _idealHydration - 10);
+  }
+
+  bool isHydrationHigh() {
+    return this.hydration > _idealHydration;
   }
 
   int get idealHydrationLevel {
@@ -50,14 +64,11 @@ class Plant implements IPlantAndWaterTank {
 
   /// Returns high, optimal, low or critical
   String getHydrationStatus() {
-    double critical = _idealHydration - ((_idealHydration * 50) / 100);
-    if (this.hydration > _idealHydration) {
+    if (isHydrationHigh()) {
       return 'High';
-    } else if (this.hydration <= _idealHydration + 10 &&
-        this.hydration >= _idealHydration - 10) {
+    } else if (isHydrationOptimal()) {
       return 'Optimal';
-    } else if (this.hydration > critical &&
-        this.hydration < _idealHydration - 10) {
+    } else if (isHydrationLow()) {
       return 'Low';
     } else {
       return 'Critical';

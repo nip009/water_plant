@@ -66,7 +66,7 @@ class CreatePlantInfoCard extends StatelessWidget {
                                 )
                               : Container(
                                   alignment: Alignment.center,
-                                  child: PlantSoilMoistureText(
+                                  child: PlantSoilMoisturePercentage(
                                     plant: plant,
                                   ),
                                 ),
@@ -105,9 +105,9 @@ class PlantSoilMoistureMessage extends StatelessWidget {
     }
     return Container(
       //width: 200,
-      color: Colors.yellow,
-      child: Stack(
-        //TODO: Bytt ut stack. Få alert merket til å vise riktig etter f.eks "Critical"
+      //color: Colors.yellow,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           RichText(
             text: TextSpan(
@@ -118,7 +118,7 @@ class PlantSoilMoistureMessage extends StatelessWidget {
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: '${plant.getHydrationStatus()}',
+                  text: '${plant.getHydrationStatus()} ',
                   style: TextStyle(
                     color: plant.isHydrationCritical()
                         ? Colors.red
@@ -131,32 +131,24 @@ class PlantSoilMoistureMessage extends StatelessWidget {
             ),
           ),
           plant.isHydrationCritical()
-              ? Positioned(
-                  top: 4,
-                  right: 0,
-                  child: ClipOval(
-                    child: Container(
-                      color: Colors.red,
-                      width: 15,
-                      height: 15,
-                      child: Center(
-                        child: Text(
-                          '!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+              ? ClipOval(
+                  child: Container(
+                    color: Colors.red,
+                    width: 15,
+                    height: 15,
+                    child: Center(
+                      child: Text(
+                        '!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
                 )
-              : Positioned(
-                  top: 4,
-                  right: 0,
-                  child: Container(),
-                ),
+              : Container(),
         ],
       ),
     );

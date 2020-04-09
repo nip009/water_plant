@@ -82,7 +82,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                           ),
                           Container(
                             decoration: BoxDecoration(),
-                            child: PlantSoilMoistureText(
+                            child: PlantSoilMoisturePercentage(
                               plant: widget.plant,
                               spaceBeforeText: false,
                             ),
