@@ -3,7 +3,7 @@ import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/plant_soil_moisture_text.dart';
-import 'package:water_plant/src/screens/plant_info/plant_info.dart';
+import 'package:water_plant/src/screens/plant_actions/plant_actions.dart';
 
 Widget createPlantInfoCard(BuildContext context, Plant plant,
     WaterTankDevice tank, Function callback) {
@@ -14,8 +14,8 @@ Widget createPlantInfoCard(BuildContext context, Plant plant,
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                PlantInfoScreen(plant: plant, tank: tank, callback: callback),
+            builder: (context) => PlantActionsScreen(
+                plant: plant, tank: tank, callback: callback),
           ),
         );
       },

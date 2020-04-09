@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/plant_soil_moisture_text.dart';
-import 'package:water_plant/src/screens/plant_hero/plant_hero.dart';
+import 'package:water_plant/src/screens/plant_information/plant_information.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
@@ -43,7 +43,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                     context,
                     MaterialPageRoute(
                       builder: (_) {
-                        return PlantHeroScreen(widget.plant);
+                        return PlantInformationScreen(widget.plant);
                       },
                     ),
                   );
@@ -234,7 +234,7 @@ class PlantNameAndInfoButton extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) {
-                  return PlantHeroScreen(widget.plant);
+                  return PlantInformationScreen(widget.plant);
                 },
               ),
             );

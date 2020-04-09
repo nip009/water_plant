@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
-import 'package:water_plant/src/screens/plant_info/components/plant_info_body.dart';
+import 'package:water_plant/src/screens/plant_actions/components/plant_actions_body.dart';
 import 'package:water_plant/src/screens/homepage/homepage.dart';
 
 enum Options { edit_name, remove }
@@ -11,19 +11,19 @@ Options _selection = Options.remove;
 
 /// A screen that shows the hydration level of one [Plant], and gives you
 /// the possibility to water the plant by clicking a button.
-class PlantInfoScreen extends StatefulWidget {
+class PlantActionsScreen extends StatefulWidget {
   final Plant plant;
   final WaterTankDevice tank;
   final Function callback;
 
-  PlantInfoScreen(
+  PlantActionsScreen(
       {@required this.plant, @required this.tank, @required this.callback});
 
   @override
-  _PlantInfoScreenState createState() => _PlantInfoScreenState();
+  _PlantActionsScreenState createState() => _PlantActionsScreenState();
 }
 
-class _PlantInfoScreenState extends State<PlantInfoScreen> {
+class _PlantActionsScreenState extends State<PlantActionsScreen> {
   refreshState() {
     setState(() {});
     widget.callback();
