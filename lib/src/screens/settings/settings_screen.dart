@@ -22,62 +22,66 @@ class SettingsScreen extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(20),
-              alignment: Alignment.center,
-              child: Text(
-                'Settings',
-                style: TextStyle(fontSize: 35),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                alignment: Alignment.center,
+                child: Text(
+                  'Settings',
+                  style: TextStyle(fontSize: 35),
+                ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 140),
-              alignment: Alignment.center,
-              child: Column(
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AccountSettings(),
-                        ),
-                      );
-                    },
-                    child: ChoiceButton(
-                      text: 'ACCOUNT',
+            Expanded(
+              flex: 3,
+              child: Container(
+                alignment: Alignment.center,
+                child: Column(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AccountSettings(),
+                          ),
+                        );
+                      },
+                      child: ChoiceButton(
+                        text: 'ACCOUNT',
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NotificationSettings(),
-                        ),
-                      );
-                    },
-                    child: ChoiceButton(
-                      text: 'NOTIFICATIONS',
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationSettings(),
+                          ),
+                        );
+                      },
+                      child: ChoiceButton(
+                        text: 'NOTIFICATIONS',
+                      ),
                     ),
-                  ),
-                  ChoiceButton(
-                    text: 'APPEARANCE',
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => About(),
-                        ),
-                      );
-                    },
-                    child: ChoiceButton(
-                      text: 'ABOUT',
+                    ChoiceButton(
+                      text: 'APPEARANCE',
                     ),
-                  ),
-                ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => About(),
+                          ),
+                        );
+                      },
+                      child: ChoiceButton(
+                        text: 'ABOUT',
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

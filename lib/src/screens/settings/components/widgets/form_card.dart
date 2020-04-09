@@ -4,6 +4,7 @@ class FormCard extends StatelessWidget {
   const FormCard({
     Key key,
     this.bottomPadding = 20,
+    this.topPadding = 0,
     this.elevation = 5,
     this.height = 48,
     @required this.child,
@@ -11,6 +12,7 @@ class FormCard extends StatelessWidget {
 
   final Widget child;
   final double bottomPadding;
+  final double topPadding;
   final double elevation;
   final double height;
 
@@ -19,6 +21,7 @@ class FormCard extends StatelessWidget {
     return Card(
       margin: EdgeInsets.only(
         bottom: bottomPadding,
+        top: topPadding,
       ),
       elevation: elevation,
       child: Container(

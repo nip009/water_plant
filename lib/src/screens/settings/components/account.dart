@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/screens/settings/components/widgets/form_card.dart';
@@ -41,7 +42,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                PageTitle('Settings'),
+                PageTitle('Account'),
                 formTitle('Username'),
                 FormCard(
                   child: Form(
@@ -78,21 +79,69 @@ class _AccountSettingsState extends State<AccountSettings> {
                 ),
                 formTitle('Mobile number'),
                 //TODO: Let user choose country code
-                FormCard(
-                  child: Form(
-                    key: _formKeyMobileNumber,
-                    child: TextFormField(
-                      maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                      onSaved: (value) => _mobileNumber = value,
-                      validator: (value) =>
-                          value.isEmpty ? 'Username cannot be empty' : null,
-                      decoration: InputDecoration(
-                        hintText: '111 11 111',
-                        border: InputBorder.none,
-                        counterText: '',
+                Row(
+                  children: <Widget>[
+                    Card(
+                      elevation: 5,
+                      margin: EdgeInsets.all(0),
+                      child: Container(
+                        width: 80,
+                        height: 48,
+                        child: CountryCodePicker(
+                          onChanged: print,
+                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                          initialSelection: 'NO',
+                          favorite: ['+47', 'NO'],
+                          showFlag: false,
+                          countryFilter: [
+                            'IT',
+                            'FR',
+                            'NO',
+                            'ES',
+                            'EN',
+                            'IL',
+                            'AF',
+                            'AL',
+                            'DZ',
+                            'AD',
+                            'AO',
+                            'AQ',
+                          ],
+                          showFlagDialog: true,
+                          comparator: (a, b) => b.name.compareTo(a.name),
+                          //Get the country information relevant to the initial selection
+                          onInit: (code) =>
+                              print("on init ${code.name} ${code.dialCode}"),
+                        ),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: FormCard(
+                        topPadding: 20,
+                        child: Row(
+                          children: <Widget>[
+                            Form(
+                              key: _formKeyMobileNumber,
+                              child: Expanded(
+                                child: TextFormField(
+                                  maxLength: Constants.MAX_CHARS_DEVICE_NAME,
+                                  onSaved: (value) => _mobileNumber = value,
+                                  validator: (value) => value.isEmpty
+                                      ? 'Username cannot be empty'
+                                      : null,
+                                  decoration: InputDecoration(
+                                    hintText: '111 11 111',
+                                    border: InputBorder.none,
+                                    counterText: '',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 formTitle('Notification'),
                 Row(

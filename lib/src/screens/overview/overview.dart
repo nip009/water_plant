@@ -93,7 +93,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     for (int i = 0; i < allPlantsInfo.length; i++) {
       var plantInfo = allPlantsInfo[i];
       var values = plantInfo.values.toList();
-      Plant plant = Plant(i * 10,
+      Plant plant = Plant(i * 9,
           name: values[0], latinName: values[1], imageName: values[2]);
       plants.add(plant);
     }
