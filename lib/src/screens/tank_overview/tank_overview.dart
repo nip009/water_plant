@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/components/plant_info_card.dart';
@@ -34,26 +35,13 @@ class _TankOverviewState extends State<TankOverview> {
     refreshState();
   }
 
-  addNewPlant() {
-    /*if (widget.tank.plants.length <
+  addNewPlant(Plant plant) {
+    assert(plant != null);
+    if (widget.tank.plants.length <
         Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
-      widget.tank.plants.add(
-        //TODO: Let the user add a custom plant
-        Plant(
-          10,
-          name: 'Emerald plant',
-          latinName: 'Zamioculcas zamiifolia',
-          imageName: Constants.PLANT_EMERALD_PALM,
-        ),
-      );*/
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddNewPlant(widget.tank),
-      ),
-    );
-
-    refreshState();
+      widget.tank.plants.add(plant);
+      refreshState();
+    }
   }
 
   Widget addNewPlantButton() {
@@ -64,7 +52,12 @@ class _TankOverviewState extends State<TankOverview> {
         Icons.add,
         color: Colors.black,
       ),
-      onPressed: () => addNewPlant(),
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddNewPlant(widget.tank, addNewPlant),
+        ),
+      ),
     );
   }
 

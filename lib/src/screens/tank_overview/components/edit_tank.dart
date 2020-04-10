@@ -89,7 +89,7 @@ class _EditTankState extends State<EditTank> {
               Container(
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: Text(
-                  'Device name:',
+                  'Device name',
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -121,7 +121,7 @@ class _EditTankState extends State<EditTank> {
               Container(
                 padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                 child: Text(
-                  'Networks:',
+                  'Networks',
                   style: TextStyle(
                     fontSize: 20,
                   ),
