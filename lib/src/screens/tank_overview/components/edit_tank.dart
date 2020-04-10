@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 
-/// Screen for adding a new [WaterTankDevice].
+/// Screen for adding/editing a [WaterTankDevice].
 class EditTank extends StatefulWidget {
   final Function addTank;
   final Function removeTank;
   final Function refreshState;
   final bool showDeleteButton;
-  WaterTankDevice tank;
+  final WaterTankDevice tank;
   String tankName;
 
   EditTank(
@@ -26,13 +26,47 @@ class EditTank extends StatefulWidget {
 class _EditTankState extends State<EditTank> {
   final _formKey = new GlobalKey<FormState>();
 
+  List<Map<String, dynamic>> wifiInfo = [
+    {
+      'name': 'Get-69FAF2',
+      'showIcons': true,
+      'isSelected': false,
+    },
+    {
+      'name': 'Get-6A0442',
+      'showIcons': true,
+      'isSelected': false,
+    },
+    {
+      'name': 'Get-6A0572',
+      'showIcons': true,
+      'isSelected': false,
+    },
+    {
+      'name': 'Get-6A1B7A',
+      'showIcons': true,
+      'isSelected': false,
+    },
+    {
+      'name': 'More...',
+      'showIcons': false,
+      'isSelected': false,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          title: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+          centerTitle: true,
           actions: <Widget>[
-            GestureDetector(
+            /*GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -45,7 +79,7 @@ class _EditTankState extends State<EditTank> {
                   ),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
         body: Container(
@@ -93,19 +127,8 @@ class _EditTankState extends State<EditTank> {
                   ),
                 ),
               ),
-              WifiCard(
-                'Get-69FAF2',
-              ),
-              WifiCard(
-                'Get-6A0442',
-              ),
-              WifiCard(
-                'Get-6A0572',
-              ),
-              WifiCard(
-                'Get-6A1B7A',
-              ),
-              WifiCard('More...', showIcons: false),
+              WifiCards(wifiInfo),
+              //TODO: Display wifi cards
               Container(
                 padding: EdgeInsets.only(top: 40),
                 alignment: Alignment.center,
@@ -151,7 +174,28 @@ class _EditTankState extends State<EditTank> {
                           ),
                         ),
                         onPressed: () {
-                          remove();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              content: Text('Do you want to remove the tank?'),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text('No'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: Text('Yes'),
+                                  onPressed: () {
+                                    remove();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                              elevation: 10,
+                            ),
+                          );
                         },
                       ),
                     )
@@ -179,7 +223,7 @@ class _EditTankState extends State<EditTank> {
     assert(tank != null);
 
     if (_formKey.currentState.validate()) {
-      //onSaved for the form is called and tank name is stored in _tankName.
+      //onSaved for the form is called and tank name is stored in  widget.tankName.
       _formKey.currentState.save();
       print(widget.tankName);
       tank.name = widget.tankName;
@@ -191,7 +235,7 @@ class _EditTankState extends State<EditTank> {
   void _addNewTank() {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
-      //onSaved for the form is called and tank name is stored in _tankName.
+      //onSaved for the form is called and tank name is stored in widget.tankName.
       _formKey.currentState.save();
       print(widget.tankName);
       WaterTankDevice tank = WaterTankDevice(widget.tankName);
@@ -201,16 +245,41 @@ class _EditTankState extends State<EditTank> {
   }
 }
 
-class WifiCard extends StatelessWidget {
-  const WifiCard(this.text, {Key key, this.showIcons = true}) : super(key: key);
+class WifiCards extends StatefulWidget {
+  WifiCards(
+    final this.wifiInfo, {
+    Key key,
+  }) : super(key: key);
 
-  final bool showIcons;
-  final String text;
+  List<Map<String, dynamic>> wifiInfo;
 
   @override
+  _WifiCardsState createState() => _WifiCardsState();
+}
+
+class _WifiCardsState extends State<WifiCards> {
+  @override
   Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        for (var info in widget.wifiInfo)
+          Container(
+            child: wifiCard(info, widget.wifiInfo),
+          ),
+      ],
+    );
+  }
+
+  InkWell wifiCard(Map<String, dynamic> info, allInfo) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          for (var i in widget.wifiInfo) {
+            i['isSelected'] = false;
+          }
+          info['isSelected'] = !info['isSelected'];
+        });
+      },
       child: Card(
         elevation: 4,
         child: Container(
@@ -218,25 +287,30 @@ class WifiCard extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Row(
             children: <Widget>[
+              info['isSelected']
+                  ? Icon(Icons.check)
+                  : Container(
+                      width: 24,
+                    ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(left: 5),
+                  padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    text,
+                    info['name'],
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                 ),
               ),
-              showIcons
+              info['showIcons']
                   ? Container(
                       padding: EdgeInsets.only(right: 5),
                       alignment: Alignment.centerRight,
                       child: Icon(Icons.wifi),
                     )
                   : Container(),
-              showIcons
+              info['showIcons']
                   ? Container(
                       alignment: Alignment.centerRight,
                       child: Icon(
