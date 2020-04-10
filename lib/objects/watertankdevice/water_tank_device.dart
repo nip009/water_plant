@@ -21,9 +21,9 @@ class WaterTankDevice implements IPlantAndWaterTank {
     }
   }
 
-  bool isEveryPlantAboveCriticalWaterLevel() {
+  bool isEveryPlantAboveLowWaterLevel() {
     for (Plant p in _plants) {
-      if (p.isHydrationCritical()) {
+      if (p.isHydrationLow() || p.isHydrationCritical()) {
         return false;
       }
     }

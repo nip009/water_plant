@@ -161,7 +161,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                   child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: tank.isEveryPlantAboveCriticalWaterLevel()
+                      children: tank.isEveryPlantAboveLowWaterLevel()
                           ? [
                               Container(
                                 alignment: Alignment(1, -0.3),
