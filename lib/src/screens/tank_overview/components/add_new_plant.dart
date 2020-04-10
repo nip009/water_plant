@@ -40,7 +40,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       validator: (value) =>
                           value.isEmpty ? 'Name cannot be empty' : null,
                       decoration: InputDecoration(
-                        hintText: 'Default: Device 1',
+                        hintText: 'Default: Plant 1',
                         border: InputBorder.none,
                         counterText: '',
                       ),
@@ -48,6 +48,19 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   ),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: Text('Type of plant'),
+              ),
+              DropdownButton<String>(
+                items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+                onChanged: (_) {},
+              )
             ],
           ),
         ),

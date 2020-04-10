@@ -29,63 +29,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  List<Map<String, dynamic>> allPlantsInfo = [
-    {
-      'name': 'Chinese Evergreen',
-      'latinName': 'Aglaonema',
-      'imageName': Constants.PLANT_CHINESE_EVERGREEN
-    },
-    {
-      'name': 'Emerald palm',
-      'latinName': 'Zamioculcas zamiifolia',
-      'imageName': Constants.PLANT_EMERALD_PALM
-    },
-    {
-      'name': 'Orchid',
-      'latinName': 'Orchidaceae',
-      'imageName': Constants.PLANT_ORCHID
-    },
-    {
-      'name': 'Yucca Palm',
-      'latinName': 'Yucca elephantipes',
-      'imageName': Constants.PLANT_YUCCA_PALM
-    },
-    {
-      'name': 'Cocos Palm',
-      'latinName': 'Cocos nucifera',
-      'imageName': Constants.PLANT_COCOS_PALM
-    },
-    {
-      'name': 'Money Tree',
-      'latinName': 'Crassula undilatifolia',
-      'imageName': Constants.PLANT_MONEY_TREE
-    },
-    {
-      'name': 'Queen Palm',
-      'latinName': 'Livistonia Rotundifolia',
-      'imageName': Constants.PLANT_QUEEN_PALM
-    },
-    {
-      'name': 'Benjamin Fig',
-      'latinName': 'Ficus Nitida',
-      'imageName': Constants.PLANT_BENJAMIN_FIG
-    },
-    {
-      'name': 'Bonsai Ficus',
-      'latinName': 'Ficus microcarpa',
-      'imageName': Constants.PLANT_BONSAI_FICUS
-    },
-    {
-      'name': 'Janet Lind',
-      'latinName': 'Dracaena Janet Lind',
-      'imageName': Constants.PLANT_JANET_LIND
-    },
-  ];
-
   List<Plant> createPlants() {
     List<Plant> plants = [];
-    for (int i = 0; i < allPlantsInfo.length; i++) {
-      var plantInfo = allPlantsInfo[i];
+    for (int i = 0; i < Constants.ALL_PLANTS_INFORMATION.length; i++) {
+      var plantInfo = Constants.ALL_PLANTS_INFORMATION[i];
       var values = plantInfo.values.toList();
       Plant plant = Plant(i * 9,
           name: values[0], latinName: values[1], imageName: values[2]);

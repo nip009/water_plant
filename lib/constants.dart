@@ -1,6 +1,7 @@
 library constants;
 
 import 'package:flutter/material.dart';
+import 'package:water_plant/objects/plant/plant.dart';
 
 const int ALLOWED_NUMBER_OF_PLANTS_IN_TANK = 4;
 
@@ -47,3 +48,119 @@ const String PLANT_BENJAMIN_FIG = 'assets/plants/plant_benjamin_fig.jpg';
 const String PLANT_YUCCA_PALM = 'assets/plants/plant_yucca_palm.jpg';
 
 const String PLANT_JANET_LIND = 'assets/plants/plant_janet_lind.jpg';
+
+/// List over all the plants that the app should know about.
+/// Can search through these to find information about them.
+/// In the future this would be fetched from a database.
+final List<Plant> ALL_PLANTS = [
+  Plant(
+    0,
+    name: 'Chinese Evergreen',
+    latinName: 'Aglaonema',
+    imageName: PLANT_CHINESE_EVERGREEN,
+  ),
+  Plant(
+    0,
+    name: 'Emerald palm',
+    latinName: 'Zamioculcas zamiifolia',
+    imageName: PLANT_EMERALD_PALM,
+  ),
+  Plant(
+    0,
+    name: 'Orchid',
+    latinName: 'Orchidaceae',
+    imageName: PLANT_ORCHID,
+  ),
+  Plant(
+    0,
+    name: 'Yucca Palm',
+    latinName: 'Yucca elephantipes',
+    imageName: PLANT_YUCCA_PALM,
+  ),
+  Plant(
+    0,
+    name: 'Cocos Palm',
+    latinName: 'Cocos nucifera',
+    imageName: PLANT_COCOS_PALM,
+  ),
+  Plant(
+    0,
+    name: 'Money Tree',
+    latinName: 'Crassula undilatifolia ',
+    imageName: PLANT_MONEY_TREE,
+  ),
+  Plant(
+    0,
+    name: 'Queen Palm',
+    latinName: 'Livistonia Rotundifolia',
+    imageName: PLANT_QUEEN_PALM,
+  ),
+  Plant(
+    0,
+    name: 'Benjamin Fig',
+    latinName: 'Ficus Nitida',
+    imageName: PLANT_BENJAMIN_FIG,
+  ),
+  Plant(
+    0,
+    name: 'Bonsai Ficus',
+    latinName: 'Ficus microcarpa',
+    imageName: PLANT_BONSAI_FICUS,
+  ),
+  Plant(
+    0,
+    name: 'Janet Lind',
+    latinName: 'Dracaena Janet Lind',
+    imageName: PLANT_JANET_LIND,
+  ),
+];
+
+/// A map of information about each plant
+final List<Map<String, dynamic>> ALL_PLANTS_INFORMATION = [
+  {
+    'name': 'Chinese Evergreen',
+    'latinName': 'Aglaonema',
+    'imageName': PLANT_CHINESE_EVERGREEN
+  },
+  {
+    'name': 'Emerald palm',
+    'latinName': 'Zamioculcas zamiifolia',
+    'imageName': PLANT_EMERALD_PALM
+  },
+  {'name': 'Orchid', 'latinName': 'Orchidaceae', 'imageName': PLANT_ORCHID},
+  {
+    'name': 'Yucca Palm',
+    'latinName': 'Yucca elephantipes',
+    'imageName': PLANT_YUCCA_PALM
+  },
+  {
+    'name': 'Cocos Palm',
+    'latinName': 'Cocos nucifera',
+    'imageName': PLANT_COCOS_PALM
+  },
+  {
+    'name': 'Money Tree',
+    'latinName': 'Crassula undilatifolia',
+    'imageName': PLANT_MONEY_TREE
+  },
+  {
+    'name': 'Queen Palm',
+    'latinName': 'Livistonia Rotundifolia',
+    'imageName': PLANT_QUEEN_PALM
+  },
+  {
+    'name': 'Benjamin Fig',
+    'latinName': 'Ficus Nitida',
+    'imageName': PLANT_BENJAMIN_FIG
+  },
+  {
+    'name': 'Bonsai Ficus',
+    'latinName': 'Ficus microcarpa',
+    'imageName': PLANT_BONSAI_FICUS
+  },
+  {
+    'name': 'Janet Lind',
+    'latinName': 'Dracaena Janet Lind',
+    'imageName': PLANT_JANET_LIND
+  },
+];

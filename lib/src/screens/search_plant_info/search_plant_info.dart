@@ -13,72 +13,6 @@ class SearchPlantInfoScreen extends StatelessWidget {
     }
   }
 
-  /// List over all the plants that the app should know about.
-  /// Can search through these to find information about them.
-  /// In the future this would be fetched from a database.
-  final List<Plant> allPlants = [
-    Plant(
-      0,
-      name: 'Chinese Evergreen',
-      latinName: 'Aglaonema',
-      imageName: Constants.PLANT_CHINESE_EVERGREEN,
-    ),
-    Plant(
-      0,
-      name: 'Emerald palm',
-      latinName: 'Zamioculcas zamiifolia',
-      imageName: Constants.PLANT_EMERALD_PALM,
-    ),
-    Plant(
-      0,
-      name: 'Orchid',
-      latinName: 'Orchidaceae',
-      imageName: Constants.PLANT_ORCHID,
-    ),
-    Plant(
-      0,
-      name: 'Yucca Palm',
-      latinName: 'Yucca elephantipes',
-      imageName: Constants.PLANT_YUCCA_PALM,
-    ),
-    Plant(
-      0,
-      name: 'Cocos Palm',
-      latinName: 'Cocos nucifera',
-      imageName: Constants.PLANT_COCOS_PALM,
-    ),
-    Plant(
-      0,
-      name: 'Money Tree',
-      latinName: 'Crassula undilatifolia ',
-      imageName: Constants.PLANT_MONEY_TREE,
-    ),
-    Plant(
-      0,
-      name: 'Queen Palm',
-      latinName: 'Livistonia Rotundifolia',
-      imageName: Constants.PLANT_QUEEN_PALM,
-    ),
-    Plant(
-      0,
-      name: 'Benjamin Fig',
-      latinName: 'Ficus Nitida',
-      imageName: Constants.PLANT_BENJAMIN_FIG,
-    ),
-    Plant(
-      0,
-      name: 'Bonsai Ficus',
-      latinName: 'Ficus microcarpa',
-      imageName: Constants.PLANT_BONSAI_FICUS,
-    ),
-    Plant(
-      0,
-      name: 'Janet Lind',
-      latinName: 'Dracaena Janet Lind',
-      imageName: Constants.PLANT_JANET_LIND,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +32,7 @@ class SearchPlantInfoScreen extends StatelessWidget {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearchDelegate(allPlants),
+                delegate: CustomSearchDelegate(),
               );
             },
           ),
@@ -106,7 +40,8 @@ class SearchPlantInfoScreen extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          for (Plant plant in allPlants) createPlantCard(context, plant),
+          for (Plant plant in Constants.ALL_PLANTS)
+            createPlantCard(context, plant),
         ],
       ),
     );
@@ -114,8 +49,7 @@ class SearchPlantInfoScreen extends StatelessWidget {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  CustomSearchDelegate(
-    this.allPlants, {
+  CustomSearchDelegate({
     String hintText,
   }) : super(
           searchFieldLabel: hintText,
@@ -123,11 +57,9 @@ class CustomSearchDelegate extends SearchDelegate {
           textInputAction: TextInputAction.search,
         );
 
-  List<Plant> allPlants;
-
   List<Plant> searchForPlants(String name) {
     List<Plant> found = [];
-    for (Plant plant in allPlants) {
+    for (Plant plant in Constants.ALL_PLANTS) {
       if (plant.name.toLowerCase().contains(name.toLowerCase())) {
         found.add(plant);
       }
@@ -165,7 +97,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (this.query == '') {
-      return displayPlants(context, allPlants);
+      return displayPlants(context, Constants.ALL_PLANTS);
     } else {
       List<Plant> foundPlants = searchForPlants(this.query);
       return displayPlants(context, foundPlants);
