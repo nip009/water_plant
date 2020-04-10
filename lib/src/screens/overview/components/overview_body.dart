@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/screens/tank_overview/components/add_new_tank.dart';
+import 'package:water_plant/src/screens/tank_overview/components/edit_tank.dart';
 import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 import 'package:water_plant/src/components/water_status.dart';
 
 class OverviewBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
-  final Function removeTank;
-  OverviewBody(this.tanks, this.removeTank);
+  OverviewBody(this.tanks);
 
   @override
   _OverviewBodyState createState() => _OverviewBodyState();
@@ -23,6 +22,15 @@ class _OverviewBodyState extends State<OverviewBody> {
     assert(tank != null);
     setState(() {
       widget.tanks.add(tank);
+    });
+  }
+
+  removeTank(WaterTankDevice tank) {
+    assert(tank != null);
+    setState(() {
+      if (widget.tanks.contains(tank)) {
+        widget.tanks.remove(tank);
+      }
     });
   }
 
@@ -43,7 +51,7 @@ class _OverviewBodyState extends State<OverviewBody> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddNewTank(addTank),
+                  builder: (context) => EditTank(addTank: addTank),
                 ),
               );
             },
@@ -121,7 +129,7 @@ class _OverviewBodyState extends State<OverviewBody> {
             builder: (context) => TankOverview(
               tank,
               callback: refresh,
-              removeTank: widget.removeTank,
+              removeTank: removeTank,
             ),
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:water_plant/src/components/plant_info_card.dart';
 import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/src/screens/tank_overview/components/add_new_plant.dart';
+import 'package:water_plant/src/screens/tank_overview/components/edit_tank.dart';
 
 class TankOverview extends StatefulWidget {
   final WaterTankDevice tank;
@@ -16,14 +17,21 @@ class TankOverview extends StatefulWidget {
   _TankOverviewState createState() => _TankOverviewState();
 }
 
-enum Options { edit_name, remove }
+//enum Options { edit_name, remove }
 
-Options _selection = Options.remove;
+//Options _selection = Options.remove;
 
 class _TankOverviewState extends State<TankOverview> {
   refreshState() {
     setState(() {});
     widget.callback();
+  }
+
+  removeTank(WaterTankDevice tank) {
+    setState(() {
+      widget.removeTank(tank);
+    });
+    refreshState();
   }
 
   addNewPlant() {
@@ -74,7 +82,28 @@ class _TankOverviewState extends State<TankOverview> {
         ),
         centerTitle: true,
         actions: <Widget>[
-          PopupMenuButton<Options>(
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditTank(
+                      tank: widget.tank,
+                      removeTank: widget.removeTank,
+                      showDeleteButton: true,
+                      tankName: widget.tank.name,
+                      refreshState: refreshState,
+                    ),
+                  ));
+            },
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Icon(
+                Icons.edit,
+              ),
+            ),
+          ),
+          /*PopupMenuButton<Options>(
             offset: Offset.fromDirection(0, 1),
             onSelected: (Options result) {
               _selection = result;
@@ -104,7 +133,7 @@ class _TankOverviewState extends State<TankOverview> {
                 child: Text('Remove'),
               ),
             ],
-          ),
+          ),*/
         ],
       ),
       body: Container(

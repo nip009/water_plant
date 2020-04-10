@@ -20,12 +20,6 @@ class OverviewScreen extends StatefulWidget {
     }
   }
 
-  removeTank(WaterTankDevice tank) {
-    if (tanks.contains(tank)) {
-      tanks.remove(tank);
-    }
-  }
-
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
 }
@@ -114,7 +108,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     }
 
     var _pages = [
-      OverviewBody(widget.tanks, widget.removeTank),
+      OverviewBody(widget.tanks),
       AllPlantsScreen(widget.tanks),
       SearchPlantInfoScreen(widget.tanks),
       SettingsScreen(),

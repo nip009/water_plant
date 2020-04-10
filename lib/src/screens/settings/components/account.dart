@@ -27,6 +27,7 @@ class _AccountSettingsState extends State<AccountSettings> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: ClipRRect(
             //borderRadius: BorderRadius.circular(10),
@@ -78,7 +79,6 @@ class _AccountSettingsState extends State<AccountSettings> {
                   ),
                 ),
                 formTitle('Mobile number'),
-                //TODO: Let user choose country code
                 Row(
                   children: <Widget>[
                     Card(
@@ -106,6 +106,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                             'AD',
                             'AO',
                             'AQ',
+                            'SE',
+                            'GE',
+                            'UK',
                           ],
                           showFlagDialog: true,
                           comparator: (a, b) => b.name.compareTo(a.name),

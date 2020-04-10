@@ -3,19 +3,28 @@ import 'package:water_plant/constants.dart' as Constants;
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 
 /// Screen for adding a new [WaterTankDevice].
-class AddNewTank extends StatefulWidget {
+class EditTank extends StatefulWidget {
   final Function addTank;
+  final Function removeTank;
+  final Function refreshState;
+  final bool showDeleteButton;
+  WaterTankDevice tank;
+  String tankName;
 
-  AddNewTank(this.addTank);
+  EditTank(
+      {this.tankName,
+      this.tank,
+      this.addTank,
+      this.removeTank,
+      this.refreshState,
+      this.showDeleteButton = false});
 
   @override
-  _AddNewTankState createState() => _AddNewTankState();
+  _EditTankState createState() => _EditTankState();
 }
 
-class _AddNewTankState extends State<AddNewTank> {
+class _EditTankState extends State<EditTank> {
   final _formKey = new GlobalKey<FormState>();
-
-  String _tankName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +69,14 @@ class _AddNewTankState extends State<AddNewTank> {
                   child: Form(
                     key: _formKey,
                     child: TextFormField(
+                      initialValue: widget.tank != null ? widget.tank.name : '',
                       maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                      onSaved: (value) => _tankName = value,
+                      onSaved: (value) => widget.tankName = value,
                       validator: (value) =>
                           value.isEmpty ? 'Name cannot be empty' : null,
                       decoration: InputDecoration(
-                        hintText: 'Default: Device 1',
+                        hintText:
+                            widget.tankName == '' ? 'Default: Device 1' : '',
                         border: InputBorder.none,
                         counterText: '',
                       ),
@@ -105,7 +116,7 @@ class _AddNewTankState extends State<AddNewTank> {
                   child: Container(
                     margin: EdgeInsets.only(left: 30, right: 30),
                     child: Text(
-                      'CONFIRM',
+                      'Confirm',
                       style: TextStyle(
                         fontSize: 20,
                         color: Constants.LIGHT_GREEN_COLOR,
@@ -113,10 +124,38 @@ class _AddNewTankState extends State<AddNewTank> {
                     ),
                   ),
                   onPressed: () {
-                    _submit();
+                    if (widget.tank == null) {
+                      _addNewTank();
+                    } else {
+                      _editTank(widget.tank);
+                    }
                   },
                 ),
               ),
+              widget.showDeleteButton
+                  ? Container(
+                      padding: EdgeInsets.only(top: 10),
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                        elevation: 4,
+                        padding: EdgeInsets.all(10),
+                        color: Colors.white,
+                        child: Container(
+                          margin: EdgeInsets.only(left: 30, right: 30),
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          remove();
+                        },
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ),
@@ -124,13 +163,38 @@ class _AddNewTankState extends State<AddNewTank> {
     );
   }
 
-  void _submit() {
+  void remove() {
+    assert(widget.tank != null);
+    if (widget.removeTank != null) {
+      widget.removeTank(widget.tank);
+      widget.refreshState();
+      // Pop twice to not show the old, now removed tank
+      Navigator.pop(context);
+      Navigator.pop(context);
+    }
+  }
+
+  void _editTank(WaterTankDevice tank) {
+    assert(_formKey != null);
+    assert(tank != null);
+
+    if (_formKey.currentState.validate()) {
+      //onSaved for the form is called and tank name is stored in _tankName.
+      _formKey.currentState.save();
+      print(widget.tankName);
+      tank.name = widget.tankName;
+      widget.refreshState();
+      Navigator.pop(context);
+    }
+  }
+
+  void _addNewTank() {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
       //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
-      print(_tankName);
-      WaterTankDevice tank = WaterTankDevice(_tankName);
+      print(widget.tankName);
+      WaterTankDevice tank = WaterTankDevice(widget.tankName);
       widget.addTank(tank);
       Navigator.pop(context);
     }
