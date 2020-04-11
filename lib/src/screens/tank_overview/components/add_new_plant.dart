@@ -45,16 +45,29 @@ class _AddNewPlantState extends State<AddNewPlant> {
   Widget displaySelectedFile(File file) {
     return Container(
       alignment: Alignment.center,
-      child: new SizedBox(
-        height: 130.0,
-        width: 130.0,
-        child: file == null
-            ? Text('No picture selected!')
-            : Image.file(
-                file,
-                cacheHeight: 130,
-                cacheWidth: 130,
-              ),
+      child: GestureDetector(
+        onTap: () async => await imageSelectorGallery(),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+            ),
+          ),
+          height: 130.0,
+          width: 130.0,
+          child: file == null
+              ? Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'No picture selected',
+                  ),
+                )
+              : Image.file(
+                  file,
+                  cacheHeight: 130,
+                  cacheWidth: 130,
+                ),
+        ),
       ),
     );
   }
@@ -200,8 +213,9 @@ class _AddNewPlantState extends State<AddNewPlant> {
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                             content: Container(
-                                width: 200,
-                                child: Text('Please select a plant type')),
+                              width: 200,
+                              child: Text('Please select a plant type'),
+                            ),
                             actionsPadding: EdgeInsets.symmetric(
                               horizontal: 100,
                             ),
