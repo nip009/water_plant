@@ -36,6 +36,11 @@ class _OverviewBodyState extends State<OverviewBody> {
 
   @override
   Widget build(BuildContext context) {
+    for (WaterTankDevice t in widget.tanks) {
+      for (Plant p in t.plants) {
+        assert(p.plantTypeInfo != null);
+      }
+    }
     assert(widget.tanks != null);
     return Scaffold(
       appBar: AppBar(
@@ -146,7 +151,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                       style: DefaultTextStyle.of(context).style,
                       children: <TextSpan>[
                         TextSpan(
-                          text: '${tank.name} ',
+                          text: '${tank.nickname} ',
                           style: TextStyle(fontSize: 30),
                         ),
                       ]),
@@ -210,7 +215,7 @@ class _OverviewBodyState extends State<OverviewBody> {
               height: 75,
               padding: EdgeInsets.only(bottom: 5),
               child: Text(
-                '${plant.name}',
+                '${plant.nickname}',
                 style: TextStyle(
                   color: Colors.grey[700],
                 ),
@@ -225,6 +230,7 @@ class _OverviewBodyState extends State<OverviewBody> {
   /// Helper method for [plantIcon].
   /// The picture represetning the plant in the tank.
   ClipRRect plantInPicFrame(Plant plant) {
+    assert(plant != null);
     return ClipRRect(
       child: Stack(
         children: <Widget>[
@@ -233,7 +239,7 @@ class _OverviewBodyState extends State<OverviewBody> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Image.asset(
-                plant.imageName,
+                plant.getPlantTypeImage,
               ),
             ),
           ),

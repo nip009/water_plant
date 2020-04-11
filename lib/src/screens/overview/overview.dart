@@ -10,9 +10,7 @@ import 'package:water_plant/src/screens/settings/settings_screen.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class OverviewScreen extends StatefulWidget {
-  final List<WaterTankDevice> tanks;
-
-  OverviewScreen(this.tanks);
+  final List<WaterTankDevice> tanks = [];
 
   static removePlantFromTank(WaterTankDevice tank, Plant plant) {
     if (tank.plants.contains(plant)) {
@@ -32,10 +30,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
   List<Plant> createPlants() {
     List<Plant> plants = [];
     for (int i = 0; i < Constants.ALL_PLANTS_INFORMATION.length; i++) {
-      var plantInfo = Constants.ALL_PLANTS_INFORMATION[i];
-      var values = plantInfo.values.toList();
-      Plant plant = Plant(i * 9,
-          name: values[0], latinName: values[1], imageName: values[2]);
+      var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION[i];
+      assert(plantTypeInfo != null);
+      var name = plantTypeInfo.values.elementAt(0);
+      var latinName = plantTypeInfo.values.elementAt(1);
+      var imageName = plantTypeInfo.values.elementAt(2);
+      print('NAME: $name');
+      print('latinName: $latinName');
+      print('imageName: $imageName');
+      print('');
+
+      Plant plant = Plant(0, nickname: 'hey', plantTypeInfo: plantTypeInfo);
       plants.add(plant);
     }
     return plants;
@@ -43,16 +48,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var tankNames = ['Stue', 'Kjøkken', 'Bad'];
+    /*var tankNames = ['Stue', 'Kjøkken', 'Bad'];
 
     for (int i = 0; i < tankNames.length; i++) {
       var tank = WaterTankDevice(tankNames[i]);
-      widget.tanks.add(tank);
+
       var plants = createPlants();
       for (int i = 0; i < Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK; i++) {
         tank.addPlant(plants[i]);
       }
-    }
+      widget.tanks.add(tank);
+    }*/
 
     var _pages = [
       OverviewBody(widget.tanks),

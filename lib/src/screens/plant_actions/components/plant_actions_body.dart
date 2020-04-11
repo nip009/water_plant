@@ -100,7 +100,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                               padding: EdgeInsets.only(left: 10, bottom: 5),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Device: ${widget.tank.name}',
+                                'Device: ${widget.tank.nickname}',
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),
@@ -249,7 +249,7 @@ class PlantNameAndInfoButton extends StatelessWidget {
             right: 47,
           ),
           child: Text(
-            '${widget.plant.name}',
+            '${widget.plant.nickname}',
             style: TextStyle(
               fontSize: 30,
             ),
@@ -276,7 +276,7 @@ class PlantPicture extends StatelessWidget {
       ),*/
       alignment: Alignment.center,
       child: Hero(
-        tag: widget.plant.imageName,
+        tag: widget.plant.getPlantTypeImage,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
@@ -287,7 +287,8 @@ class PlantPicture extends StatelessWidget {
           ),
           //height: 250,
           child: ClipRRect(
-            child: Container(child: Image.asset(widget.plant.imageName)),
+            child:
+                Container(child: Image.asset(widget.plant.getPlantTypeImage)),
           ),
         ),
       ),

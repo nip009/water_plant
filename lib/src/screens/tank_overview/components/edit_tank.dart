@@ -103,7 +103,8 @@ class _EditTankState extends State<EditTank> {
                   child: Form(
                     key: _formKey,
                     child: TextFormField(
-                      initialValue: widget.tank != null ? widget.tank.name : '',
+                      initialValue:
+                          widget.tank != null ? widget.tank.nickname : '',
                       maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                       onSaved: (value) => widget.tankName = value,
                       validator: (value) =>
@@ -226,7 +227,7 @@ class _EditTankState extends State<EditTank> {
       //onSaved for the form is called and tank name is stored in  widget.tankName.
       _formKey.currentState.save();
       print(widget.tankName);
-      tank.name = widget.tankName;
+      tank.nickname = widget.tankName;
       widget.refreshState();
       Navigator.pop(context);
     }

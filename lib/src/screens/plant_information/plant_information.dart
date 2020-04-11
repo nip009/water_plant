@@ -33,7 +33,7 @@ class PlantInformationScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      '${plant.name}',
+                      '${plant.nickname}',
                       style: TextStyle(
                         fontSize: 30,
                       ),
@@ -46,7 +46,7 @@ class PlantInformationScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: Hero(
-                          tag: plant.imageName,
+                          tag: plant.getPlantTypeImage,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
@@ -56,7 +56,7 @@ class PlantInformationScreen extends StatelessWidget {
                               ),
                             ),
                             constraints: BoxConstraints.loose(Size(180, 180)),
-                            child: Image.asset(plant.imageName),
+                            child: Image.asset(plant.getPlantTypeImage),
                           ),
                         ),
                       ),
@@ -66,7 +66,7 @@ class PlantInformationScreen extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 10),
                     alignment: Alignment.center,
                     child: Text(
-                      plant.latinName,
+                      plant.getPlantTypeLatinName,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
                       ),

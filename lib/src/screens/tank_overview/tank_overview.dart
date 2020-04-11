@@ -37,6 +37,7 @@ class _TankOverviewState extends State<TankOverview> {
 
   addNewPlant(Plant plant) {
     assert(plant != null);
+    assert(plant.plantTypeInfo != null);
     if (widget.tank.plants.length <
         Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
       widget.tank.plants.add(plant);
@@ -84,7 +85,7 @@ class _TankOverviewState extends State<TankOverview> {
                       tank: widget.tank,
                       removeTank: widget.removeTank,
                       showDeleteButton: true,
-                      tankName: widget.tank.name,
+                      tankName: widget.tank.nickname,
                       refreshState: refreshState,
                     ),
                   ));
@@ -139,7 +140,7 @@ class _TankOverviewState extends State<TankOverview> {
                     padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
                     alignment: Alignment.center,
                     child: Text(
-                      '${widget.tank.name}',
+                      '${widget.tank.nickname}',
                       style: TextStyle(
                         fontSize: 30,
                       ),

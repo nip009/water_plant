@@ -41,7 +41,7 @@ class CreatePlantInfoCard extends StatelessWidget {
             height: 80,
             child: Row(
               children: <Widget>[
-                Image.asset(plant.imageName),
+                Image.asset(plant.getPlantTypeImage),
                 Expanded(
                   child: Container(
                     child: Column(
@@ -51,7 +51,7 @@ class CreatePlantInfoCard extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                plant.name,
+                                plant.nickname,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: 26, fontWeight: FontWeight.w400),

@@ -16,7 +16,7 @@ class AddNewPlant extends StatefulWidget {
 class _AddNewPlantState extends State<AddNewPlant> {
   final _formKey = new GlobalKey<FormState>();
 
-  String _plantName = '';
+  String _plantNickname = '';
 
   // needs to be null because the value in DropdownButton needs to be null at first
   String _selectedPlantType;
@@ -49,7 +49,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     key: _formKey,
                     child: TextFormField(
                       maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                      onSaved: (value) => _plantName = value,
+                      onSaved: (value) => _plantNickname = value,
                       validator: (value) =>
                           value.isEmpty ? 'Name cannot be empty' : null,
                       decoration: InputDecoration(
@@ -143,12 +143,19 @@ class _AddNewPlantState extends State<AddNewPlant> {
       //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
 
+      print('Type: $_selectedPlantType');
+
+      var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION
+          .firstWhere((element) => element['name'] == _selectedPlantType);
+      print('FINDINGS FROM TYPE: $plantTypeInfo');
+
+      assert(plantTypeInfo != null);
       Plant plant = Plant(
         0,
-        name: _plantName,
-        latinName: 'latinsk navn',
-        imageName: Constants.PLANT_BENJAMIN_FIG,
+        nickname: _plantNickname,
+        plantTypeInfo: plantTypeInfo,
       );
+
       widget.addNewPlant(plant);
       Navigator.pop(context);
     }

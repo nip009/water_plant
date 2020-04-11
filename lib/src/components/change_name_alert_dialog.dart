@@ -33,13 +33,13 @@ Future editObjectName(
                   ),
                   decoration: const InputDecoration(),
                   onSaved: (String value) {
-                    object.name = value;
+                    object.nickname = value;
                     if (callback != null) {
                       callback();
                     }
                     Navigator.of(context).pop();
                   },
-                  initialValue: object.name,
+                  initialValue: object.nickname,
                   autofocus: true,
                 ),
               ),

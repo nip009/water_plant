@@ -3,19 +3,35 @@ import '../IPlantAndWaterTank.dart';
 
 class Plant implements IPlantAndWaterTank {
   int _hydration;
-  String name;
-  String latinName;
-  final String imageName;
+  String nickname;
+
   bool _automaticWatering;
   int _idealHydration;
 
-  Plant(this._hydration,
-      {@required this.imageName,
-      @required this.name,
-      @required this.latinName}) {
+  Map<String, dynamic> plantTypeInfo;
+
+  Plant(
+    this._hydration, {
+    @required this.plantTypeInfo,
+    this.nickname = 'No nickname',
+  }) {
+    assert(plantTypeInfo != null);
     assert(_hydration >= 0 && _hydration <= 100);
     _automaticWatering = false;
     _idealHydration = 40;
+  }
+
+  get plantTypeName {
+    return plantTypeInfo.values.elementAt(0);
+  }
+
+  get getPlantTypeLatinName {
+    return plantTypeInfo.values.elementAt(1);
+  }
+
+  get getPlantTypeImage {
+    assert(plantTypeInfo != null);
+    return plantTypeInfo.values.elementAt(2);
   }
 
   set automaticWatering(bool value) {

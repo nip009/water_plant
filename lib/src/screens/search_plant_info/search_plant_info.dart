@@ -15,6 +15,15 @@ class SearchPlantInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Plant> allPlantTypes = [];
+    var a = Constants.ALL_PLANTS_INFORMATION;
+    for (int i = 0; i < a.length; i++) {
+      var plantTypeInfo = a[i];
+      var name = plantTypeInfo.values.where((element) => element['name']);
+      Plant plant = Plant(0, plantTypeInfo: plantTypeInfo);
+      allPlantTypes.add(plant);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: ClipRRect(
@@ -32,7 +41,7 @@ class SearchPlantInfoScreen extends StatelessWidget {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearchDelegate(),
+                delegate: CustomSearchDelegate(allPlantTypes: allPlantTypes),
               );
             },
           ),
@@ -40,8 +49,7 @@ class SearchPlantInfoScreen extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          for (Plant plant in Constants.ALL_PLANTS)
-            createPlantCard(context, plant),
+          for (Plant plant in allPlantTypes) createPlantCard(context, plant),
         ],
       ),
     );
@@ -51,16 +59,19 @@ class SearchPlantInfoScreen extends StatelessWidget {
 class CustomSearchDelegate extends SearchDelegate {
   CustomSearchDelegate({
     String hintText,
+    this.allPlantTypes,
   }) : super(
           searchFieldLabel: hintText,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.search,
         );
 
+  List<Plant> allPlantTypes;
+
   List<Plant> searchForPlants(String name) {
     List<Plant> found = [];
-    for (Plant plant in Constants.ALL_PLANTS) {
-      if (plant.name.toLowerCase().contains(name.toLowerCase())) {
+    for (Plant plant in allPlantTypes) {
+      if (plant.nickname.toLowerCase().contains(name.toLowerCase())) {
         found.add(plant);
       }
     }
@@ -97,7 +108,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (this.query == '') {
-      return displayPlants(context, Constants.ALL_PLANTS);
+      return displayPlants(context, allPlantTypes);
     } else {
       List<Plant> foundPlants = searchForPlants(this.query);
       return displayPlants(context, foundPlants);
@@ -150,7 +161,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
           height: 80,
           child: Row(
             children: <Widget>[
-              Image.asset(plant.imageName),
+              Image.asset(plant.getPlantTypeImage),
               Expanded(
                 child: Container(
                   child: Column(
@@ -161,7 +172,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              plant.name,
+                              plant.nickname,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 26, fontWeight: FontWeight.w400),
@@ -173,7 +184,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            '${plant.latinName}',
+                            '${plant.getPlantTypeLatinName}',
                             style: TextStyle(
                                 fontSize: 18, fontStyle: FontStyle.italic),
                           ),

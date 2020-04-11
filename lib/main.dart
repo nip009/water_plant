@@ -6,8 +6,6 @@ import 'package:water_plant/constants.dart' as Constants;
 void main() => runApp(PlantWateringApp());
 
 class PlantWateringApp extends StatelessWidget {
-  final List<WaterTankDevice> waterTanks = [];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,6 +26,6 @@ class PlantWateringApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: OverviewScreen(waterTanks));
+        home: OverviewScreen());
   }
 }
