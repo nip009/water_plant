@@ -16,8 +16,6 @@ class AllPlantsBody extends StatefulWidget {
 }
 
 class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
-  String appBarImageName = Constants.PLANT_EMERALD_PALM;
-
   /// Sort plants by hydration
   List<Plant> sort(List<Plant> plants) {
     plants.sort((a, b) => a.hydration.compareTo(b.hydration));

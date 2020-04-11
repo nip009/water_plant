@@ -129,7 +129,6 @@ class _EditTankState extends State<EditTank> {
                 ),
               ),
               WifiCards(wifiInfo),
-              //TODO: Display wifi cards
               Container(
                 padding: EdgeInsets.only(top: 40),
                 alignment: Alignment.center,
@@ -179,6 +178,9 @@ class _EditTankState extends State<EditTank> {
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
                               content: Text('Do you want to remove the tank?'),
+                              actionsPadding: EdgeInsets.symmetric(
+                                horizontal: 60,
+                              ),
                               actions: <Widget>[
                                 FlatButton(
                                   child: Text('No'),

@@ -25,6 +25,14 @@ class _AddNewPlantState extends State<AddNewPlant> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Container(
+            height: kToolbarHeight,
+            width: kToolbarHeight,
+            child: Image.asset('assets/logo_white_background.png'),
+          ),
+          centerTitle: true,
+        ),
         body: Container(
           padding: EdgeInsets.all(5),
           child: Column(
