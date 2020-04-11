@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:water_plant/constants.dart' as Constants;
 
@@ -17,9 +20,42 @@ class _AddNewPlantState extends State<AddNewPlant> {
   final _formKey = new GlobalKey<FormState>();
 
   String _plantNickname = '';
+  File galleryFile;
+  File cameraFile;
 
   // needs to be null because the value in DropdownButton needs to be null at first
   String _selectedPlantType;
+
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+    print("You selected gallery image : " + galleryFile.path);
+    setState(() {});
+  }
+
+  //display image selected from camera
+  imageSelectorCamera() async {
+    cameraFile = await ImagePicker.pickImage(
+      source: ImageSource.camera,
+      //maxHeight: 50.0,
+      //maxWidth: 50.0,
+    );
+    print("You selected camera image : " + cameraFile.path);
+    setState(() {});
+  }
+
+  Widget displaySelectedFile(File file) {
+    return new SizedBox(
+      height: 200.0,
+      width: 300.0,
+//child: new Card(child: new Text(''+galleryFile.toString())),
+//child: new Image.file(galleryFile),
+      child: file == null
+          ? new Text('Sorry nothing selected!!')
+          : new Image.file(file),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,135 +69,147 @@ class _AddNewPlantState extends State<AddNewPlant> {
           ),
           centerTitle: true,
         ),
-        body: Container(
-          padding: EdgeInsets.all(5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-                child: Text(
-                  'Plant name',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text('Select image from gallery'),
+                  onPressed: () async => await imageSelectorGallery(),
                 ),
-              ),
-              Card(
-                elevation: 5,
-                margin: EdgeInsets.all(0),
-                child: Container(
-                  padding: EdgeInsets.only(left: 12),
-                  color: Colors.white,
-                  child: Form(
-                    key: _formKey,
-                    child: TextFormField(
-                      maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                      onSaved: (value) => _plantNickname = value,
-                      validator: (value) =>
-                          value.isEmpty ? 'Name cannot be empty' : null,
-                      decoration: InputDecoration(
-                        hintText: 'Default: Plant 1',
-                        border: InputBorder.none,
-                        counterText: '',
-                      ),
+                RaisedButton(
+                  child: Text('Select image from camera'),
+                  onPressed: () async => await imageSelectorCamera(),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
+                  child: Text(
+                    'Plant name',
+                    style: TextStyle(
+                      fontSize: 20,
                     ),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-                child: Text(
-                  'Type of plant',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              Card(
-                elevation: 5,
-                margin: EdgeInsets.all(0),
-                child: Container(
-                  padding: EdgeInsets.only(left: 12),
-                  alignment: Alignment.centerLeft,
-                  color: Colors.white,
-                  child: DropdownButton<String>(
-                    //isDense: true,
-                    hint: Text('Select a plant type'),
-                    value: _selectedPlantType,
-                    items: [
-                      'Chinese Evergreen',
-                      'Emerald palm',
-                      'Orchid',
-                      'Yucca Palm',
-                      'Cocos Palm',
-                      'Money Tree',
-                      'Queen Palm',
-                      'Benjamin Fig',
-                      'Bonsai Ficus',
-                      'Janet Lind',
-                    ].map((String value) {
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String value) {
-                      setState(() {
-                        _selectedPlantType = value;
-                      });
-                    },
-                    isExpanded: true,
-                    underline: Container(),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 40),
-                alignment: Alignment.center,
-                child: RaisedButton(
-                  elevation: 4,
-                  padding: EdgeInsets.all(10),
-                  color: Colors.white,
+                displaySelectedFile(galleryFile),
+                displaySelectedFile(cameraFile),
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(0),
                   child: Container(
-                    margin: EdgeInsets.only(left: 30, right: 30),
-                    child: Text(
-                      'Confirm',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey[700],
+                    padding: EdgeInsets.only(left: 12),
+                    color: Colors.white,
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        maxLength: Constants.MAX_CHARS_DEVICE_NAME,
+                        onSaved: (value) => _plantNickname = value,
+                        validator: (value) =>
+                            value.isEmpty ? 'Name cannot be empty' : null,
+                        decoration: InputDecoration(
+                          hintText: 'Default: Plant 1',
+                          border: InputBorder.none,
+                          counterText: '',
+                        ),
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    if (_selectedPlantType == null) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          content: Container(
-                              width: 200,
-                              child: Text('Please select a plant type')),
-                          actionsPadding: EdgeInsets.symmetric(
-                            horizontal: 100,
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Ok'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                          elevation: 10,
-                        ),
-                      );
-                      return;
-                    }
-                    _submit();
-                  },
                 ),
-              ),
-            ],
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
+                  child: Text(
+                    'Type of plant',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(0),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 12),
+                    alignment: Alignment.centerLeft,
+                    color: Colors.white,
+                    child: DropdownButton<String>(
+                      //isDense: true,
+                      hint: Text('Select a plant type'),
+                      value: _selectedPlantType,
+                      items: [
+                        'Chinese Evergreen',
+                        'Emerald palm',
+                        'Orchid',
+                        'Yucca Palm',
+                        'Cocos Palm',
+                        'Money Tree',
+                        'Queen Palm',
+                        'Benjamin Fig',
+                        'Bonsai Ficus',
+                        'Janet Lind',
+                      ].map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _selectedPlantType = value;
+                        });
+                      },
+                      isExpanded: true,
+                      underline: Container(),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 40),
+                  alignment: Alignment.center,
+                  child: RaisedButton(
+                    elevation: 4,
+                    padding: EdgeInsets.all(10),
+                    color: Colors.white,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 30, right: 30),
+                      child: Text(
+                        'Confirm',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (_selectedPlantType == null) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            content: Container(
+                                width: 200,
+                                child: Text('Please select a plant type')),
+                            actionsPadding: EdgeInsets.symmetric(
+                              horizontal: 100,
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('Ok'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                            elevation: 10,
+                          ),
+                        );
+                        return;
+                      }
+                      _submit();
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
