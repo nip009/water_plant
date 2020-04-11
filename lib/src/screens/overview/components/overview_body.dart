@@ -238,9 +238,15 @@ class _OverviewBodyState extends State<OverviewBody> {
             margin: const EdgeInsets.all(8),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                plant.getPlantTypeImage,
-              ),
+              child: plant.chosenImageFile == null
+                  ? Image.asset(
+                      plant.getPlantTypeImage,
+                    )
+                  : Image.file(
+                      plant.chosenImageFile,
+                      cacheHeight: 75,
+                      cacheWidth: 75,
+                    ),
             ),
           ),
           plant.isHydrationCritical()

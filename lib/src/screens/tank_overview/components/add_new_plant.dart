@@ -20,40 +20,42 @@ class _AddNewPlantState extends State<AddNewPlant> {
   final _formKey = new GlobalKey<FormState>();
 
   String _plantNickname = '';
-  File galleryFile;
-  File cameraFile;
+  File pictureFile;
 
   // needs to be null because the value in DropdownButton needs to be null at first
   String _selectedPlantType;
 
   imageSelectorGallery() async {
-    galleryFile = await ImagePicker.pickImage(
+    pictureFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
     );
-    print("You selected gallery image : " + galleryFile.path);
+    print("You selected gallery image : " + pictureFile.path);
     setState(() {});
   }
 
   //display image selected from camera
   imageSelectorCamera() async {
-    cameraFile = await ImagePicker.pickImage(
+    pictureFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
-      //maxHeight: 50.0,
-      //maxWidth: 50.0,
     );
-    print("You selected camera image : " + cameraFile.path);
+    print("You selected camera image : " + pictureFile.path);
     setState(() {});
   }
 
   Widget displaySelectedFile(File file) {
-    return new SizedBox(
-      height: 200.0,
-      width: 300.0,
-//child: new Card(child: new Text(''+galleryFile.toString())),
-//child: new Image.file(galleryFile),
-      child: file == null
-          ? new Text('Sorry nothing selected!!')
-          : new Image.file(file),
+    return Container(
+      alignment: Alignment.center,
+      child: new SizedBox(
+        height: 130.0,
+        width: 130.0,
+        child: file == null
+            ? Text('No picture selected!')
+            : Image.file(
+                file,
+                cacheHeight: 130,
+                cacheWidth: 130,
+              ),
+      ),
     );
   }
 
@@ -75,14 +77,28 @@ class _AddNewPlantState extends State<AddNewPlant> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                RaisedButton(
-                  child: Text('Select image from gallery'),
-                  onPressed: () async => await imageSelectorGallery(),
+                Container(
+                    padding: EdgeInsets.only(
+                      top: 30,
+                    ),
+                    child: displaySelectedFile(pictureFile)),
+                Container(
+                  alignment: Alignment.center,
+                  child: FlatButton(
+                    child: Text(
+                      'Change photo',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    onPressed: () async => await imageSelectorGallery(),
+                  ),
                 ),
-                RaisedButton(
+                /*RaisedButton(
                   child: Text('Select image from camera'),
                   onPressed: () async => await imageSelectorCamera(),
-                ),
+                ),*/
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
                   child: Text(
@@ -92,8 +108,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     ),
                   ),
                 ),
-                displaySelectedFile(galleryFile),
-                displaySelectedFile(cameraFile),
                 Card(
                   elevation: 5,
                   margin: EdgeInsets.all(0),
@@ -222,17 +236,15 @@ class _AddNewPlantState extends State<AddNewPlant> {
       //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
 
-      print('Type: $_selectedPlantType');
-
       var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION
           .firstWhere((element) => element['name'] == _selectedPlantType);
-      print('FINDINGS FROM TYPE: $plantTypeInfo');
 
       assert(plantTypeInfo != null);
       Plant plant = Plant(
         0,
         nickname: _plantNickname,
         plantTypeInfo: plantTypeInfo,
+        chosenImageFile: pictureFile,
       );
 
       widget.addNewPlant(plant);

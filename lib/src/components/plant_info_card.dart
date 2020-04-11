@@ -41,7 +41,13 @@ class CreatePlantInfoCard extends StatelessWidget {
             height: 80,
             child: Row(
               children: <Widget>[
-                Image.asset(plant.getPlantTypeImage),
+                plant.chosenImageFile == null
+                    ? Image.asset(plant.getPlantTypeImage)
+                    : Image.file(
+                        plant.chosenImageFile,
+                        cacheHeight: 80,
+                        cacheWidth: 80,
+                      ),
                 Expanded(
                   child: Container(
                     child: Column(

@@ -276,7 +276,9 @@ class PlantPicture extends StatelessWidget {
       ),*/
       alignment: Alignment.center,
       child: Hero(
-        tag: widget.plant.getPlantTypeImage,
+        tag: widget.plant.chosenImageFile == null
+            ? widget.plant.getPlantTypeImage
+            : widget.plant.chosenImageFile,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
@@ -287,8 +289,15 @@ class PlantPicture extends StatelessWidget {
           ),
           //height: 250,
           child: ClipRRect(
-            child:
-                Container(child: Image.asset(widget.plant.getPlantTypeImage)),
+            child: Container(
+              child: widget.plant.chosenImageFile == null
+                  ? Image.asset(widget.plant.getPlantTypeImage)
+                  : Image.file(
+                      widget.plant.chosenImageFile,
+                      cacheHeight: 200,
+                      cacheWidth: 200,
+                    ),
+            ),
           ),
         ),
       ),

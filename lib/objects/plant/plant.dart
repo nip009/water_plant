@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../IPlantAndWaterTank.dart';
 
@@ -8,11 +10,14 @@ class Plant implements IPlantAndWaterTank {
   bool _automaticWatering;
   int _idealHydration;
 
+  File chosenImageFile;
+
   Map<String, dynamic> plantTypeInfo;
 
   Plant(
     this._hydration, {
     @required this.plantTypeInfo,
+    this.chosenImageFile,
     this.nickname = '',
   }) {
     assert(plantTypeInfo != null);
