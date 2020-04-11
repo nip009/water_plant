@@ -4,6 +4,8 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/screens/plant_actions/components/plant_actions_body.dart';
 import 'package:water_plant/src/screens/overview/overview.dart';
+import 'package:water_plant/src/screens/tank_overview/components/add_new_plant.dart';
+import 'package:water_plant/src/screens/tank_overview/components/edit_plant.dart';
 
 enum Options { edit_name, remove }
 
@@ -49,6 +51,28 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         ),
         centerTitle: true,
         actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditPlant(
+                    widget.tank,
+                    widget.plant,
+                    refreshState,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Icon(
+                Icons.edit,
+              ),
+            ),
+          ),
+        ],
+        /*actions: <Widget>[
           PopupMenuButton<Options>(
             offset: Offset.fromDirection(0, 1),
             onSelected: (Options result) {
@@ -78,7 +102,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
               ),
             ],
           ),
-        ],
+        ],*/
       ),
       resizeToAvoidBottomInset:
           false, // to avoid screen being squeezed together when editing name

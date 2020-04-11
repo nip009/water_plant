@@ -6,24 +6,33 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 
-class AddNewPlant extends StatefulWidget {
+class EditPlant extends StatefulWidget {
   WaterTankDevice tank;
-  Function addNewPlant;
-
-  AddNewPlant(this.tank, this.addNewPlant);
-  @override
-  _AddNewPlantState createState() => _AddNewPlantState();
-}
-
-class _AddNewPlantState extends State<AddNewPlant> {
-  final _formKey = new GlobalKey<FormState>();
+  Plant plant;
+  Function callback;
 
   String _plantNickname = '';
-  File pictureFile;
+  String _selectedPlantType = '';
+  EditPlant(
+    this.tank,
+    this.plant,
+    this.callback,
+  ) {
+    _plantNickname = plant.nickname;
+    print('PLANTE NICKNAME: $_plantNickname');
+    _selectedPlantType = plant.getPlantTypeName;
+  }
 
-  // needs to be null because the value in DropdownButton needs to be null at first
-  String _selectedPlantType;
+  @override
+  _EditPlantState createState() => _EditPlantState();
+}
+
+class _EditPlantState extends State<EditPlant> {
+  final _formKey = new GlobalKey<FormState>();
+
+  File pictureFile;
 
   imageSelectorGallery() async {
     pictureFile = await ImagePicker.pickImage(
@@ -58,7 +67,11 @@ class _AddNewPlantState extends State<AddNewPlant> {
           child: file == null
               ? Align(
                   alignment: Alignment.center,
-                  child: Text('No image selected'),
+                  child: widget.plant.chosenImageFile == null
+                      ? Image.asset(
+                          widget.plant.getPlantTypeImage,
+                        )
+                      : Image.file(widget.plant.chosenImageFile),
                 )
               : Image.file(
                   file,
@@ -129,14 +142,14 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       key: _formKey,
                       child: TextFormField(
                         maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                        onSaved: (value) => _plantNickname = value,
+                        onSaved: (value) => widget._plantNickname = value,
                         validator: (value) =>
                             value.isEmpty ? 'Name cannot be empty' : null,
                         decoration: InputDecoration(
-                          hintText: 'Default: Plant 1',
                           border: InputBorder.none,
                           counterText: '',
                         ),
+                        initialValue: widget._plantNickname,
                       ),
                     ),
                   ),
@@ -158,9 +171,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
                     child: DropdownButton<String>(
-                      //isDense: true,
-                      hint: Text('Select a plant type'),
-                      value: _selectedPlantType,
+                      value: widget._selectedPlantType,
                       items: [
                         'Chinese Evergreen',
                         'Emerald palm',
@@ -180,7 +191,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       }).toList(),
                       onChanged: (String value) {
                         setState(() {
-                          _selectedPlantType = value;
+                          widget._selectedPlantType = value;
                         });
                       },
                       isExpanded: true,
@@ -206,7 +217,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       ),
                     ),
                     onPressed: () {
-                      if (_selectedPlantType == null) {
+                      if (widget._selectedPlantType == null) {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
@@ -234,6 +245,73 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     },
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.only(top: 10),
+                  alignment: Alignment.center,
+                  child: RaisedButton(
+                    elevation: 4,
+                    padding: EdgeInsets.all(10),
+                    color: Colors.white,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 30, right: 30),
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          content: Container(
+                            width: 200,
+                            child: Text('Delete the plant?'),
+                          ),
+                          actionsPadding: EdgeInsets.symmetric(
+                            horizontal: 60,
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                setState(() {
+                                  if (widget.tank.plants
+                                      .contains(widget.plant)) {
+                                    widget.tank.plants.remove(widget.plant);
+                                  }
+                                });
+                                widget.callback();
+                                Navigator.of(context).pop();
+                                //Navigator.pushReplacementNamed(context, '/');
+                                //TODO: Få til å vise riktig etter at ein sletter plante
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TankOverview(
+                                      widget.tank,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                          elevation: 10,
+                        ),
+                      );
+
+                      //_submit();
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -248,18 +326,15 @@ class _AddNewPlantState extends State<AddNewPlant> {
       //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
 
-      var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION
-          .firstWhere((element) => element['name'] == _selectedPlantType);
+      var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION.firstWhere(
+          (element) => element['name'] == widget._selectedPlantType);
 
       assert(plantTypeInfo != null);
-      Plant plant = Plant(
-        0,
-        nickname: _plantNickname,
-        plantTypeInfo: plantTypeInfo,
-        chosenImageFile: pictureFile,
-      );
-
-      widget.addNewPlant(plant);
+      setState(() {
+        widget.plant.plantTypeInfo = plantTypeInfo;
+        widget.plant.nickname = widget._plantNickname;
+      });
+      widget.callback();
       Navigator.pop(context);
     }
   }
