@@ -126,6 +126,29 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     ),
                   ),
                   onPressed: () {
+                    if (_selectedPlantType == null) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          content: Container(
+                              width: 200,
+                              child: Text('Please select a plant type')),
+                          actionsPadding: EdgeInsets.symmetric(
+                            horizontal: 100,
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Ok'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                          elevation: 10,
+                        ),
+                      );
+                      return;
+                    }
                     _submit();
                   },
                 ),

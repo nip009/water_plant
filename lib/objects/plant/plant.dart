@@ -13,7 +13,7 @@ class Plant implements IPlantAndWaterTank {
   Plant(
     this._hydration, {
     @required this.plantTypeInfo,
-    this.nickname = 'No nickname',
+    this.nickname = '',
   }) {
     assert(plantTypeInfo != null);
     assert(_hydration >= 0 && _hydration <= 100);
@@ -21,7 +21,7 @@ class Plant implements IPlantAndWaterTank {
     _idealHydration = 40;
   }
 
-  get plantTypeName {
+  get getPlantTypeName {
     return plantTypeInfo.values.elementAt(0);
   }
 

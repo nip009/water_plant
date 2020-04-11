@@ -71,7 +71,7 @@ class CustomSearchDelegate extends SearchDelegate {
   List<Plant> searchForPlants(String name) {
     List<Plant> found = [];
     for (Plant plant in allPlantTypes) {
-      if (plant.nickname.toLowerCase().contains(name.toLowerCase())) {
+      if (plant.getPlantTypeName.toLowerCase().contains(name.toLowerCase())) {
         found.add(plant);
       }
     }
@@ -137,7 +137,7 @@ class CustomSearchDelegate extends SearchDelegate {
 }
 
 /// Creates a card that contains information about the plant given to it.
-/// Displays a picture of the [Plant] using [Plant.imageName]. Also shows the
+/// Displays a picture of the [Plant] using [Plant.getPlantTypeImage]. Also shows the
 /// name of it in Latin and English. Clicking on the card shows further
 /// information about the plant.
 Widget createPlantCard(BuildContext context, Plant plant) {
@@ -172,7 +172,9 @@ Widget createPlantCard(BuildContext context, Plant plant) {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              plant.nickname,
+                              plant.nickname != ''
+                                  ? plant.nickname
+                                  : plant.getPlantTypeName,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 26, fontWeight: FontWeight.w400),

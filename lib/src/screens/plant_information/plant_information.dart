@@ -33,7 +33,7 @@ class PlantInformationScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      '${plant.nickname}',
+                      '${plant.getPlantTypeName}',
                       style: TextStyle(
                         fontSize: 30,
                       ),
