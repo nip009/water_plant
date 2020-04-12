@@ -59,7 +59,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
                   builder: (context) => EditPlant(
                     widget.tank,
                     widget.plant,
-                    refreshState,
+                    widget.callback,
                   ),
                 ),
               );

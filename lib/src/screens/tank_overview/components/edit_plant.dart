@@ -6,7 +6,6 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:water_plant/constants.dart' as Constants;
-import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 
 class EditPlant extends StatefulWidget {
   WaterTankDevice tank;
@@ -15,11 +14,7 @@ class EditPlant extends StatefulWidget {
 
   String _plantNickname = '';
   String _selectedPlantType = '';
-  EditPlant(
-    this.tank,
-    this.plant,
-    this.callback,
-  ) {
+  EditPlant(this.tank, this.plant, this.callback) {
     _plantNickname = plant.nickname;
     print('PLANTE NICKNAME: $_plantNickname');
     _selectedPlantType = plant.getPlantTypeName;
@@ -283,32 +278,20 @@ class _EditPlantState extends State<EditPlant> {
                             FlatButton(
                               child: Text('Yes'),
                               onPressed: () {
-                                setState(() {
-                                  if (widget.tank.plants
-                                      .contains(widget.plant)) {
-                                    widget.tank.plants.remove(widget.plant);
-                                  }
-                                });
-                                widget.callback();
+                                if (widget.tank.plants.contains(widget.plant)) {
+                                  widget.tank.plants.remove(widget.plant);
+                                  widget.callback();
+                                }
                                 Navigator.of(context).pop();
-                                //Navigator.pushReplacementNamed(context, '/');
-                                //TODO: Få til å vise riktig etter at ein sletter plante
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => TankOverview(
-                                      widget.tank,
-                                    ),
-                                  ),
-                                );
                               },
                             ),
                           ],
                           elevation: 10,
                         ),
                       );
-
-                      //_submit();
+                      //TODO: make wait until yes or no is pressed
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                     },
                   ),
                 ),
