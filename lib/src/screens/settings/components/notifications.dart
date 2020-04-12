@@ -19,7 +19,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
   bool _lowWater = true;
   bool _lowBattery = true;
 
-  String _selectedTime;
+  String _selectedTime = '30 min';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +72,6 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   Expanded(
                     child: Text('Every'),
                   ),
-                  //TODO: Let the user choose from a list how often (30 min, every hour, every second hour etc.)
                   Expanded(
                     child: Container(),
                   ),

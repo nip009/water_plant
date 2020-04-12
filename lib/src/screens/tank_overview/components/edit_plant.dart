@@ -16,7 +16,6 @@ class EditPlant extends StatefulWidget {
   String _selectedPlantType = '';
   EditPlant(this.tank, this.plant, this.callback) {
     _plantNickname = plant.nickname;
-    print('PLANTE NICKNAME: $_plantNickname');
     _selectedPlantType = plant.getPlantTypeName;
   }
 
@@ -66,7 +65,11 @@ class _EditPlantState extends State<EditPlant> {
                       ? Image.asset(
                           widget.plant.getPlantTypeImage,
                         )
-                      : Image.file(widget.plant.chosenImageFile),
+                      : Image.file(
+                          widget.plant.chosenImageFile,
+                          cacheHeight: 130,
+                          cacheWidth: 130,
+                        ),
                 )
               : Image.file(
                   file,
@@ -98,10 +101,11 @@ class _EditPlantState extends State<EditPlant> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                    padding: EdgeInsets.only(
-                      top: 30,
-                    ),
-                    child: displaySelectedFile(pictureFile)),
+                  padding: EdgeInsets.only(
+                    top: 30,
+                  ),
+                  child: displaySelectedFile(pictureFile),
+                ),
                 Container(
                   alignment: Alignment.center,
                   child: FlatButton(
@@ -319,6 +323,9 @@ class _EditPlantState extends State<EditPlant> {
       setState(() {
         widget.plant.plantTypeInfo = plantTypeInfo;
         widget.plant.nickname = widget._plantNickname;
+        if (pictureFile != null) {
+          widget.plant.chosenImageFile = pictureFile;
+        }
       });
       widget.callback();
       Navigator.pop(context);

@@ -80,7 +80,10 @@ class Plant implements IPlantAndWaterTank {
   }
 
   void waterPlant() {
-    _hydration = 100;
+    if (_hydration > _idealHydration) {
+      return;
+    }
+    _hydration = _idealHydration;
   }
 
   /// Returns high, optimal, low or critical

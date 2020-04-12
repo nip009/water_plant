@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/screens/plant_actions/components/plant_actions_body.dart';
-import 'package:water_plant/src/screens/overview/overview.dart';
-import 'package:water_plant/src/screens/tank_overview/components/add_new_plant.dart';
 import 'package:water_plant/src/screens/tank_overview/components/edit_plant.dart';
 
 enum Options { edit_name, remove }
@@ -59,7 +56,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
                   builder: (context) => EditPlant(
                     widget.tank,
                     widget.plant,
-                    widget.callback,
+                    refreshState,
                   ),
                 ),
               );

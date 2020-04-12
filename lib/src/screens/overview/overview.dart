@@ -10,7 +10,9 @@ import 'package:water_plant/src/screens/settings/settings_screen.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class OverviewScreen extends StatefulWidget {
-  final List<WaterTankDevice> tanks = [];
+  final List<WaterTankDevice> tanks;
+
+  OverviewScreen(this.tanks);
 
   static removePlantFromTank(WaterTankDevice tank, Plant plant) {
     if (tank.plants.contains(plant)) {
@@ -28,19 +30,25 @@ class _OverviewScreenState extends State<OverviewScreen> {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   List<Plant> createPlants() {
+    List<String> plantNames = [
+      'Chinese Evergreen',
+      'Emerald Palm',
+      'Orchid',
+      'Yucca Palm'
+    ];
+    List<int> hydrationLevels = [
+      10,
+      24,
+      40,
+      60,
+    ];
     List<Plant> plants = [];
-    for (int i = 0; i < Constants.ALL_PLANTS_INFORMATION.length; i++) {
+    for (int i = 0; i < plantNames.length; i++) {
       var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION[i];
       assert(plantTypeInfo != null);
-      var name = plantTypeInfo.values.elementAt(0);
-      var latinName = plantTypeInfo.values.elementAt(1);
-      var imageName = plantTypeInfo.values.elementAt(2);
-      print('NAME: $name');
-      print('latinName: $latinName');
-      print('imageName: $imageName');
-      print('');
 
-      Plant plant = Plant(0, nickname: 'hey', plantTypeInfo: plantTypeInfo);
+      Plant plant = Plant(hydrationLevels[i],
+          nickname: plantNames[i], plantTypeInfo: plantTypeInfo);
       plants.add(plant);
     }
     return plants;
@@ -48,7 +56,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /*var tankNames = ['Stue', 'Kjøkken', 'Bad'];
+    var tankNames = ['Stue', 'Kjøkken', 'Bad'];
 
     for (int i = 0; i < tankNames.length; i++) {
       var tank = WaterTankDevice(tankNames[i]);
@@ -58,7 +66,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
         tank.addPlant(plants[i]);
       }
       widget.tanks.add(tank);
-    }*/
+    }
 
     var _pages = [
       OverviewBody(widget.tanks),
@@ -74,9 +82,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           onTap: (int index) {
+            print('Index $index');
             setState(() {
               _currentIndex = index;
             });
+            //Navigator.popUntil(context, ModalRoute.withName('/'));
           },
           items: _items,
         ),
@@ -86,6 +96,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
       children: _pages,
 
       onItemTap: (index) {},
+
       /*SafeArea(
         child: IndexedStack(
           index: _currentIndex,

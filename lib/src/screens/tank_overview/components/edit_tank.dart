@@ -228,7 +228,6 @@ class _EditTankState extends State<EditTank> {
     if (_formKey.currentState.validate()) {
       //onSaved for the form is called and tank name is stored in  widget.tankName.
       _formKey.currentState.save();
-      print(widget.tankName);
       tank.nickname = widget.tankName;
       widget.refreshState();
       Navigator.pop(context);
@@ -240,7 +239,6 @@ class _EditTankState extends State<EditTank> {
     if (_formKey.currentState.validate()) {
       //onSaved for the form is called and tank name is stored in widget.tankName.
       _formKey.currentState.save();
-      print(widget.tankName);
       WaterTankDevice tank = WaterTankDevice(widget.tankName);
       widget.addTank(tank);
       Navigator.pop(context);
