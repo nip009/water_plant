@@ -80,6 +80,7 @@ class _EditPlantState extends State<EditPlant> {
 
   @override
   Widget build(BuildContext context) {
+    bool pressedYes = false;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -257,8 +258,8 @@ class _EditPlantState extends State<EditPlant> {
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      await showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
                           content: Container(
@@ -278,6 +279,7 @@ class _EditPlantState extends State<EditPlant> {
                             FlatButton(
                               child: Text('Yes'),
                               onPressed: () {
+                                pressedYes = true;
                                 if (widget.tank.plants.contains(widget.plant)) {
                                   widget.tank.plants.remove(widget.plant);
                                   widget.callback();
@@ -289,9 +291,10 @@ class _EditPlantState extends State<EditPlant> {
                           elevation: 10,
                         ),
                       );
-                      //TODO: make wait until yes or no is pressed
-                      Navigator.pop(context);
-                      Navigator.pop(context);
+                      if (pressedYes) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                 ),
