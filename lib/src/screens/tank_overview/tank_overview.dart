@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
-import 'package:water_plant/src/components/change_name_alert_dialog.dart';
 import 'package:water_plant/src/components/plant_info_card.dart';
 import 'package:water_plant/src/components/water_status.dart';
 import 'package:water_plant/constants.dart' as Constants;
@@ -17,10 +16,6 @@ class TankOverview extends StatefulWidget {
   @override
   _TankOverviewState createState() => _TankOverviewState();
 }
-
-//enum Options { edit_name, remove }
-
-//Options _selection = Options.remove;
 
 class _TankOverviewState extends State<TankOverview> {
   refreshState() {
@@ -81,13 +76,10 @@ class _TankOverviewState extends State<TankOverview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: ClipRRect(
-          //borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -111,37 +103,6 @@ class _TankOverviewState extends State<TankOverview> {
               ),
             ),
           ),
-          /*PopupMenuButton<Options>(
-            offset: Offset.fromDirection(0, 1),
-            onSelected: (Options result) {
-              _selection = result;
-              if (_selection == Options.edit_name) {
-                print("Edit name!");
-                editObjectName(
-                    context: context,
-                    object: widget.tank,
-                    maxLength: 22,
-                    callback: refreshState);
-              } else if (_selection == Options.remove) {
-                print("Remove!");
-                if (widget.removeTank != null) {
-                  widget.removeTank(widget.tank);
-                }
-                refreshState();
-                Navigator.pop(context);
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
-              const PopupMenuItem<Options>(
-                value: Options.edit_name,
-                child: Text('Edit name'),
-              ),
-              const PopupMenuItem<Options>(
-                value: Options.remove,
-                child: Text('Remove'),
-              ),
-            ],
-          ),*/
         ],
       ),
       body: Container(

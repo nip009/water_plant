@@ -65,22 +65,6 @@ class _EditTankState extends State<EditTank> {
             child: Image.asset('assets/logo_white_background.png'),
           ),
           centerTitle: true,
-          actions: <Widget>[
-            /*GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.center,
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),*/
-          ],
         ),
         body: Container(
           padding: EdgeInsets.all(5),
@@ -142,7 +126,7 @@ class _EditTankState extends State<EditTank> {
                       'Confirm',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Constants.LIGHT_GREEN_COLOR,
+                        color: Colors.grey[700],
                       ),
                     ),
                   ),
@@ -222,17 +206,47 @@ class _EditTankState extends State<EditTank> {
     }
   }
 
-  void _editTank(WaterTankDevice tank) {
-    assert(_formKey != null);
-    assert(tank != null);
-
+  _submit(WaterTankDevice tank) {
     if (_formKey.currentState.validate()) {
       //onSaved for the form is called and tank name is stored in  widget.tankName.
       _formKey.currentState.save();
       tank.nickname = widget.tankName;
       widget.refreshState();
-      Navigator.pop(context);
+      Navigator.pop(context, 'Changes saved');
     }
+  }
+
+  void _editTank(WaterTankDevice tank) {
+    assert(_formKey != null);
+    assert(tank != null);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        content: Container(
+          width: 200,
+          child: Text('Are you sure you want to save these changes?'),
+        ),
+        actionsPadding: EdgeInsets.symmetric(
+          horizontal: 60,
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('No'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Yes'),
+            onPressed: () {
+              Navigator.pop(context);
+              _submit(tank);
+            },
+          ),
+        ],
+        elevation: 10,
+      ),
+    );
   }
 
   void _addNewTank() {

@@ -36,20 +36,6 @@ class WaterStatus extends StatelessWidget {
             height: height,
           ),
         ),
-        /*
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 6,
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0),
-              ),
-            ],
-            color: color,
-            borderRadius: BorderRadius.circular(2),
-          ),*/
       );
     }
     return bars;
@@ -58,19 +44,10 @@ class WaterStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      /*decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Constants.BORDER_COLOR,
-          width: 3,
-        ),
-      ),*/
-      // padding: EdgeInsets.all(5),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // padding: EdgeInsets.all(5),
           Row(
             children: <Widget>[
               for (var bar in createWaterStatusBars(context))

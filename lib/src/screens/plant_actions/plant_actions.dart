@@ -56,13 +56,10 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
             Navigator.pop(context);
           },
         ),
-        title: ClipRRect(
-          //borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -85,37 +82,6 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
             ),
           ),
         ],
-        /*actions: <Widget>[
-          PopupMenuButton<Options>(
-            offset: Offset.fromDirection(0, 1),
-            onSelected: (Options result) {
-              _selection = result;
-              if (_selection == Options.edit_name) {
-                print("Edit name!");
-                editObjectName(
-                    context: context,
-                    object: widget.plant,
-                    maxLength: 22,
-                    callback: refreshState);
-              } else if (_selection == Options.remove) {
-                print("Remove!");
-                OverviewScreen.removePlantFromTank(widget.tank, widget.plant);
-                refreshState();
-                Navigator.pop(context);
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Options>>[
-              const PopupMenuItem<Options>(
-                value: Options.edit_name,
-                child: Text('Edit name'),
-              ),
-              const PopupMenuItem<Options>(
-                value: Options.remove,
-                child: Text('Remove'),
-              ),
-            ],
-          ),
-        ],*/
       ),
       resizeToAvoidBottomInset:
           false, // to avoid screen being squeezed together when editing name
