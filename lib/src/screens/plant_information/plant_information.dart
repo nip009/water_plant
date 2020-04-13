@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
-class PlantHeroScreen extends StatelessWidget {
+class PlantInformationScreen extends StatelessWidget {
   final Plant plant;
 
-  PlantHeroScreen(this.plant);
+  PlantInformationScreen(this.plant);
 
   @override
   Widget build(BuildContext context) {
     bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         color: isDark ? Colors.grey[850] : Constants.CARD_BACKGROUND_COLOR,
         child: Column(
@@ -23,7 +30,7 @@ class PlantHeroScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      '${plant.name}',
+                      '${plant.getPlantTypeName}',
                       style: TextStyle(
                         fontSize: 30,
                       ),
@@ -36,7 +43,7 @@ class PlantHeroScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: Hero(
-                          tag: plant.imageName,
+                          tag: plant.getPlantTypeImage,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
@@ -46,7 +53,7 @@ class PlantHeroScreen extends StatelessWidget {
                               ),
                             ),
                             constraints: BoxConstraints.loose(Size(180, 180)),
-                            child: Image.asset(plant.imageName),
+                            child: Image.asset(plant.getPlantTypeImage),
                           ),
                         ),
                       ),
@@ -56,7 +63,7 @@ class PlantHeroScreen extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 10),
                     alignment: Alignment.center,
                     child: Text(
-                      plant.latinName,
+                      plant.getPlantTypeLatinName,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
                       ),

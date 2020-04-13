@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/src/screens/settings/components/about.dart';
+import 'package:water_plant/src/screens/settings/components/account.dart';
+import 'package:water_plant/src/screens/settings/components/notifications.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Color color = isDark ? Constants.BORDER_COLOR : Colors.white;
     return Scaffold(
       appBar: AppBar(
-        title: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
         ),
         centerTitle: true,
       ),
@@ -24,6 +21,7 @@ class SettingsScreen extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
+                padding: EdgeInsets.all(20),
                 alignment: Alignment.center,
                 child: Text(
                   'Settings',
@@ -32,58 +30,56 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ChoiceButton(
-                text: 'ACCOUNT',
-                color: color,
-              ),
-            ),
-            Expanded(
-              child: ChoiceButton(
-                text: 'NOTIFICATIONS',
-                color: color,
-              ),
-            ),
-            Expanded(
-              child: ChoiceButton(
-                text: 'WIFI',
-                color: color,
-              ),
-            ),
-            Expanded(
-              child: ChoiceButton(
-                text: 'APPEARANCE',
-                color: color,
-              ),
-            ),
-            Expanded(
-              child: ChoiceButton(
-                text: 'ABOUT',
-                color: color,
-              ),
-            ),
-            Spacer(),
-            Expanded(
+              flex: 3,
               child: Container(
-                margin: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    width: 1,
-                  ),
-                  color: color,
-                ),
-                child: Align(
-                  widthFactor: 3,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Log out",
-                    style: TextStyle(color: Colors.red, fontSize: 20),
-                  ),
+                alignment: Alignment.center,
+                child: Column(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AccountSettings(),
+                          ),
+                        );
+                      },
+                      child: ChoiceButton(
+                        text: 'ACCOUNT',
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationSettings(),
+                          ),
+                        );
+                      },
+                      child: ChoiceButton(
+                        text: 'NOTIFICATIONS',
+                      ),
+                    ),
+                    ChoiceButton(
+                      text: 'APPEARANCE',
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => About(),
+                          ),
+                        );
+                      },
+                      child: ChoiceButton(
+                        text: 'ABOUT',
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
             ),
           ],
         ),
@@ -96,29 +92,28 @@ class ChoiceButton extends StatelessWidget {
   const ChoiceButton({
     Key key,
     @required this.text,
-    @required this.color,
   }) : super(key: key);
 
   final String text;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
+    return Card(
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      color: Colors.white,
+      elevation: 5,
+      child: Container(
+        height: 48,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.white,
         ),
-        borderRadius: BorderRadius.circular(5),
-        color: color,
-      ),
-      margin: EdgeInsets.all(15),
-      child: Center(
-        child: Text(
-          this.text,
-          style: TextStyle(
-            fontSize: 30,
+        child: Center(
+          child: Text(
+            this.text,
+            style: TextStyle(
+              fontSize: 30,
+            ),
           ),
         ),
       ),

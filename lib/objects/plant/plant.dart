@@ -1,23 +1,42 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../IPlantAndWaterTank.dart';
 
 class Plant implements IPlantAndWaterTank {
   int _hydration;
-  String name;
-  String latinName;
-  final String imageName;
-  bool _automaticWatering;
-  int _idealHydrationLevel;
+  String nickname;
 
-  /// Takes in a name, an image and an int between 0 and 10 representing
-  /// hydration, where 0 is not hydrated at all, and 10 is fully hydrated.
-  Plant(this._hydration,
-      {@required this.imageName,
-      @required this.name,
-      @required this.latinName}) {
+  bool _automaticWatering;
+  int _idealHydration;
+
+  File chosenImageFile;
+
+  Map<String, dynamic> plantTypeInfo;
+
+  Plant(
+    this._hydration, {
+    @required this.plantTypeInfo,
+    this.chosenImageFile,
+    this.nickname = '',
+  }) {
+    assert(plantTypeInfo != null);
     assert(_hydration >= 0 && _hydration <= 100);
     _automaticWatering = false;
-    _idealHydrationLevel = 25;
+    _idealHydration = 40;
+  }
+
+  get getPlantTypeName {
+    return plantTypeInfo.values.elementAt(0);
+  }
+
+  get getPlantTypeLatinName {
+    return plantTypeInfo.values.elementAt(1);
+  }
+
+  get getPlantTypeImage {
+    assert(plantTypeInfo != null);
+    return plantTypeInfo.values.elementAt(2);
   }
 
   set automaticWatering(bool value) {
@@ -29,11 +48,26 @@ class Plant implements IPlantAndWaterTank {
   }
 
   bool isHydrationCritical() {
-    return _hydration <= _idealHydrationLevel;
+    double critical = _idealHydration - ((_idealHydration * 50) / 100);
+    return _hydration <= critical;
+  }
+
+  bool isHydrationLow() {
+    double critical = _idealHydration - ((_idealHydration * 50) / 100);
+    return (this.hydration > critical && this.hydration < _idealHydration - 10);
+  }
+
+  bool isHydrationOptimal() {
+    return (this.hydration <= _idealHydration + 10 &&
+        this.hydration >= _idealHydration - 10);
+  }
+
+  bool isHydrationHigh() {
+    return this.hydration > _idealHydration;
   }
 
   int get idealHydrationLevel {
-    return this._idealHydrationLevel;
+    return this._idealHydration;
   }
 
   int get hydration {
@@ -45,11 +79,23 @@ class Plant implements IPlantAndWaterTank {
     _hydration = hydration;
   }
 
-  void dehydratePlant() {
-    _hydration = 0;
+  void waterPlant() {
+    if (_hydration > _idealHydration) {
+      return;
+    }
+    _hydration = _idealHydration;
   }
 
-  void waterPlant() {
-    _hydration = 100;
+  /// Returns high, optimal, low or critical
+  String getHydrationStatus() {
+    if (isHydrationHigh()) {
+      return 'High';
+    } else if (isHydrationOptimal()) {
+      return 'Optimal';
+    } else if (isHydrationLow()) {
+      return 'Low';
+    } else {
+      return 'Critical';
+    }
   }
 }
