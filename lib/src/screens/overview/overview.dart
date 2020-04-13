@@ -37,8 +37,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
       'Yucca Palm'
     ];
     List<int> hydrationLevels = [
-      10,
       24,
+      10,
       40,
       60,
     ];

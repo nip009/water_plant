@@ -243,7 +243,6 @@ class _EditPlantState extends State<EditPlant> {
                           ),
                         );
                       }
-
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
