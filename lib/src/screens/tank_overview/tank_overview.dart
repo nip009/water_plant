@@ -53,13 +53,28 @@ class _TankOverviewState extends State<TankOverview> {
         Icons.add,
         color: Colors.black,
       ),
-      onPressed: () => Navigator.push(
+      onPressed: () => _navigateAndDisplaySnackbar(
+          context, () => AddNewPlant(widget.tank, addNewPlant)),
+    );
+  }
+
+  _navigateAndDisplaySnackbar(BuildContext context, Function goToPage) async {
+    final result = await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AddNewPlant(widget.tank, addNewPlant),
-        ),
-      ),
-    );
+          builder: (context) => goToPage(),
+        ));
+
+    if (result != null) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: Text(
+            "$result",
+          ),
+          backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+        ));
+    }
   }
 
   @override
@@ -78,17 +93,16 @@ class _TankOverviewState extends State<TankOverview> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditTank(
-                      tank: widget.tank,
-                      removeTank: widget.removeTank,
-                      showDeleteButton: true,
-                      tankName: widget.tank.nickname,
-                      refreshState: refreshState,
-                    ),
-                  ));
+              _navigateAndDisplaySnackbar(
+                context,
+                () => EditTank(
+                  tank: widget.tank,
+                  removeTank: widget.removeTank,
+                  showDeleteButton: true,
+                  tankName: widget.tank.nickname,
+                  refreshState: refreshState,
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.all(10),

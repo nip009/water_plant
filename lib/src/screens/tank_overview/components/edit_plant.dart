@@ -17,8 +17,11 @@ class EditPlant extends StatefulWidget {
   EditPlant(this.tank, this.plant, this.callback) {
     _plantNickname = plant.nickname;
     _selectedPlantType = plant.getPlantTypeName;
+
+    originalPlant = this.plant;
   }
 
+  Plant originalPlant;
   @override
   _EditPlantState createState() => _EditPlantState();
 }
@@ -239,9 +242,37 @@ class _EditPlantState extends State<EditPlant> {
                             elevation: 10,
                           ),
                         );
-                        return;
                       }
-                      _submit();
+
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          content: Container(
+                            width: 200,
+                            child: Text(
+                                'Are you sure you want to save these changes?'),
+                          ),
+                          actionsPadding: EdgeInsets.symmetric(
+                            horizontal: 60,
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                _submit();
+                              },
+                            ),
+                          ],
+                          elevation: 10,
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -288,7 +319,7 @@ class _EditPlantState extends State<EditPlant> {
                                   widget.tank.plants.remove(widget.plant);
                                   widget.callback();
                                 }
-                                Navigator.of(context).pop();
+                                Navigator.pop(context);
                               },
                             ),
                           ],
@@ -296,7 +327,8 @@ class _EditPlantState extends State<EditPlant> {
                         ),
                       );
                       if (pressedYes) {
-                        Navigator.pop(context);
+                        Navigator.pop(
+                            context, 'Deleted plant: ${widget.plant.nickname}');
                         Navigator.pop(context);
                       }
                     },
@@ -328,7 +360,7 @@ class _EditPlantState extends State<EditPlant> {
         }
       });
       widget.callback();
-      Navigator.pop(context);
+      Navigator.pop(context, 'Changes saved');
     }
   }
 }

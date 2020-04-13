@@ -4,6 +4,7 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/tank_overview/components/edit_tank.dart';
 import 'package:water_plant/src/screens/tank_overview/tank_overview.dart';
 import 'package:water_plant/src/components/water_status.dart';
+import 'package:water_plant/constants.dart' as Constants;
 
 class OverviewBody extends StatefulWidget {
   final List<WaterTankDevice> tanks;
@@ -34,6 +35,23 @@ class _OverviewBodyState extends State<OverviewBody> {
     });
   }
 
+  _navigateAndDisplaySnackbar(BuildContext context, Function goToPage) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => goToPage(),
+        ));
+    print(result);
+    if (result != null) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: Text("$result"),
+          backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+        ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     for (WaterTankDevice t in widget.tanks) {
@@ -53,11 +71,9 @@ class _OverviewBodyState extends State<OverviewBody> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.push(
+              _navigateAndDisplaySnackbar(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => EditTank(addTank: addTank),
-                ),
+                () => EditTank(addTank: addTank),
               );
             },
             child: Container(

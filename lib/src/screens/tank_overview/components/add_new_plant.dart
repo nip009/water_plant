@@ -260,7 +260,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
       );
 
       widget.addNewPlant(plant);
-      Navigator.pop(context);
+      Navigator.pop(context, 'Added plant: $_plantNickname');
     }
   }
 }

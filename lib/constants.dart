@@ -5,7 +5,7 @@ import 'package:water_plant/objects/plant/plant.dart';
 
 const int ALLOWED_NUMBER_OF_PLANTS_IN_TANK = 4;
 
-const int MAX_CHARS_DEVICE_NAME = 22;
+const int MAX_CHARS_DEVICE_NAME = 20;
 
 const Color BOTTOM_NAVIGATION_BAR_COLOR = const Color(0xff5b7329); // dark green
 

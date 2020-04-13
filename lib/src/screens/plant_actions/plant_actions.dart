@@ -3,6 +3,7 @@ import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/plant_actions/components/plant_actions_body.dart';
 import 'package:water_plant/src/screens/tank_overview/components/edit_plant.dart';
+import 'package:water_plant/constants.dart' as Constants;
 
 enum Options { edit_name, remove }
 
@@ -28,6 +29,23 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
     widget.callback();
   }
 
+  _navigateAndDisplaySnackbar(BuildContext context, Function goToPage) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => goToPage(),
+        ));
+
+    if (result != null) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          content: Text("$result"),
+          backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+        ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +68,12 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.push(
+              _navigateAndDisplaySnackbar(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => EditPlant(
-                    widget.tank,
-                    widget.plant,
-                    refreshState,
-                  ),
+                () => EditPlant(
+                  widget.tank,
+                  widget.plant,
+                  refreshState,
                 ),
               );
             },
