@@ -167,11 +167,11 @@ class _NotificationSettingsState extends State<NotificationSettings> {
             ),
             formTitle('Device'),
             FormCard(
-              height: 192,
+              height: 96,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Row(
+                  /*Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Automatic watering'),
@@ -183,8 +183,8 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                             });
                           }),
                     ],
-                  ),
-                  Row(
+                  ),*/
+                  /*Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Device WIFI disconnect'),
@@ -196,7 +196,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                             });
                           }),
                     ],
-                  ),
+                  ),*/
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
