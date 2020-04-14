@@ -7,7 +7,7 @@ import '../IPlantAndWaterTank.dart';
 class WaterTankDevice implements IPlantAndWaterTank {
   String nickname;
   List<Plant> _plants;
-  // How many percent water that is left in the tank.
+
   int waterLevel;
 
   WaterTankDevice(this.nickname, {this.waterLevel = 60}) {

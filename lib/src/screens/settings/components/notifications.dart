@@ -88,13 +88,6 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                         color: Colors.white,
                         child: Container(
                           padding: EdgeInsets.only(left: 90, right: 10),
-                          /*decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.grey[700],
-                            ),
-                          ),*/
                           child: DropdownButton<String>(
                             value: _selectedTime,
                             items: [
@@ -111,7 +104,6 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                               return new DropdownMenuItem<String>(
                                 value: value,
                                 child: Container(
-                                  //alignment: Alignment.centerRight,
                                   child: new Text(value),
                                 ),
                               );
