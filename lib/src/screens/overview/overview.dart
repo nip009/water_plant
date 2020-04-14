@@ -136,10 +136,10 @@ final _items = [
   ),
   BottomNavigationBarItem(
     icon: Icon(
-      Icons.search,
+      Icons.info_outline,
       size: _iconSize,
     ),
-    title: Text('Search'),
+    title: Text('Plant Info'),
   ),
   BottomNavigationBarItem(
     icon: Icon(
