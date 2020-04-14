@@ -7,10 +7,6 @@ class WaterStatus extends StatelessWidget {
   final double height;
   final double paddingWidth;
 
-// normal:
-// {this.width = 21.0, this.height = 55.0, this.paddingWidth = 4});
-
-// ny: {this.width = 25.0, this.height = 15.0, this.paddingWidth = 1});
   WaterStatus(this.hydration,
       {this.width = 21.0, this.height = 55.0, this.paddingWidth = 4});
 

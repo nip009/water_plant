@@ -9,7 +9,6 @@ class PlantInformationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -20,7 +19,7 @@ class PlantInformationScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        color: isDark ? Colors.grey[850] : Constants.CARD_BACKGROUND_COLOR,
+        color: Constants.CARD_BACKGROUND_COLOR,
         child: Column(
           children: <Widget>[
             Expanded(
