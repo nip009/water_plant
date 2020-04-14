@@ -86,7 +86,6 @@ class _AccountSettingsState extends State<AccountSettings> {
                         height: 48,
                         child: CountryCodePicker(
                           onChanged: print,
-                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                           initialSelection: 'NO',
                           favorite: ['+47', 'NO'],
                           showFlag: false,
@@ -285,23 +284,6 @@ class _AccountSettingsState extends State<AccountSettings> {
                             'ZM',
                             'ZW',
                           ],
-                          /*countryFilter: [
-                            'IT',
-                            'FR',
-                            'NO',
-                            'ES',
-                            'EN',
-                            'IL',
-                            'AF',
-                            'AL',
-                            'DZ',
-                            'AD',
-                            'AO',
-                            'AQ',
-                            'SE',
-                            'GE',
-                            'UK',
-                          ],*/
                           showFlagDialog: true,
                           comparator: (a, b) => b.name.compareTo(a.name),
                           //Get the country information relevant to the initial selection

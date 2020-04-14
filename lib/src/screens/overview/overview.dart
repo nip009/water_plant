@@ -86,30 +86,12 @@ class _OverviewScreenState extends State<OverviewScreen> {
             setState(() {
               _currentIndex = index;
             });
-            //Navigator.popUntil(context, ModalRoute.withName('/'));
           },
           items: _items,
         ),
       ),
-      //body: pages[_currentIndex],
-
       children: _pages,
-
       onItemTap: (index) {},
-
-      /*SafeArea(
-        child: IndexedStack(
-          index: _currentIndex,
-          children: <Widget>[
-            HomePageBody(widget.tanks),
-            PlantsOverviewScreen(widget.tanks),
-            SettingsScreen(),
-            PlantsBelongingToTankScreen(
-              widget.tanks.sublist(0, 1)[0],
-            ),
-          ],
-        ),
-      ),*/
     );
   }
 }

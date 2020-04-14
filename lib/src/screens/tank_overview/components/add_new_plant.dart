@@ -33,7 +33,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
     setState(() {});
   }
 
-  //display image selected from camera
   imageSelectorCamera() async {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
@@ -158,7 +157,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
                     child: DropdownButton<String>(
-                      //isDense: true,
                       hint: Text('Select a plant type'),
                       value: _selectedPlantType,
                       items: [
@@ -245,7 +243,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
   void _submit() {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
-      //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
 
       var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION

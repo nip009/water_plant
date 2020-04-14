@@ -29,14 +29,12 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
   Widget build(BuildContext context) {
     bool automaticWatering = widget.plant.isAutomaticWateringActive();
     return Container(
-      //color: Colors.yellow,
       child: Column(
         children: <Widget>[
           PlantNameAndInfoButton(widget: widget),
           Expanded(
             flex: 2,
             child: Container(
-              //color: Colors.blue,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -54,7 +52,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
           ),
           Expanded(
             child: Container(
-              //color: Colors.red,
               constraints: BoxConstraints.loose(
                 Size.fromWidth(300),
               ),
@@ -93,7 +90,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                     Expanded(
                       child: Container(
                         alignment: Alignment.topCenter,
-                        //color: Colors.green,
                         child: Column(
                           children: <Widget>[
                             Container(
@@ -111,9 +107,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                                 child: Container(
                                   child: WaterStatus(
                                     widget.tank.waterLevel,
-                                    //paddingWidth: 1,
-                                    //height: 15,
-                                    //width: 25,
                                   ),
                                 ),
                               ),
@@ -271,9 +264,6 @@ class PlantPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      /*constraints: BoxConstraints.loose(
-        Size.fromWidth(250),
-      ),*/
       alignment: Alignment.center,
       child: Hero(
         tag: widget.plant.chosenImageFile == null
@@ -287,7 +277,6 @@ class PlantPicture extends StatelessWidget {
               width: 2.5,
             ),
           ),
-          //height: 250,
           child: ClipRRect(
             child: Container(
               child: widget.plant.chosenImageFile == null

@@ -139,7 +139,7 @@ class _OverviewBodyState extends State<OverviewBody> {
   }
 
   /// Shows an overview of a [WaterTankDevice]. Displays the water level in the
-  /// tank, the name of the tank and the plant(s) that belong to it.
+  /// tank, the name of the tank and the plants that belong to it that need watering.
   Widget tankOverviewCard(WaterTankDevice tank) {
     return Card(
       elevation: 10,
@@ -207,7 +207,7 @@ class _OverviewBodyState extends State<OverviewBody> {
 
   /// Creates a clickable plant icon which contains a picture of the
   /// incoming [Plant] object. Clicking the icon results in watering the plant
-  /// and the icon disappearing and becoming unclickable.
+  /// and the icon disappearing.
   Widget plantIcon(Plant plant) {
     return Column(
       children: <Widget>[

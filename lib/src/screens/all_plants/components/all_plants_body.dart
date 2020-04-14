@@ -28,6 +28,7 @@ class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
     setState(() {});
   }
 
+  //Sort by plant hydration. Returns a map of Plant and its WaterTankDevice.
   sortMap(Map<Plant, WaterTankDevice> map) {
     var sortedKeys = map.keys.toList(growable: false)
       ..sort((k1, k2) => k1.hydration.compareTo(k2.hydration));

@@ -177,7 +177,7 @@ class _EditTankState extends State<EditTank> {
                                   onPressed: () {
                                     remove();
                                     Navigator.pop(context);
-                                    //Navigator.of(context).pop();
+                                    /
                                   },
                                 ),
                               ],

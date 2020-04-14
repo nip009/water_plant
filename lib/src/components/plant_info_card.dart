@@ -110,8 +110,6 @@ class PlantSoilMoistureMessage extends StatelessWidget {
       space = '    ';
     }
     return Container(
-      //width: 200,
-      //color: Colors.yellow,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
