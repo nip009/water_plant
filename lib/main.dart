@@ -37,7 +37,6 @@ class PlantWateringApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      //home: OverviewScreen()
     );
   }
 }

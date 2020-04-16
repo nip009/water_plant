@@ -225,11 +225,10 @@ class _OverviewBodyState extends State<OverviewBody> {
         ),
         Expanded(
           child: Container(
-              //color: Colors.red,
               alignment: Alignment.center,
               width: 75,
               height: 75,
-              padding: EdgeInsets.only(bottom: 5),
+              padding: EdgeInsets.only(bottom: 6),
               child: Text(
                 '${plant.nickname}',
                 style: TextStyle(
