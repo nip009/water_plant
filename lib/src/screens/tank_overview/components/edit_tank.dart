@@ -123,7 +123,7 @@ class _EditTankState extends State<EditTank> {
                   child: Container(
                     margin: EdgeInsets.only(left: 30, right: 30),
                     child: Text(
-                      'Confirm',
+                      widget.showDeleteButton ? 'Edit Device' : 'Add Device',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.grey[700],

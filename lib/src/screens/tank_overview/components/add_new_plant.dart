@@ -33,13 +33,13 @@ class _AddNewPlantState extends State<AddNewPlant> {
     setState(() {});
   }
 
-  imageSelectorCamera() async {
+  /*imageSelectorCamera() async {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
     );
     print("You selected camera image : " + pictureFile.path);
     setState(() {});
-  }
+  }*/
 
   Widget displaySelectedFile(File file) {
     return Container(
@@ -187,7 +187,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: 35),
                   alignment: Alignment.center,
                   child: RaisedButton(
                     elevation: 4,
@@ -196,7 +196,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     child: Container(
                       margin: EdgeInsets.only(left: 30, right: 30),
                       child: Text(
-                        'Confirm',
+                        'Add Plant',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.grey[700],

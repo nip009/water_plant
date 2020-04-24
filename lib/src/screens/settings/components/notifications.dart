@@ -87,7 +87,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                         alignment: Alignment.centerLeft,
                         color: Colors.white,
                         child: Container(
-                          padding: EdgeInsets.only(left: 90, right: 10),
+                          padding: EdgeInsets.only(left: 85, right: 10),
                           child: DropdownButton<String>(
                             value: _selectedTime,
                             items: [

@@ -203,7 +203,7 @@ class _EditPlantState extends State<EditPlant> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: 35),
                   alignment: Alignment.center,
                   child: RaisedButton(
                     elevation: 4,
@@ -212,7 +212,7 @@ class _EditPlantState extends State<EditPlant> {
                     child: Container(
                       margin: EdgeInsets.only(left: 30, right: 30),
                       child: Text(
-                        'Confirm',
+                        'Edit Plant',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.grey[700],
@@ -276,14 +276,19 @@ class _EditPlantState extends State<EditPlant> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.only(
+                    top: 10,
+                  ),
                   alignment: Alignment.center,
                   child: RaisedButton(
                     elevation: 4,
                     padding: EdgeInsets.all(10),
                     color: Colors.white,
                     child: Container(
-                      margin: EdgeInsets.only(left: 30, right: 30),
+                      margin: EdgeInsets.only(
+                        left: 30,
+                        right: 30,
+                      ),
                       child: Text(
                         'Delete',
                         style: TextStyle(
