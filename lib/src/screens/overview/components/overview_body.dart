@@ -109,7 +109,8 @@ class _OverviewBodyState extends State<OverviewBody> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                        'Press the button in the top right to add a new device'),
+                      'Press the button in the top right to add a new device',
+                    ),
                   ),
                 )
               : Expanded(
@@ -217,7 +218,23 @@ class _OverviewBodyState extends State<OverviewBody> {
           child: GestureDetector(
             onTap: () {
               setState(() {
+                int hydrationBeforeWatering = plant.hydration;
                 plant.waterPlant();
+                Scaffold.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                    content: Text("Watering ${plant.nickname}..."),
+                    backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+                    action: SnackBarAction(
+                        textColor: Colors.black,
+                        label: "Undo",
+                        onPressed: () {
+                          setState(() {
+                            plant.hydration =
+                                hydrationBeforeWatering; //TODO: Make watering of the plant stop
+                          });
+                        }),
+                  ));
               });
             },
             child: plantInPicFrame(plant),
