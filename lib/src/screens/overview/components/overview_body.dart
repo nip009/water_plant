@@ -226,7 +226,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                     content: Text("Watering ${plant.nickname}..."),
                     backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
                     action: SnackBarAction(
-                        textColor: Colors.black,
+                        textColor: Constants.SNACKBAR_ACTION_LABEL_COLOR,
                         label: "Undo",
                         onPressed: () {
                           setState(() {

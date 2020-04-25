@@ -158,44 +158,8 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             padding: EdgeInsets.all(5),
             child: Image.asset(
               'assets/water_plant_button_image.png',
+              semanticLabel: 'Button that tells your device to water the plant',
               scale: 3,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget waterButton2() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Transform.rotate(
-        angle: pi / 4.0,
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Constants.BORDER_COLOR,
-              width: 2,
-            ),
-          ),
-          child: RaisedButton(
-            onPressed: () {
-              setState(() {
-                widget.plant.waterPlant();
-                widget.callback();
-              });
-            },
-            child: Transform.rotate(
-              angle: -pi / 2.0,
-              child: ImageIcon(
-                AssetImage(
-                  'assets/water_plant_button_image.png',
-                ),
-                semanticLabel:
-                    'Button that tells your device to water the plant',
-              ),
             ),
           ),
         ),

@@ -7,11 +7,13 @@ const int ALLOWED_NUMBER_OF_PLANTS_IN_TANK = 4;
 
 const int MAX_CHARS_DEVICE_NAME = 20;
 
+//Colors
+const Color SNACKBAR_ACTION_LABEL_COLOR = Colors.black;
+
 const Color BOTTOM_NAVIGATION_BAR_COLOR = const Color(0xff5b7329); // dark green
 
 const Color LIGHT_GREEN_COLOR = const Color(0xFFAEBF2A);
 
-//const Color BORDER_COLOR = Colors.white70;
 const Color BORDER_COLOR = const Color(0xFF424242); // grey[800]
 
 const Color SCAFFOLD_BACKGROUND_COLOR = const Color(0xFFF2F2F0); // greywhite
@@ -24,10 +26,10 @@ const Color WATER_LEVEL_FILL_DARK_THEME =
 const Color WATER_LEVEL_FILL_LIGHT_THEME = Color(0xFF4A678C); //dark blue
 
 const Color WATER_LEVEL_EMPTY_LIGHT_THEME = Colors.white;
-//Colors.white70;
 
 const Color WATER_LEVEL_EMPTY_DARK_THEME = Color(0xFF757575); // grey[600]
 
+// Plant pictures
 const String PLANT_CHINESE_EVERGREEN =
     'assets/plants/plant_chinese_evergreen.jpg';
 
