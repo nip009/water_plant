@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:water_plant/src/screens/tank_overview/components/widgets/form_title.dart';
 
 import 'package:water_plant/constants.dart' as Constants;
 
 class AddNewPlant extends StatefulWidget {
-  WaterTankDevice tank;
-  Function addNewPlant;
+  final WaterTankDevice tank;
+  final Function addNewPlant;
 
   AddNewPlant(this.tank, this.addNewPlant);
   @override
@@ -276,27 +277,5 @@ class _AddNewPlantState extends State<AddNewPlant> {
       widget.addNewPlant(int.parse(_selectedWaterTankPipe), plant);
       Navigator.pop(context, 'Added plant: $_plantNickname');
     }
-  }
-}
-
-class FormTitle extends StatelessWidget {
-  const FormTitle(
-    this.title, {
-    Key key,
-  }) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 20,
-        ),
-      ),
-    );
   }
 }

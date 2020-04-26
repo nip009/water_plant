@@ -93,10 +93,10 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(left: 10, bottom: 5),
+                              padding: EdgeInsets.only(left: 10, bottom: 10),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Device: ${widget.tank.nickname}',
+                                'Device: ${widget.tank.nickname} (Pipe ${widget.tank.pipeConnections[widget.plant]})',
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),

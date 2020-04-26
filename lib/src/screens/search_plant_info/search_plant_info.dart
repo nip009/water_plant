@@ -19,7 +19,7 @@ class SearchPlantInfoScreen extends StatelessWidget {
     var a = Constants.ALL_PLANTS_INFORMATION;
     for (int i = 0; i < a.length; i++) {
       var plantTypeInfo = a[i];
-      var name = plantTypeInfo.values.where((element) => element['name']);
+      //var name = plantTypeInfo.values.where((element) => element['name']);
       Plant plant = Plant(0, plantTypeInfo: plantTypeInfo);
       allPlantTypes.add(plant);
     }

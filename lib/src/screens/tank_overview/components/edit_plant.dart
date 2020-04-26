@@ -4,24 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/objects/plant/plant.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:water_plant/src/screens/tank_overview/components/widgets/form_title.dart';
 
 import 'package:water_plant/constants.dart' as Constants;
 
 class EditPlant extends StatefulWidget {
-  WaterTankDevice tank;
-  Plant plant;
-  Function callback;
+  final WaterTankDevice tank;
+  final Plant plant;
+  final Function callback;
 
   String _plantNickname = '';
   String _selectedPlantType = '';
+  String _selectedWaterTankPipe = '';
   EditPlant(this.tank, this.plant, this.callback) {
     _plantNickname = plant.nickname;
     _selectedPlantType = plant.getPlantTypeName;
-
-    originalPlant = this.plant;
+    _selectedWaterTankPipe = '${tank.getPipe(plant)}';
   }
 
-  Plant originalPlant;
   @override
   _EditPlantState createState() => _EditPlantState();
 }
@@ -39,7 +39,7 @@ class _EditPlantState extends State<EditPlant> {
     setState(() {});
   }
 
-  //display image selected from camera
+  /// Display image selected from camera.
   imageSelectorCamera() async {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
@@ -84,6 +84,17 @@ class _EditPlantState extends State<EditPlant> {
     );
   }
 
+  /// Returns all pipes available and the pipe belonging to [plant].
+  List<String> getAvailablePipes(WaterTankDevice tank, Plant plant) {
+    List<String> pipes = [];
+    tank.getAvailablePipes().forEach((pipe) {
+      pipes.add('$pipe');
+    });
+    pipes.add('${tank.getPipe(plant)}');
+    pipes.sort();
+    return pipes;
+  }
+
   @override
   Widget build(BuildContext context) {
     bool pressedYes = false;
@@ -126,15 +137,35 @@ class _EditPlantState extends State<EditPlant> {
                   child: Text('Select image from camera'),
                   onPressed: () async => await imageSelectorCamera(),
                 ),*/
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-                  child: Text(
-                    'Plant name',
-                    style: TextStyle(
-                      fontSize: 20,
+                FormTitle('Tank pipe'),
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(0),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 12),
+                    alignment: Alignment.centerLeft,
+                    color: Colors.white,
+                    child: DropdownButton<String>(
+                      hint: Text('Select a pipe'),
+                      value: widget._selectedWaterTankPipe,
+                      items: getAvailablePipes(widget.tank, widget.plant)
+                          .map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          widget._selectedWaterTankPipe = value;
+                        });
+                      },
+                      isExpanded: true,
+                      underline: Container(),
                     ),
                   ),
                 ),
+                FormTitle('Plant name'),
                 Card(
                   elevation: 5,
                   margin: EdgeInsets.all(0),
@@ -157,15 +188,7 @@ class _EditPlantState extends State<EditPlant> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-                  child: Text(
-                    'Type of plant',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
+                FormTitle('Type of plant'),
                 Card(
                   elevation: 5,
                   margin: EdgeInsets.all(0),
@@ -345,6 +368,7 @@ class _EditPlantState extends State<EditPlant> {
     );
   }
 
+  /// Confirm the edit.
   void _submit() {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
@@ -358,6 +382,8 @@ class _EditPlantState extends State<EditPlant> {
       setState(() {
         widget.plant.plantTypeInfo = plantTypeInfo;
         widget.plant.nickname = widget._plantNickname;
+        widget.tank.pipeConnections[widget.plant] =
+            int.parse(widget._selectedWaterTankPipe);
         if (pictureFile != null) {
           widget.plant.chosenImageFile = pictureFile;
         }

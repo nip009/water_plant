@@ -24,6 +24,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
 
   void addPlant(int pipe, Plant plant) {
     assert(plant != null);
+    assert(pipe >= 1 && pipe <= 4);
     if (this._pipeConnections.length <
         Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
       _pipeConnections[plant] = pipe;
@@ -45,6 +46,11 @@ class WaterTankDevice implements IPlantAndWaterTank {
       }
     }
     return true;
+  }
+
+  int getPipe(Plant plant) {
+    assert(plant != null);
+    return pipeConnections[plant];
   }
 
   List<int> getAvailablePipes() {

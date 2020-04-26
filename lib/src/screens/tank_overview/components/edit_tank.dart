@@ -266,7 +266,7 @@ class WifiCards extends StatefulWidget {
     Key key,
   }) : super(key: key);
 
-  List<Map<String, dynamic>> wifiInfo;
+  final List<Map<String, dynamic>> wifiInfo;
 
   @override
   _WifiCardsState createState() => _WifiCardsState();

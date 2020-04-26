@@ -1,7 +1,6 @@
 library constants;
 
 import 'package:flutter/material.dart';
-import 'package:water_plant/objects/plant/plant.dart';
 
 const int ALLOWED_NUMBER_OF_PLANTS_IN_TANK = 4;
 
@@ -52,7 +51,7 @@ const String PLANT_YUCCA_PALM = 'assets/plants/plant_yucca_palm.jpg';
 const String PLANT_JANET_LIND = 'assets/plants/plant_janet_lind.jpg';
 
 /// A map of information about each plant
-final List<Map<String, dynamic>> ALL_PLANTS_INFORMATION = [
+const List<Map<String, dynamic>> ALL_PLANTS_INFORMATION = const [
   {
     'name': 'Chinese Evergreen',
     'latinName': 'Aglaonema',
