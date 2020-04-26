@@ -125,7 +125,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       hint: Text('Select a pipe'),
                       value: _selectedWaterTankPipe,
                       items: widget.tank
-                          .getAvailablePipes()
+                          .availablePipes()
                           .map((e) => e.toString())
                           .map((String value) {
                         return new DropdownMenuItem<String>(

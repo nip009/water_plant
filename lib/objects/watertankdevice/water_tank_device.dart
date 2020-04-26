@@ -20,7 +20,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
   Map<Plant, int> _pipeConnections;
 
   WaterTankDevice(this.nickname, {this.waterLevel = 60}) {
-    _pipeConnections = Map<Plant, int>();
+    _pipeConnections = <Plant, int>{};
   }
 
   void addPlant(int pipe, Plant plant) {
@@ -51,13 +51,13 @@ class WaterTankDevice implements IPlantAndWaterTank {
   }
 
   /// Get the pipe that [plant] is connected to in this tank.
-  int getPipe(Plant plant) {
+  int pipeConnectedTo(Plant plant) {
     assert(plant != null);
     return pipeConnections[plant];
   }
 
   /// Get all pipes that are not connected to any [Plant]s.
-  List<int> getAvailablePipes() {
+  List<int> availablePipes() {
     List<int> pipes = [1, 2, 3, 4];
     for (int pipe in _pipeConnections.values) {
       pipes.remove(pipe);

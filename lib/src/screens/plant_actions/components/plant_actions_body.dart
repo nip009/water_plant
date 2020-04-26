@@ -149,7 +149,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
-              color: Constants.BORDER_COLOR,
+              color: Constants.CustomColors.BORDER_COLOR,
               width: 2,
             )),
         child: Transform.rotate(
@@ -185,7 +185,7 @@ class PlantNameAndInfoButton extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.info,
-            color: Constants.LIGHT_GREEN_COLOR,
+            color: Constants.CustomColors.LIGHT_GREEN_COLOR,
           ),
           onPressed: () {
             Navigator.push(
@@ -232,20 +232,20 @@ class PlantPicture extends StatelessWidget {
       alignment: Alignment.center,
       child: Hero(
         tag: widget.plant.chosenImageFile == null
-            ? widget.plant.getPlantTypeImage
+            ? widget.plant.plantTypeImage
             : widget.plant.chosenImageFile,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
             border: Border.all(
-              color: Constants.BORDER_COLOR,
+              color: Constants.CustomColors.BORDER_COLOR,
               width: 2.5,
             ),
           ),
           child: ClipRRect(
             child: Container(
               child: widget.plant.chosenImageFile == null
-                  ? Image.asset(widget.plant.getPlantTypeImage)
+                  ? Image.asset(widget.plant.plantTypeImage)
                   : Image.file(
                       widget.plant.chosenImageFile,
                       cacheHeight: 200,

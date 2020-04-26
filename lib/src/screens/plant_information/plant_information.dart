@@ -19,7 +19,7 @@ class PlantInformationScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        color: Constants.CARD_BACKGROUND_COLOR,
+        color: Constants.CustomColors.CARD_BACKGROUND_COLOR,
         child: Column(
           children: <Widget>[
             Expanded(
@@ -29,7 +29,7 @@ class PlantInformationScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      '${plant.getPlantTypeName}',
+                      '${plant.plantTypeName}',
                       style: TextStyle(
                         fontSize: 30,
                       ),
@@ -42,17 +42,17 @@ class PlantInformationScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: Hero(
-                          tag: plant.getPlantTypeImage,
+                          tag: plant.plantTypeImage,
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
                               border: Border.all(
-                                color: Constants.BORDER_COLOR,
+                                color: Constants.CustomColors.BORDER_COLOR,
                                 width: 2,
                               ),
                             ),
                             constraints: BoxConstraints.loose(Size(180, 180)),
-                            child: Image.asset(plant.getPlantTypeImage),
+                            child: Image.asset(plant.plantTypeImage),
                           ),
                         ),
                       ),
@@ -62,7 +62,7 @@ class PlantInformationScreen extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 10),
                     alignment: Alignment.center,
                     child: Text(
-                      plant.getPlantTypeLatinName,
+                      plant.plantTypeLatinName,
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
                       ),

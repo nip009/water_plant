@@ -68,7 +68,7 @@ class _OverviewBodyState extends State<OverviewBody> {
         ..removeCurrentSnackBar()
         ..showSnackBar(SnackBar(
           content: Text("$result"),
-          backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
         ));
     }
   }
@@ -125,7 +125,7 @@ class _OverviewBodyState extends State<OverviewBody> {
       ),
       body: Column(
         children: <Widget>[
-          widget.tanks.length == 0
+          widget.tanks.isEmpty
               ? Expanded(
                   child: Container(
                     alignment: Alignment.center,
@@ -245,9 +245,11 @@ class _OverviewBodyState extends State<OverviewBody> {
                   ..removeCurrentSnackBar()
                   ..showSnackBar(SnackBar(
                     content: Text("Watering ${plant.nickname}..."),
-                    backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+                    backgroundColor:
+                        Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
                     action: SnackBarAction(
-                        textColor: Constants.SNACKBAR_ACTION_LABEL_COLOR,
+                        textColor:
+                            Constants.CustomColors.SNACKBAR_ACTION_LABEL_COLOR,
                         label: "Undo",
                         onPressed: () {
                           setState(() {
@@ -293,7 +295,7 @@ class _OverviewBodyState extends State<OverviewBody> {
               borderRadius: BorderRadius.circular(5),
               child: plant.chosenImageFile == null
                   ? Image.asset(
-                      plant.getPlantTypeImage,
+                      plant.plantTypeImage,
                     )
                   : Image.file(
                       plant.chosenImageFile,

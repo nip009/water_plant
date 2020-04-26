@@ -20,8 +20,8 @@ class EditPlant extends StatefulWidget {
   String _selectedWaterTankPipe = '';
   EditPlant(this.tank, this.plant, this.callback) {
     _plantNickname = plant.nickname;
-    _selectedPlantType = plant.getPlantTypeName;
-    _selectedWaterTankPipe = '${tank.getPipe(plant)}';
+    _selectedPlantType = plant.plantTypeName;
+    _selectedWaterTankPipe = '${tank.pipeConnectedTo(plant)}';
   }
 
   @override
@@ -69,7 +69,7 @@ class _EditPlantState extends State<EditPlant> {
                   alignment: Alignment.center,
                   child: widget.plant.chosenImageFile == null
                       ? Image.asset(
-                          widget.plant.getPlantTypeImage,
+                          widget.plant.plantTypeImage,
                         )
                       : Image.file(
                           widget.plant.chosenImageFile,
@@ -92,14 +92,14 @@ class _EditPlantState extends State<EditPlant> {
   /// As an example - if all four pipes in the [tank] are connected to a plant
   ///  and [plant] is connected to pipe 1 in the tank, we get ['1'] in return.
   /// ```
-  /// print(getAvailablePipes(tank, plant)); // ['1']
+  /// print(availablePipes(tank, plant)); // ['1']
   /// ```
-  List<String> getAvailablePipes(WaterTankDevice tank, Plant plant) {
+  List<String> availablePipes(WaterTankDevice tank, Plant plant) {
     List<String> pipes = [];
-    tank.getAvailablePipes().forEach((pipe) {
+    tank.availablePipes().forEach((pipe) {
       pipes.add('$pipe');
     });
-    pipes.add('${tank.getPipe(plant)}');
+    pipes.add('${tank.pipeConnectedTo(plant)}');
     pipes.sort();
     return pipes;
   }
@@ -157,7 +157,7 @@ class _EditPlantState extends State<EditPlant> {
                     child: DropdownButton<String>(
                       hint: Text('Select a pipe'),
                       value: widget._selectedWaterTankPipe,
-                      items: getAvailablePipes(widget.tank, widget.plant)
+                      items: availablePipes(widget.tank, widget.plant)
                           .map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,

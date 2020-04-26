@@ -72,7 +72,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
     return CustomScaffold(
       scaffold: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
+          backgroundColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           onTap: (int index) {

@@ -68,7 +68,7 @@ class CustomSearchDelegate extends SearchDelegate {
   List<Plant> searchForPlants(String name) {
     List<Plant> found = [];
     for (Plant plant in allPlantTypes) {
-      if (plant.getPlantTypeName.toLowerCase().contains(name.toLowerCase())) {
+      if (plant.plantTypeName.toLowerCase().contains(name.toLowerCase())) {
         found.add(plant);
       }
     }
@@ -87,7 +87,7 @@ class CustomSearchDelegate extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-      primaryColor: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
+      primaryColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
       primaryIconTheme: theme.primaryIconTheme,
       primaryColorBrightness: theme.primaryColorBrightness,
       primaryTextTheme: theme.primaryTextTheme,
@@ -120,7 +120,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   List<Widget> buildActions(BuildContext context) => [
-        this.query.length > 0
+        this.query.isNotEmpty
             ? Container(
                 child: IconButton(
                   icon: Icon(Icons.clear),
@@ -134,7 +134,7 @@ class CustomSearchDelegate extends SearchDelegate {
 }
 
 /// Creates a card that contains information about the plant given to it.
-/// Displays a picture of the [plant] using [Plant.getPlantTypeImage]. Also
+/// Displays a picture of the [plant] using [Plant.plantTypeImage]. Also
 /// shows the name of it in Latin and English. Clicking on the card shows
 /// further information about the plant.
 Widget createPlantCard(BuildContext context, Plant plant) {
@@ -158,7 +158,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
           height: 80,
           child: Row(
             children: <Widget>[
-              Image.asset(plant.getPlantTypeImage),
+              Image.asset(plant.plantTypeImage),
               Expanded(
                 child: Container(
                   child: Column(
@@ -171,7 +171,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
                             child: Text(
                               plant.nickname != ''
                                   ? plant.nickname
-                                  : plant.getPlantTypeName,
+                                  : plant.plantTypeName,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 26, fontWeight: FontWeight.w400),
@@ -183,7 +183,7 @@ Widget createPlantCard(BuildContext context, Plant plant) {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            '${plant.getPlantTypeLatinName}',
+                            '${plant.plantTypeLatinName}',
                             style: TextStyle(
                                 fontSize: 18, fontStyle: FontStyle.italic),
                           ),

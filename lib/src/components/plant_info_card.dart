@@ -42,7 +42,7 @@ class CreatePlantInfoCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 plant.chosenImageFile == null
-                    ? Image.asset(plant.getPlantTypeImage)
+                    ? Image.asset(plant.plantTypeImage)
                     : Image.file(
                         plant.chosenImageFile,
                         cacheHeight: 80,
@@ -122,7 +122,7 @@ class PlantSoilMoistureMessage extends StatelessWidget {
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: '${plant.getHydrationStatus()} ',
+                  text: '${plant.hydrationStatus()} ',
                   style: TextStyle(
                     color: plant.isHydrationCritical()
                         ? Colors.red

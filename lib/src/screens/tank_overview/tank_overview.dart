@@ -74,7 +74,7 @@ class _TankOverviewState extends State<TankOverview> {
           content: Text(
             "$result",
           ),
-          backgroundColor: Constants.WATER_LEVEL_FILL_LIGHT_THEME,
+          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
         ));
     }
   }

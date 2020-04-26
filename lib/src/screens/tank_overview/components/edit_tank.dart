@@ -330,7 +330,8 @@ class _WifiCardsState extends State<WifiCards> {
                       alignment: Alignment.centerRight,
                       child: Icon(
                         Icons.info_outline,
-                        color: Constants.BOTTOM_NAVIGATION_BAR_COLOR,
+                        color:
+                            Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
                       ),
                     )
                   : Container(),
