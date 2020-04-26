@@ -319,8 +319,7 @@ class _EditPlantState extends State<EditPlant> {
                               child: Text('Yes'),
                               onPressed: () {
                                 pressedYes = true;
-                                if (widget.tank.plants.contains(widget.plant)) {
-                                  widget.tank.plants.remove(widget.plant);
+                                if (widget.tank.removePlant(widget.plant)) {
                                   widget.callback();
                                 }
                                 Navigator.pop(context);

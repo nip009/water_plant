@@ -14,12 +14,6 @@ class OverviewScreen extends StatefulWidget {
 
   OverviewScreen(this.tanks);
 
-  static removePlantFromTank(WaterTankDevice tank, Plant plant) {
-    if (tank.plants.contains(plant)) {
-      tank.plants.remove(plant);
-    }
-  }
-
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
 }
@@ -63,7 +57,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
       var plants = createPlants();
       for (int i = 0; i < Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK; i++) {
-        tank.addPlant(plants[i]);
+        tank.addPlant(i + 1, plants[i]);
       }
       widget.tanks.add(tank);
     }

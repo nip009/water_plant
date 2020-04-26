@@ -30,12 +30,12 @@ class _TankOverviewState extends State<TankOverview> {
     refreshState();
   }
 
-  addNewPlant(Plant plant) {
+  addNewPlant(int pipe, Plant plant) {
     assert(plant != null);
     assert(plant.plantTypeInfo != null);
     if (widget.tank.plants.length <
         Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
-      widget.tank.plants.add(plant);
+      widget.tank.addPlant(pipe, plant);
       refreshState();
     }
   }

@@ -25,6 +25,9 @@ class _AddNewPlantState extends State<AddNewPlant> {
   // needs to be null because the value in DropdownButton needs to be null at first
   String _selectedPlantType;
 
+  // needs to be null because the value in DropdownButton needs to be null at first
+  String _selectedWaterTankPipe;
+
   imageSelectorGallery() async {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
@@ -109,15 +112,37 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   child: Text('Select image from camera'),
                   onPressed: () async => await imageSelectorCamera(),
                 ),*/
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-                  child: Text(
-                    'Plant name',
-                    style: TextStyle(
-                      fontSize: 20,
+                FormTitle('Tank pipe'),
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(0),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 12),
+                    alignment: Alignment.centerLeft,
+                    color: Colors.white,
+                    child: DropdownButton<String>(
+                      hint: Text('Select a pipe'),
+                      value: _selectedWaterTankPipe,
+                      items: widget.tank
+                          .getAvailablePipes()
+                          .map((e) => e.toString())
+                          .map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _selectedWaterTankPipe = value;
+                        });
+                      },
+                      isExpanded: true,
+                      underline: Container(),
                     ),
                   ),
                 ),
+                FormTitle('Plant name'),
                 Card(
                   elevation: 5,
                   margin: EdgeInsets.all(0),
@@ -140,15 +165,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
-                  child: Text(
-                    'Type of plant',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
+                FormTitle('Type of plant'),
                 Card(
                   elevation: 5,
                   margin: EdgeInsets.all(0),
@@ -256,8 +273,30 @@ class _AddNewPlantState extends State<AddNewPlant> {
         chosenImageFile: pictureFile,
       );
 
-      widget.addNewPlant(plant);
+      widget.addNewPlant(int.parse(_selectedWaterTankPipe), plant);
       Navigator.pop(context, 'Added plant: $_plantNickname');
     }
+  }
+}
+
+class FormTitle extends StatelessWidget {
+  const FormTitle(
+    this.title, {
+    Key key,
+  }) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 20, 10, 2),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    );
   }
 }
