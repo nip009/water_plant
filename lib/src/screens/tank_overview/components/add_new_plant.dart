@@ -23,10 +23,10 @@ class _AddNewPlantState extends State<AddNewPlant> {
   String _plantNickname = '';
   File pictureFile;
 
-  // needs to be null because the value in DropdownButton needs to be null at first
+  // Needs to be null because the value in DropdownButton needs to be null at first.
   String _selectedPlantType;
 
-  // needs to be null because the value in DropdownButton needs to be null at first
+  // Needs to be null because the value in DropdownButton needs to be null at first.
   String _selectedWaterTankPipe;
 
   imageSelectorGallery() async {

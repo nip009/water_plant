@@ -5,15 +5,16 @@ import '../IPlantAndWaterTank.dart';
 /// This device can have up to four [Plant]s. It keeps track of the water level
 /// of the tank, as well as which plants belong to the device.
 class WaterTankDevice implements IPlantAndWaterTank {
+  /// The name of this tank.
   String nickname;
 
+  /// How much water is in this tank.
   int waterLevel;
 
   /// Keeps track of which plant each pipe goes to.
-  /// There are 4 pipes one the device, and the pipes are numbered from
-  /// 1 to 4.
   ///
-  /// pipeConnections[plant] = 1
+  /// There are 4 pipes one the device, and the pipes are numbered from
+  /// 1 to 4. pipeConnections[plant] = 1
   /// means that the first pipe is connected to that plant object.
   /// 2 is second pipe, and so on.
   Map<Plant, int> _pipeConnections;
@@ -32,6 +33,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
   }
 
   bool removePlant(Plant plant) {
+    assert(plant != null);
     if (_pipeConnections.containsKey(plant)) {
       _pipeConnections.remove(plant);
       return true;
@@ -48,11 +50,13 @@ class WaterTankDevice implements IPlantAndWaterTank {
     return true;
   }
 
+  /// Get the pipe that [plant] is connected to in this tank.
   int getPipe(Plant plant) {
     assert(plant != null);
     return pipeConnections[plant];
   }
 
+  /// Get all pipes that are not connected to any [Plant]s.
   List<int> getAvailablePipes() {
     List<int> pipes = [1, 2, 3, 4];
     for (int pipe in _pipeConnections.values) {
@@ -65,7 +69,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
     return this._pipeConnections;
   }
 
-  /// Returns a sorted list of the plants in the tank
+  /// Returns a sorted list of the [Plant]s in this tank.
   List<Plant> get plants {
     List<Plant> plants = [];
     for (Plant plant in _pipeConnections.keys) {

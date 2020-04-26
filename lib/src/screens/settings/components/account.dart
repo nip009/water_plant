@@ -286,7 +286,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           ],
                           showFlagDialog: true,
                           comparator: (a, b) => b.name.compareTo(a.name),
-                          //Get the country information relevant to the initial selection
+                          // Get the country information relevant to the initial selection
                           onInit: (code) =>
                               print("on init ${code.name} ${code.dialCode}"),
                         ),

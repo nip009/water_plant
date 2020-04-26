@@ -5,7 +5,7 @@ import 'package:water_plant/src/screens/plant_actions/components/plant_actions_b
 import 'package:water_plant/src/screens/tank_overview/components/edit_plant.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
-/// A screen that shows the hydration level of one [Plant], and gives you
+/// A screen that shows the hydration level of a [Plant], and gives you
 /// the possibility to water the plant by clicking a button.
 class PlantActionsScreen extends StatefulWidget {
   final Plant plant;

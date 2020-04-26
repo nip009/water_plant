@@ -134,7 +134,7 @@ class CustomSearchDelegate extends SearchDelegate {
 }
 
 /// Creates a card that contains information about the plant given to it.
-/// Displays a picture of the [Plant] using [Plant.getPlantTypeImage]. Also
+/// Displays a picture of the [plant] using [Plant.getPlantTypeImage]. Also
 /// shows the name of it in Latin and English. Clicking on the card shows
 /// further information about the plant.
 Widget createPlantCard(BuildContext context, Plant plant) {

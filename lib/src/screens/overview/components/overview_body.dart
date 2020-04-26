@@ -15,10 +15,23 @@ class OverviewBody extends StatefulWidget {
 }
 
 class _OverviewBodyState extends State<OverviewBody> {
+  /// Calling the function in another screen will update the state here.
+  ///
+  /// To send a function without calling it, you can do the following
+  /// ```
+  /// ... ExampleNewScreen(refresh); // Note how () is missing from refresh.
+  /// ```
   refresh() {
     setState(() {});
   }
 
+  /// Adds the [tank] to [widget.tanks].
+  /// Calling the function in another screen will update the state here.
+  ///
+  /// To send a function without calling it, you can do the following
+  /// ```
+  /// ... ExampleNewScreen(addTank); // Note how () is missing from addTank.
+  /// ```
   addTank(WaterTankDevice tank) {
     assert(tank != null);
     setState(() {
@@ -26,6 +39,13 @@ class _OverviewBodyState extends State<OverviewBody> {
     });
   }
 
+  /// Removes the [tank] if it it's in [widget.tanks].
+  /// Calling the function in another screen will update the state here.
+  ///
+  /// To send a function without calling it, you can do the following
+  /// ```
+  /// ... ExampleNewScreen(removeTank); // Note how () is missing from removeTank.
+  /// ```
   removeTank(WaterTankDevice tank) {
     assert(tank != null);
     setState(() {
@@ -260,7 +280,7 @@ class _OverviewBodyState extends State<OverviewBody> {
   }
 
   /// Helper method for [plantIcon].
-  /// The picture represetning the plant in the tank.
+  /// The picture representing the [plant] in the tank.
   ClipRRect plantInPicFrame(Plant plant) {
     assert(plant != null);
     return ClipRRect(

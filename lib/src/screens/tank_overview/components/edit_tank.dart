@@ -6,6 +6,8 @@ import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 class EditTank extends StatefulWidget {
   final Function addTank;
   final Function removeTank;
+
+  /// To refresh the state of previous pages
   final Function refreshState;
   final bool showDeleteButton;
   final WaterTankDevice tank;
@@ -207,7 +209,6 @@ class _EditTankState extends State<EditTank> {
 
   _submit(WaterTankDevice tank) {
     if (_formKey.currentState.validate()) {
-      //onSaved for the form is called and tank name is stored in  widget.tankName.
       _formKey.currentState.save();
       tank.nickname = widget.tankName;
       widget.refreshState();
@@ -251,7 +252,6 @@ class _EditTankState extends State<EditTank> {
   void _addNewTank() {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
-      //onSaved for the form is called and tank name is stored in widget.tankName.
       _formKey.currentState.save();
       WaterTankDevice tank = WaterTankDevice(widget.tankName);
       widget.addTank(tank);

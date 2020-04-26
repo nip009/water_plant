@@ -158,7 +158,8 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             padding: EdgeInsets.all(5),
             child: Image.asset(
               'assets/water_plant_button_image.png',
-              semanticLabel: 'Button that tells your device to water the plant',
+              semanticLabel:
+                  'Button that tells your device to water this plant',
               scale: 3,
             ),
           ),

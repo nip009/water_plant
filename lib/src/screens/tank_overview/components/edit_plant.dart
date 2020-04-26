@@ -11,6 +11,8 @@ import 'package:water_plant/constants.dart' as Constants;
 class EditPlant extends StatefulWidget {
   final WaterTankDevice tank;
   final Plant plant;
+
+  /// Refresh previous pages.
   final Function callback;
 
   String _plantNickname = '';
@@ -31,6 +33,7 @@ class _EditPlantState extends State<EditPlant> {
 
   File pictureFile;
 
+  /// Opens the gallery on the phone and lets users choose a picture.
   imageSelectorGallery() async {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
@@ -39,15 +42,15 @@ class _EditPlantState extends State<EditPlant> {
     setState(() {});
   }
 
-  /// Display image selected from camera.
-  imageSelectorCamera() async {
+  /*imageSelectorCamera() async {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
     );
     print("You selected camera image : " + pictureFile.path);
     setState(() {});
-  }
+  }*/
 
+  /// Shows a picture selected from phone gallery.
   Widget displaySelectedFile(File file) {
     return Container(
       alignment: Alignment.center,
@@ -85,6 +88,12 @@ class _EditPlantState extends State<EditPlant> {
   }
 
   /// Returns all pipes available and the pipe belonging to [plant].
+  ///
+  /// As an example - if all four pipes in the [tank] are connected to a plant
+  ///  and [plant] is connected to pipe 1 in the tank, we get ['1'] in return.
+  /// ```
+  /// print(getAvailablePipes(tank, plant)); // ['1']
+  /// ```
   List<String> getAvailablePipes(WaterTankDevice tank, Plant plant) {
     List<String> pipes = [];
     tank.getAvailablePipes().forEach((pipe) {
@@ -372,7 +381,6 @@ class _EditPlantState extends State<EditPlant> {
   void _submit() {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
-      //onSaved for the form is called and tank name is stored in _tankName.
       _formKey.currentState.save();
 
       var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION.firstWhere(
