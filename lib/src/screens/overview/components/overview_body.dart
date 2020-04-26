@@ -15,8 +15,9 @@ class OverviewBody extends StatefulWidget {
 }
 
 class _OverviewBodyState extends State<OverviewBody> {
-  /// Calling the function in another screen will update the state here.
+  /// Refreshes the state of [_OverviewBodyState].
   ///
+  /// Calling the function in another screen will update the state here.
   /// To send a function without calling it, you can do the following
   /// ```
   /// ... ExampleNewScreen(refresh); // Note how () is missing from refresh.
@@ -25,9 +26,9 @@ class _OverviewBodyState extends State<OverviewBody> {
     setState(() {});
   }
 
-  /// Adds the [tank] to [widget.tanks].
-  /// Calling the function in another screen will update the state here.
+  /// Adds [tank] to [widget.tanks].
   ///
+  /// Calling the function in another screen will update the state here.
   /// To send a function without calling it, you can do the following
   /// ```
   /// ... ExampleNewScreen(addTank); // Note how () is missing from addTank.
@@ -39,9 +40,9 @@ class _OverviewBodyState extends State<OverviewBody> {
     });
   }
 
-  /// Removes the [tank] if it it's in [widget.tanks].
-  /// Calling the function in another screen will update the state here.
+  /// Removes the [tank] if it's in [widget.tanks].
   ///
+  /// Calling the function in another screen will update the state here.
   /// To send a function without calling it, you can do the following
   /// ```
   /// ... ExampleNewScreen(removeTank); // Note how () is missing from removeTank.

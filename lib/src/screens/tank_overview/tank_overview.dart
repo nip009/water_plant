@@ -19,8 +19,8 @@ class TankOverview extends StatefulWidget {
 
 class _TankOverviewState extends State<TankOverview> {
   /// Refreshes the state both here and in the previous screen by calling [widget.callback].
-  /// Calling the function in another screen will run the function here.
   ///
+  /// Calling the function in another screen will run the function here.
   /// To send a function without calling it, you can do the following
   /// ```
   /// ... ExampleNewScreen(refreshState); // Note how () is missing from refreshState.
@@ -30,23 +30,9 @@ class _TankOverviewState extends State<TankOverview> {
     widget.callback();
   }
 
-  /// Remove the [tank].
-  /// Calling the function in a new screen will update the state here.
-  ///
-  /// To send a function without calling it, you can do the following
-  /// ```
-  /// ... ExampleNewScreen(removeTank); // Note how () is missing from removeTank.
-  /// ```
-  removeTank(WaterTankDevice tank) {
-    setState(() {
-      widget.removeTank(tank);
-    });
-    refreshState();
-  }
-
   /// Add a new plant to the [TankOverview.tank].
-  /// Calling the function in another screen will update the state here.
   ///
+  /// Calling the function in another screen will update the state here.
   /// To send a function without calling it, you can do the following
   /// ```
   /// ... ExampleNewScreen(addNewPlant); // Note how () is missing from addNewPlant.
@@ -110,7 +96,7 @@ class _TankOverviewState extends State<TankOverview> {
                 context,
                 () => EditTank(
                   tank: widget.tank,
-                  removeTank: removeTank,
+                  removeTank: widget.removeTank,
                   showDeleteButton: true,
                   tankName: widget.tank.nickname,
                   refreshState: refreshState,
