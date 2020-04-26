@@ -6,7 +6,6 @@ import '../IPlantAndWaterTank.dart';
 /// of the tank, as well as which plants belong to the device.
 class WaterTankDevice implements IPlantAndWaterTank {
   String nickname;
-  List<Plant> _plants;
 
   int waterLevel;
 
@@ -17,32 +16,30 @@ class WaterTankDevice implements IPlantAndWaterTank {
   /// pipeConnections[plant] = 1
   /// means that the first pipe is connected to that plant object.
   /// 2 is second pipe, and so on.
-  Map<Plant, int> pipeConnections;
+  Map<Plant, int> _pipeConnections;
 
   WaterTankDevice(this.nickname, {this.waterLevel = 60}) {
-    this._plants = [];
-    pipeConnections = Map<Plant, int>();
+    _pipeConnections = Map<Plant, int>();
   }
 
   void addPlant(int pipe, Plant plant) {
     assert(plant != null);
-    if (this._plants.length < Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
-      pipeConnections[plant] = pipe;
-      this._plants.add(plant); //TODO: Use pipeConnection instead
+    if (this._pipeConnections.length <
+        Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
+      _pipeConnections[plant] = pipe;
     }
   }
 
   bool removePlant(Plant plant) {
-    if (_plants.contains(plant)) {
-      pipeConnections.remove(plant);
-      _plants.remove(plant);
+    if (_pipeConnections.containsKey(plant)) {
+      _pipeConnections.remove(plant);
       return true;
     }
     return false;
   }
 
   bool isEveryPlantAboveLowWaterLevel() {
-    for (Plant p in _plants) {
+    for (Plant p in _pipeConnections.keys) {
       if (p.isHydrationLow() || p.isHydrationCritical()) {
         return false;
       }
@@ -52,15 +49,23 @@ class WaterTankDevice implements IPlantAndWaterTank {
 
   List<int> getAvailablePipes() {
     List<int> pipes = [1, 2, 3, 4];
-    for (int pipe in pipeConnections.values) {
+    for (int pipe in _pipeConnections.values) {
       pipes.remove(pipe);
     }
     return pipes;
   }
 
+  Map<Plant, int> get pipeConnections {
+    return this._pipeConnections;
+  }
+
   /// Returns a sorted list of the plants in the tank
   List<Plant> get plants {
-    _plants.sort((a, b) => a.hydration.compareTo(b.hydration));
-    return this._plants;
+    List<Plant> plants = [];
+    for (Plant plant in _pipeConnections.keys) {
+      plants.add(plant);
+    }
+    plants.sort((a, b) => a.hydration.compareTo(b.hydration));
+    return plants;
   }
 }
