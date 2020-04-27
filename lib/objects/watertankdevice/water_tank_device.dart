@@ -63,19 +63,8 @@ class WaterTankDevice implements IPlantAndWaterTank {
   /// Waters [plant] (connected by a pipe to this device) until it reaches [plant.idealHydration].
   Future<int> water(Plant plant) async {
     assert(plant != null);
-    for (int i = 0; i < 5; i++) {
-      return await Future.delayed(Duration(seconds: 1))
-          .then((value) => plant.hydration += 1);
-    }
-    /*
-    await Future.delayed(Duration(seconds: 1));
-    if (pipeConnections.containsKey(plant)) {
-      if (plant.hydration > plant.idealHydration) {
-        return false;
-      }
-      plant.hydration += 1;
-      return true;
-    }*/
+    await Future.delayed(Duration(seconds: 1))
+        .then((value) => plant.hydration += 1);
   }
 
   /// Get the pipe that [plant] is connected to in this tank.

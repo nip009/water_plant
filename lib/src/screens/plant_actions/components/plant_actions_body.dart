@@ -56,7 +56,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
           Expanded(
             flex: 4,
             child: Container(
-              //color: Colors.red, //
               constraints: BoxConstraints.loose(
                 Size.fromWidth(300),
               ),
@@ -106,9 +105,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
                                     .CustomColors.SCAFFOLD_BACKGROUND_COLOR,
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                     Constants.CustomColors.WATER_LEVEL_FILL),
-                                //backgroundColor: Colors.black,
-                                //value: widget.plant.hydration
-                                //.toDouble(), //TODO: Make it progress gradually
                               ),
                             )
                           : Container(
@@ -120,7 +116,6 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
                             ),
                     ),
                     Container(
-                      //color: Colors.yellow, //
                       alignment: Alignment.center,
                       child: Container(
                         padding: EdgeInsets.only(left: 10, bottom: 10),

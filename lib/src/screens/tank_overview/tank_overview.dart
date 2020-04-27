@@ -190,6 +190,5 @@ class _TankOverviewState extends State<TankOverview>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => keepAlive;
 }
