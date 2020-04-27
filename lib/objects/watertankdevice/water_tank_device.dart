@@ -23,6 +23,16 @@ class WaterTankDevice implements IPlantAndWaterTank {
     _pipeConnections = <Plant, int>{};
   }
 
+  List<Plant> plantsBeingWatered() {
+    List<Plant> plantsBeingWatered = [];
+    for (Plant plant in plants) {
+      if (plant.isBeingWatered) {
+        plantsBeingWatered.add(plant);
+      }
+    }
+    return plantsBeingWatered;
+  }
+
   void addPlant(int pipe, Plant plant) {
     assert(plant != null);
     assert(pipe >= 1 && pipe <= 4);

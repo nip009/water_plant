@@ -17,7 +17,37 @@ class TankOverview extends StatefulWidget {
   _TankOverviewState createState() => _TankOverviewState();
 }
 
-class _TankOverviewState extends State<TankOverview> {
+class _TankOverviewState extends State<TankOverview>
+    with AutomaticKeepAliveClientMixin {
+  refreshSoilMoisture() async {
+    keepAlive = true;
+    updateKeepAlive();
+
+    while (widget.tank.plantsBeingWatered().isNotEmpty) {
+      await Future.delayed(Duration(seconds: 1)).then((value) {
+        if (mounted) {
+          setState(() {});
+        }
+        widget.callback();
+      });
+    }
+
+    keepAlive = false;
+    updateKeepAlive();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    keepAlive = true;
+    updateKeepAlive();
+
+    refreshSoilMoisture();
+
+    keepAlive = false;
+    updateKeepAlive();
+  }
+
   /// Refreshes the state both here and in the previous screen by calling [widget.callback].
   ///
   /// Calling the function in another screen will run the function here.
@@ -81,8 +111,10 @@ class _TankOverviewState extends State<TankOverview> {
     }
   }
 
+  bool keepAlive = true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -156,4 +188,8 @@ class _TankOverviewState extends State<TankOverview> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => keepAlive;
 }
