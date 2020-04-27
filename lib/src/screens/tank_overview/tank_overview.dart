@@ -135,7 +135,7 @@ class _TankOverviewState extends State<TankOverview> {
                     child: WaterStatus(widget.tank.waterLevel),
                   ),
                   for (var plant in widget.tank.plants)
-                    CreatePlantInfoCard(
+                    PlantInfoCard(
                         context: context,
                         plant: plant,
                         tank: widget.tank,

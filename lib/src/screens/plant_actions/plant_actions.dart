@@ -21,7 +21,9 @@ class PlantActionsScreen extends StatefulWidget {
 
 class _PlantActionsScreenState extends State<PlantActionsScreen> {
   refreshState() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
     widget.callback();
   }
 
@@ -49,7 +51,6 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            widget.callback();
             Navigator.pop(context);
           },
         ),
@@ -83,7 +84,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
       resizeToAvoidBottomInset:
           false, // to avoid screen being squeezed together when editing name
       body: PlantInfoBody(
-          plant: widget.plant, tank: widget.tank, callback: widget.callback),
+          plant: widget.plant, tank: widget.tank, callback: refreshState),
     );
   }
 }

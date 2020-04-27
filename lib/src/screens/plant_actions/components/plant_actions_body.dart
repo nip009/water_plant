@@ -184,21 +184,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
         setState(() {
           widget.plant.isBeingWatered = true;
         });
-        doAsyncStuff();
-        /*while (widget.plant.isBeingWatered &&
-            widget.plant.hydration < widget.plant.idealHydration) {
-          await widget.tank.water(widget.plant).then((value) {
-            print("hei");
-            if (mounted) {
-              print("mounted!");
-              setState(() {});
-            }
-            widget.callback();
-          });
-        }*/
-        if (widget.plant.hydration == widget.plant.idealHydration) {
-          widget.plant.isBeingWatered = false;
-        }
+        asyncWaterTank();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -258,20 +244,26 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
     );
   }
 
-  Future doAsyncStuff() async {
+  /// Waters the [widget.plant] until it reaches [Plant.idealHydration].
+  Future asyncWaterTank() async {
     keepAlive = true;
     updateKeepAlive();
 
     while (widget.plant.isBeingWatered &&
         widget.plant.hydration < widget.plant.idealHydration) {
       await widget.tank.water(widget.plant).then((value) {
-        print("hei");
         if (mounted) {
-          print("mounted!");
           setState(() {});
         }
         widget.callback();
       });
+    }
+
+    if (widget.plant.hydration >= widget.plant.idealHydration) {
+      widget.plant.isBeingWatered = false;
+      if (mounted) {
+        setState(() {});
+      }
     }
 
     keepAlive = false;
@@ -301,7 +293,15 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
         if (mounted) {
           setState(() {});
         }
+        widget.callback();
       });
+
+      if (widget.plant.hydration >= widget.plant.idealHydration) {
+        widget.plant.isBeingWatered = false;
+        if (mounted) {
+          setState(() {});
+        }
+      }
     }
 
     keepAlive = false;

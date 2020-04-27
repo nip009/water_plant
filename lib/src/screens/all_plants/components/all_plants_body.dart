@@ -53,7 +53,7 @@ class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
       child: ListView(
         children: <Widget>[
           for (var entry in sortedMap.entries)
-            CreatePlantInfoCard(
+            PlantInfoCard(
               context: context,
               plant: entry.key,
               tank: entry.value,
