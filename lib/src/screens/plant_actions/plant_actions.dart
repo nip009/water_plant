@@ -37,7 +37,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         ..removeCurrentSnackBar()
         ..showSnackBar(SnackBar(
           content: Text("$result"),
-          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
+          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
         ));
     }
   }
@@ -49,6 +49,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
+            widget.callback();
             Navigator.pop(context);
           },
         ),

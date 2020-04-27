@@ -39,8 +39,7 @@ class About extends StatelessWidget {
                             text: 'Water',
                             style: TextStyle(
                               fontSize: 24,
-                              color: Constants
-                                  .CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
+                              color: Constants.CustomColors.WATER_LEVEL_FILL,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

@@ -23,7 +23,9 @@ class _OverviewBodyState extends State<OverviewBody> {
   /// ... ExampleNewScreen(refresh); // Note how () is missing from refresh.
   /// ```
   refresh() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   /// Adds [tank] to [widget.tanks].
@@ -68,7 +70,7 @@ class _OverviewBodyState extends State<OverviewBody> {
         ..removeCurrentSnackBar()
         ..showSnackBar(SnackBar(
           content: Text("$result"),
-          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
+          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
         ));
     }
   }
@@ -245,8 +247,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                   ..removeCurrentSnackBar()
                   ..showSnackBar(SnackBar(
                     content: Text("Watering ${plant.nickname}..."),
-                    backgroundColor:
-                        Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
+                    backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
                     action: SnackBarAction(
                         textColor:
                             Constants.CustomColors.SNACKBAR_ACTION_LABEL_COLOR,

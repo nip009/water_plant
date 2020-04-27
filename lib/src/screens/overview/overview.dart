@@ -77,9 +77,11 @@ class _OverviewScreenState extends State<OverviewScreen> {
           currentIndex: _currentIndex,
           onTap: (int index) {
             print('Index $index');
-            setState(() {
-              _currentIndex = index;
-            });
+            if (mounted) {
+              setState(() {
+                _currentIndex = index;
+              });
+            }
           },
           items: _items,
         ),

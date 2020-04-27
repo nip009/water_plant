@@ -14,8 +14,8 @@ class WaterStatus extends StatelessWidget {
     List<Widget> bars = [];
     Color color;
 
-    Color emptyColor = Constants.CustomColors.WATER_LEVEL_EMPTY_LIGHT_THEME;
-    Color fillColor = Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME;
+    Color emptyColor = Constants.CustomColors.WATER_LEVEL_EMPTY;
+    Color fillColor = Constants.CustomColors.WATER_LEVEL_FILL;
     for (var i = 0; i < 10; i++) {
       double hyd = hydration / 10;
       hyd > i ? color = fillColor : color = emptyColor;

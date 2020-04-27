@@ -26,7 +26,9 @@ class _TankOverviewState extends State<TankOverview> {
   /// ... ExampleNewScreen(refreshState); // Note how () is missing from refreshState.
   /// ```
   refreshState() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
     widget.callback();
   }
 
@@ -74,7 +76,7 @@ class _TankOverviewState extends State<TankOverview> {
           content: Text(
             "$result",
           ),
-          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL_LIGHT_THEME,
+          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
         ));
     }
   }

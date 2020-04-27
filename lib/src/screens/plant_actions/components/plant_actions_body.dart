@@ -24,16 +24,19 @@ class PlantInfoBody extends StatefulWidget {
   _PlantInfoBodyState createState() => _PlantInfoBodyState();
 }
 
-class _PlantInfoBodyState extends State<PlantInfoBody> {
+class _PlantInfoBodyState extends State<PlantInfoBody>
+    with AutomaticKeepAliveClientMixin {
+  bool keepAlive = true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     bool automaticWatering = widget.plant.isAutomaticWateringActive();
     return Container(
       child: Column(
         children: <Widget>[
           PlantNameAndInfoButton(widget: widget),
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Container(
               child: GestureDetector(
                 onTap: () {
@@ -51,7 +54,9 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             ),
           ),
           Expanded(
+            flex: 4,
             child: Container(
+              //color: Colors.red, //
               constraints: BoxConstraints.loose(
                 Size.fromWidth(300),
               ),
@@ -87,32 +92,50 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
                         ],
                       ),
                     ),
-                    Expanded(
+                    Container(
+                      padding: EdgeInsets.only(
+                        left: 10,
+                        right: 10,
+                        //top: 10,
+                        bottom: 10,
+                      ),
+                      child: widget.plant.isBeingWatered
+                          ? Container(
+                              child: LinearProgressIndicator(
+                                backgroundColor: Constants
+                                    .CustomColors.SCAFFOLD_BACKGROUND_COLOR,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Constants.CustomColors.WATER_LEVEL_FILL),
+                                //backgroundColor: Colors.black,
+                                //value: widget.plant.hydration
+                                //.toDouble(), //TODO: Make it progress gradually
+                              ),
+                            )
+                          : Container(
+                              child: LinearProgressIndicator(
+                                backgroundColor: Constants
+                                    .CustomColors.SCAFFOLD_BACKGROUND_COLOR,
+                                value: 0,
+                              ),
+                            ),
+                    ),
+                    Container(
+                      //color: Colors.yellow, //
+                      alignment: Alignment.center,
                       child: Container(
-                        alignment: Alignment.topCenter,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(left: 10, bottom: 10),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Device: ${widget.tank.nickname} (Pipe ${widget.tank.pipeConnections[widget.plant]})',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                child: Container(
-                                  child: WaterStatus(
-                                    widget.tank.waterLevel,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                        padding: EdgeInsets.only(left: 10, bottom: 10),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Device: ${widget.tank.nickname} (Pipe ${widget.tank.pipeConnections[widget.plant]})',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
+                      ),
+                    ),
+                    Container(
+                      child: WaterStatus(
+                        widget.tank.waterLevel,
                       ),
                     ),
                   ],
@@ -121,10 +144,11 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
             ),
           ),
           Expanded(
+            flex: 3,
             child: Align(
               alignment: Alignment.center,
               child: Container(
-                margin: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                 child: Transform.rotate(
                   angle: pi / 4.0,
                   child: waterButton(),
@@ -137,80 +161,163 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
     );
   }
 
-  /// Pressing this button tells [widget.tank] to start watering [widget.plant].
+  /// A button that controls watering the [widget.plant].
+  ///
+  /// Toggles [widget.tank] to start/stop watering the [widget.plant] when
+  /// pressing the button.
+  /// Displays [_waterButton()] when this plant is not currently being watered.
+  /// Dispays [_waterButtonCancel()] when this plant is being watered.
   Widget waterButton() {
-    Widget _animatedWaterButton;
+    Widget _currentWaterButton;
     setState(() {
-      _animatedWaterButton =
-          widget.plant.isBeingWatered ? _waterButtonCancel() : _waterButton();
+      _currentWaterButton =
+          widget.plant.isBeingWatered ? _waterButtonStop() : _waterButton();
     });
+    return Container(
+      child: _currentWaterButton,
+    );
+  }
+
+  GestureDetector _waterButton() {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         setState(() {
-          widget.plant.isBeingWatered = !widget.plant.isBeingWatered;
-
-          widget.tank.water(widget.plant);
-          widget.callback();
+          widget.plant.isBeingWatered = true;
         });
+        doAsyncStuff();
+        /*while (widget.plant.isBeingWatered &&
+            widget.plant.hydration < widget.plant.idealHydration) {
+          await widget.tank.water(widget.plant).then((value) {
+            print("hei");
+            if (mounted) {
+              print("mounted!");
+              setState(() {});
+            }
+            widget.callback();
+          });
+        }*/
+        if (widget.plant.hydration == widget.plant.idealHydration) {
+          widget.plant.isBeingWatered = false;
+        }
       },
-      child: AnimatedSwitcher(
-        duration: Duration(seconds: 3),
-        //transitionBuilder: (Widget child, Animation<double> animation) =>
-
-        child: _animatedWaterButton,
-      ),
-    );
-  }
-
-  Container _waterButton() {
-    print("Water button");
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Constants.CustomColors.BORDER_COLOR,
-            width: 2,
-          )),
-      child: Transform.rotate(
-        angle: -pi / 2.0,
-        child: Container(
-          padding: EdgeInsets.all(5),
-          child: Image.asset(
-            'assets/water_plant_button_image.png',
-            semanticLabel: 'Button that tells your device to water this plant',
-            scale: 3,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Container _waterButtonCancel() {
-    print("Water button cancel");
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Constants.CustomColors.BORDER_COLOR,
-            width: 2,
-          )),
-      child: Transform.rotate(
-        angle: -pi / 4.0,
-        child: Container(
-          width: 54,
-          height: 54,
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(5),
-          child: Text(
-            'Cancel',
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 12,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Constants.CustomColors.BORDER_COLOR,
+              width: 2,
+            )),
+        child: Transform.rotate(
+          angle: -pi / 2.0,
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Image.asset(
+              'assets/water_plant_button_image.png',
+              semanticLabel:
+                  'Button that tells your device to water this plant',
+              scale: 3,
             ),
           ),
         ),
       ),
     );
+  }
+
+  GestureDetector _waterButtonStop() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.plant.isBeingWatered = false;
+        });
+        widget.callback();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Constants.CustomColors.BORDER_COLOR,
+              width: 2,
+            )),
+        child: Transform.rotate(
+          angle: -pi / 4.0,
+          child: Container(
+            width: 63,
+            height: 63,
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(5),
+            child: Text(
+              'Stop',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future doAsyncStuff() async {
+    keepAlive = true;
+    updateKeepAlive();
+
+    while (widget.plant.isBeingWatered &&
+        widget.plant.hydration < widget.plant.idealHydration) {
+      await widget.tank.water(widget.plant).then((value) {
+        print("hei");
+        if (mounted) {
+          print("mounted!");
+          setState(() {});
+        }
+        widget.callback();
+      });
+    }
+
+    keepAlive = false;
+    updateKeepAlive();
+  }
+
+  @override
+  bool get wantKeepAlive {
+    return keepAlive;
+  }
+
+  /// This method will make sure that the soil moisture will be
+  /// graphically updated for the user when navigating back to this screen.
+
+  /// Navigating away from this screen while watering the plant would normally
+  /// cause the soil moisture from updating when going back to this screen (it
+  /// gets un-mounted and so calling [setState] won't work).
+  /// By using [AutomaticKeepAliveClientMixin], the soil moisture can still be
+  /// updated.
+  refreshSoilMoisture() async {
+    keepAlive = true;
+    updateKeepAlive();
+
+    while (widget.plant.isBeingWatered &&
+        widget.plant.hydration < widget.plant.idealHydration) {
+      await Future.delayed(Duration(seconds: 1)).then((value) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+
+    keepAlive = false;
+    updateKeepAlive();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    keepAlive = true;
+    updateKeepAlive();
+
+    refreshSoilMoisture();
+
+    keepAlive = false;
+    updateKeepAlive();
   }
 }
 

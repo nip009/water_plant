@@ -24,7 +24,9 @@ class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
   }
 
   refreshState() {
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   //Sort by plant hydration. Returns a map of Plant and its WaterTankDevice.

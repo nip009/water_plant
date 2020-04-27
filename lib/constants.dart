@@ -22,16 +22,9 @@ class CustomColors {
 
   static const Color CARD_BACKGROUND_COLOR = SCAFFOLD_BACKGROUND_COLOR;
 
-  static const Color WATER_LEVEL_FILL_DARK_THEME =
-      const Color(0xFF1E88E5); // Colors.blue[600]
+  static const Color WATER_LEVEL_FILL = Color(0xFF4A678C); //dark blue
 
-  static const Color WATER_LEVEL_FILL_LIGHT_THEME =
-      Color(0xFF4A678C); //dark blue
-
-  static const Color WATER_LEVEL_EMPTY_LIGHT_THEME = Colors.white;
-
-  static const Color WATER_LEVEL_EMPTY_DARK_THEME =
-      Color(0xFF757575); // grey[600]
+  static const Color WATER_LEVEL_EMPTY = Colors.white;
 }
 
 class PlantPics {
