@@ -151,12 +151,16 @@ class _OverviewBodyState extends State<OverviewBody> {
     );
   }
 
+  /// Plants that have critical or low hydration (and is not currently being
+  /// watered) needs watering.
   List<Plant> getPlantsThatNeedWatering(WaterTankDevice tank) {
     List<Plant> plantsThatNeedWatering = [];
     for (Plant plant in tank.plants) {
       assert(plant != null);
-      if (plant.isHydrationCritical() || plant.isHydrationLow()) {
-        plantsThatNeedWatering.add(plant);
+      if (!plant.isBeingWatered) {
+        if (plant.isHydrationCritical() || plant.isHydrationLow()) {
+          plantsThatNeedWatering.add(plant);
+        }
       }
     }
     return plantsThatNeedWatering;
@@ -206,7 +210,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                   child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: tank.isEveryPlantAboveLowWaterLevel()
+                      children: getPlantsThatNeedWatering(tank).isEmpty
                           ? [
                               Container(
                                 alignment: Alignment(1, -0.3),
@@ -229,6 +233,19 @@ class _OverviewBodyState extends State<OverviewBody> {
     );
   }
 
+  /// Waters the [widget.plant] until it reaches [Plant.idealHydration].
+  Future asyncWaterPlant(WaterTankDevice tank, Plant plant) async {
+    plant.isBeingWatered = true;
+    while (plant.isBeingWatered && plant.hydration < plant.idealHydration) {
+      await tank.water(plant).then((value) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+    plant.isBeingWatered = false;
+  }
+
   /// Creates a clickable plant icon which contains a picture of the
   /// incoming [Plant] object. Clicking the icon results in watering the plant
   /// and the icon disappearing.
@@ -240,9 +257,9 @@ class _OverviewBodyState extends State<OverviewBody> {
           height: 75,
           child: GestureDetector(
             onTap: () {
+              asyncWaterPlant(tank, plant);
+              //tank.water(plant);
               setState(() {
-                int hydrationBeforeWatering = plant.hydration;
-                tank.water(plant);
                 Scaffold.of(context)
                   ..removeCurrentSnackBar()
                   ..showSnackBar(SnackBar(
@@ -254,8 +271,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                         label: "Undo",
                         onPressed: () {
                           setState(() {
-                            plant.hydration =
-                                hydrationBeforeWatering; //TODO: Make watering of the plant stop
+                            plant.isBeingWatered = false;
                           });
                         }),
                   ));

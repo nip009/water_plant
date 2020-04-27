@@ -184,7 +184,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
         setState(() {
           widget.plant.isBeingWatered = true;
         });
-        asyncWaterTank();
+        asyncWaterPlant();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -245,9 +245,11 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
   }
 
   /// Waters the [widget.plant] until it reaches [Plant.idealHydration].
-  Future asyncWaterTank() async {
+  Future asyncWaterPlant() async {
     keepAlive = true;
     updateKeepAlive();
+
+    widget.plant.isBeingWatered = true;
 
     while (widget.plant.isBeingWatered &&
         widget.plant.hydration < widget.plant.idealHydration) {
@@ -259,12 +261,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
       });
     }
 
-    if (widget.plant.hydration >= widget.plant.idealHydration) {
-      widget.plant.isBeingWatered = false;
-      if (mounted) {
-        setState(() {});
-      }
-    }
+    widget.plant.isBeingWatered = false;
 
     keepAlive = false;
     updateKeepAlive();
