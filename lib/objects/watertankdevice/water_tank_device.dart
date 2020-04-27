@@ -50,9 +50,24 @@ class WaterTankDevice implements IPlantAndWaterTank {
     return true;
   }
 
+  /// Waters [plant] (connected by a pipe to this device) until it reaches [plant.idealHydration].
+  bool water(Plant plant) {
+    assert(plant != null);
+    if (pipeConnections.containsKey(plant)) {
+      if (plant.hydration > plant.idealHydration) {
+        return false;
+      }
+      plant.hydration = plant.idealHydration;
+      return true;
+    }
+
+    return false;
+  }
+
   /// Get the pipe that [plant] is connected to in this tank.
   int pipeConnectedTo(Plant plant) {
     assert(plant != null);
+    assert(pipeConnections.containsKey(plant));
     return pipeConnections[plant];
   }
 

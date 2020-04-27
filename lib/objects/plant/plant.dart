@@ -3,7 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../IPlantAndWaterTank.dart';
 
+/// This object represents a plant that the user might have.
 ///
+/// A [WaterTankDevice] can have one of its pipes connected to this plant.
+/// A [Plant] keeps track of its hydration level, and can tell if its
+/// current hydration is critical, low, optimal or high by using the information
+/// in [plantTypeInfo].
 class Plant implements IPlantAndWaterTank {
   /// Current hydration level/soil moisture for this plant.
   int _hydration;
@@ -14,7 +19,7 @@ class Plant implements IPlantAndWaterTank {
   /// Whether or not this plant should be watered automatically by its [WaterTankDevice].
   bool _automaticWatering;
 
-  /// The hydration level that is ideal for this plant.
+  /// The ideal hydration level for this plant.
   int _idealHydration;
 
   File chosenImageFile;
@@ -23,7 +28,9 @@ class Plant implements IPlantAndWaterTank {
   ///
   /// As an example, a plant of type Orchid would have information stored here
   /// about an Orchid. It would contain information about its ideal hydration
-  /// level, its latin name and it would have a picture of an Orchid
+  /// level, its latin name and it would have a picture of an Orchid.
+  /// Information stored here is like a small, summarized
+  /// wikipedia page about this plant type.
   /// *(This information would be fetched from a server in the future).*
   Map<String, dynamic> plantTypeInfo;
 
@@ -72,21 +79,13 @@ class Plant implements IPlantAndWaterTank {
     return this.hydration > _idealHydration;
   }
 
-  int get idealHydrationLevel => this._idealHydration;
+  int get idealHydration => this._idealHydration;
 
   int get hydration => this._hydration;
 
   set hydration(int hydration) {
     assert(hydration >= 0 && hydration <= 100);
     _hydration = hydration;
-  }
-
-  /// Waters this plant until it reaches optimal [_idealHydration].
-  void waterPlant() {
-    if (_hydration > _idealHydration) {
-      return;
-    }
-    _hydration = _idealHydration;
   }
 
   /// Returns high, optimal, low or critical.

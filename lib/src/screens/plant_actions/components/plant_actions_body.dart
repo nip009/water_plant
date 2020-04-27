@@ -141,7 +141,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          widget.plant.waterPlant();
+          widget.tank.water(widget.plant);
           widget.callback();
         });
       },

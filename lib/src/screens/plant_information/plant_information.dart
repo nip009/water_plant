@@ -89,7 +89,7 @@ class PlantInformationScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               text:
-                                  'Ideal soil moisture: ${plant.idealHydrationLevel}%\n\n',
+                                  'Ideal soil moisture: ${plant.idealHydration}%\n\n',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[800],

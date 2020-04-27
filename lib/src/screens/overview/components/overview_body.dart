@@ -216,7 +216,7 @@ class _OverviewBodyState extends State<OverviewBody> {
                               )
                             ]
                           : getPlantsThatNeedWatering(tank)
-                              .map((plant) => plantIcon(plant))
+                              .map((plant) => plantIcon(tank, plant))
                               .toList()),
                 ),
               ),
@@ -230,7 +230,7 @@ class _OverviewBodyState extends State<OverviewBody> {
   /// Creates a clickable plant icon which contains a picture of the
   /// incoming [Plant] object. Clicking the icon results in watering the plant
   /// and the icon disappearing.
-  Widget plantIcon(Plant plant) {
+  Widget plantIcon(WaterTankDevice tank, Plant plant) {
     return Column(
       children: <Widget>[
         Container(
@@ -240,7 +240,7 @@ class _OverviewBodyState extends State<OverviewBody> {
             onTap: () {
               setState(() {
                 int hydrationBeforeWatering = plant.hydration;
-                plant.waterPlant();
+                tank.water(plant);
                 Scaffold.of(context)
                   ..removeCurrentSnackBar()
                   ..showSnackBar(SnackBar(
