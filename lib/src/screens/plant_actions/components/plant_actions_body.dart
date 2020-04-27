@@ -137,30 +137,75 @@ class _PlantInfoBodyState extends State<PlantInfoBody> {
     );
   }
 
+  /// Pressing this button tells [widget.tank] to start watering [widget.plant].
   Widget waterButton() {
+    Widget _animatedWaterButton;
+    setState(() {
+      _animatedWaterButton =
+          widget.plant.isBeingWatered ? _waterButtonCancel() : _waterButton();
+    });
     return GestureDetector(
       onTap: () {
         setState(() {
+          widget.plant.isBeingWatered = !widget.plant.isBeingWatered;
+
           widget.tank.water(widget.plant);
           widget.callback();
         });
       },
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Constants.CustomColors.BORDER_COLOR,
-              width: 2,
-            )),
-        child: Transform.rotate(
-          angle: -pi / 2.0,
-          child: Container(
-            padding: EdgeInsets.all(5),
-            child: Image.asset(
-              'assets/water_plant_button_image.png',
-              semanticLabel:
-                  'Button that tells your device to water this plant',
-              scale: 3,
+      child: AnimatedSwitcher(
+        duration: Duration(seconds: 3),
+        //transitionBuilder: (Widget child, Animation<double> animation) =>
+
+        child: _animatedWaterButton,
+      ),
+    );
+  }
+
+  Container _waterButton() {
+    print("Water button");
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            color: Constants.CustomColors.BORDER_COLOR,
+            width: 2,
+          )),
+      child: Transform.rotate(
+        angle: -pi / 2.0,
+        child: Container(
+          padding: EdgeInsets.all(5),
+          child: Image.asset(
+            'assets/water_plant_button_image.png',
+            semanticLabel: 'Button that tells your device to water this plant',
+            scale: 3,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container _waterButtonCancel() {
+    print("Water button cancel");
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            color: Constants.CustomColors.BORDER_COLOR,
+            width: 2,
+          )),
+      child: Transform.rotate(
+        angle: -pi / 4.0,
+        child: Container(
+          width: 54,
+          height: 54,
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(5),
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 12,
             ),
           ),
         ),

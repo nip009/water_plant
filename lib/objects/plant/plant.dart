@@ -34,6 +34,8 @@ class Plant implements IPlantAndWaterTank {
   /// *(This information would be fetched from a server in the future).*
   Map<String, dynamic> plantTypeInfo;
 
+  bool isBeingWatered = false;
+
   Plant(
     this._hydration, {
     @required this.plantTypeInfo,
