@@ -149,6 +149,33 @@ class _EditPlantState extends State<EditPlant> {
                   child: Text('Select image from camera'),
                   onPressed: () async => await imageSelectorCamera(),
                 ),*/
+
+                FormTitle('Plant name'),
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(0),
+                  child: Container(
+                    height: _formHeight,
+                    padding: EdgeInsets.only(left: 12),
+                    color: Colors.white,
+                    child: Form(
+                      key: _formKeyPlantName,
+                      //autovalidate: true,
+                      child: TextFormField(
+                        maxLength: Constants.MAX_CHARS_DEVICE_NAME,
+                        onSaved: (value) => widget._plantNickname = value,
+                        validator: (value) =>
+                            value.isEmpty ? 'Please select a name' : null,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          counterText: '',
+                          contentPadding: EdgeInsets.all(0),
+                        ),
+                        initialValue: widget._plantNickname,
+                      ),
+                    ),
+                  ),
+                ),
                 FormTitle('Tank pipe'),
                 Card(
                   elevation: 5,
@@ -179,32 +206,6 @@ class _EditPlantState extends State<EditPlant> {
                           });
                         },
                         isExpanded: true,
-                      ),
-                    ),
-                  ),
-                ),
-                FormTitle('Plant name'),
-                Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(0),
-                  child: Container(
-                    height: _formHeight,
-                    padding: EdgeInsets.only(left: 12),
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKeyPlantName,
-                      autovalidate: true,
-                      child: TextFormField(
-                        maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                        onSaved: (value) => widget._plantNickname = value,
-                        validator: (value) =>
-                            value.isEmpty ? 'Please select a name' : null,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          counterText: '',
-                          contentPadding: EdgeInsets.all(0),
-                        ),
-                        initialValue: widget._plantNickname,
                       ),
                     ),
                   ),
@@ -270,29 +271,13 @@ class _EditPlantState extends State<EditPlant> {
                       ),
                     ),
                     onPressed: () {
-                      if (widget._selectedPlantType == null) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            content: Container(
-                              width: 200,
-                              child: Text('Please select a plant type'),
-                            ),
-                            actionsPadding: EdgeInsets.symmetric(
-                              horizontal: 100,
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('Ok'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                            elevation: 10,
-                          ),
-                        );
+                      if (!(_formKeyPlantName.currentState.validate() &&
+                          _formKeyPlantType.currentState.validate() &&
+                          _formKeyTankPipe.currentState.validate())) {
+                        return;
                       }
+
+                      // All forms are filled out correctly
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

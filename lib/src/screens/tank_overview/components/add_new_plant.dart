@@ -22,7 +22,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
   final _formKeyTankPipe = GlobalKey<FormState>();
   final _formKeyPlantType = GlobalKey<FormState>();
 
-  String _plantNickname = '';
+  String _plantNickname = 'Plant 1';
   File pictureFile;
 
   // Needs to be null because the value in DropdownButton needs to be null at first.
@@ -116,6 +116,34 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   child: Text('Select image from camera'),
                   onPressed: () async => await imageSelectorCamera(),
                 ),*/
+                FormTitle('Plant name'),
+                Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(0),
+                  child: Container(
+                    height: _formHeight,
+                    padding: EdgeInsets.only(left: 12),
+                    color: Colors.white,
+                    child: Form(
+                      key: _formKeyPlantName,
+                      autovalidate: true,
+                      child: TextFormField(
+                        initialValue: _plantNickname,
+                        maxLength: Constants.MAX_CHARS_DEVICE_NAME,
+                        onSaved: (value) => _plantNickname = value,
+                        validator: (value) =>
+                            value.isEmpty ? 'Please select a name' : null,
+                        decoration: InputDecoration(
+                          //helperText: ' ',
+                          //hintText: 'Default: Plant 1',
+                          border: InputBorder.none,
+                          counterText: '',
+                          contentPadding: EdgeInsets.all(0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 FormTitle('Tank pipe'),
                 Card(
                   elevation: 5,
@@ -127,7 +155,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     color: Colors.white,
                     child: Form(
                       key: _formKeyTankPipe,
-                      autovalidate: true,
+                      //autovalidate: true,
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -157,33 +185,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     ),
                   ),
                 ),
-                FormTitle('Plant name'),
-                Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(0),
-                  child: Container(
-                    height: _formHeight,
-                    padding: EdgeInsets.only(left: 12),
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKeyPlantName,
-                      autovalidate: true,
-                      child: TextFormField(
-                        maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                        onSaved: (value) => _plantNickname = value,
-                        validator: (value) =>
-                            value.isEmpty ? 'Please select a name' : null,
-                        decoration: InputDecoration(
-                          //helperText: ' ',
-                          hintText: 'Default: Plant 1',
-                          border: InputBorder.none,
-                          counterText: '',
-                          contentPadding: EdgeInsets.all(0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
                 FormTitle('Type of plant'),
                 Card(
                   elevation: 5,
@@ -195,7 +196,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     color: Colors.white,
                     child: Form(
                       key: _formKeyPlantType,
-                      autovalidate: true,
+                      //autovalidate: true,
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           //helperText: ' ',

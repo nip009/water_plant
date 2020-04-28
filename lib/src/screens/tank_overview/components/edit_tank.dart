@@ -89,10 +89,9 @@ class _EditTankState extends State<EditTank> {
                   color: Colors.white,
                   child: Form(
                     key: _formKey,
-                    autovalidate: true,
                     child: TextFormField(
                       initialValue:
-                          widget.tank != null ? widget.tank.nickname : '',
+                          widget.tank != null ? widget.tank.nickname : null,
                       maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                       onSaved: (value) => widget.tankName = value,
                       validator: (value) =>
@@ -139,6 +138,9 @@ class _EditTankState extends State<EditTank> {
                     if (widget.tank == null) {
                       _addNewTank();
                     } else {
+                      if (!_formKey.currentState.validate()) {
+                        return;
+                      }
                       _editTank(widget.tank);
                     }
                   },
