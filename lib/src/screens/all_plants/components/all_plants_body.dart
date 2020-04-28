@@ -16,13 +16,8 @@ class AllPlantsBody extends StatefulWidget {
       _PlantsOverviewScreenStateBody();
 }
 
-class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
-  /// Sort plants by hydration
-  List<Plant> sort(List<Plant> plants) {
-    plants.sort((a, b) => a.hydration.compareTo(b.hydration));
-    return plants;
-  }
-
+class _PlantsOverviewScreenStateBody extends State<AllPlantsBody>
+    with AutomaticKeepAliveClientMixin {
   refreshState() {
     if (mounted) {
       setState(() {});
@@ -39,8 +34,12 @@ class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
     return sortedMap;
   }
 
+  /// In order to keep the screen updating if there is one or more plant(s)
+  /// being watered.
+  bool keepAlive = true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     Map<Plant, WaterTankDevice> tankPlantMap = {};
     for (WaterTankDevice tank in widget.tanks) {
       for (Plant plant in tank.plants) {
@@ -64,4 +63,45 @@ class _PlantsOverviewScreenStateBody extends State<AllPlantsBody> {
       ),
     );
   }
+
+  /// Returns a list of every plant that is being watered (Every plant that
+  /// has [Plant.isBeingWatered] set to true).
+  List<Plant> allPlantsBeingWatered() {
+    List<Plant> allPlantsBeingWatered = [];
+    for (WaterTankDevice tank in widget.tanks) {
+      for (Plant plant in tank.plants) {
+        if (plant.isBeingWatered) {
+          allPlantsBeingWatered.add(plant);
+        }
+      }
+    }
+    return allPlantsBeingWatered;
+  }
+
+  /// Update the critical/low/optimal/high soil moisture status graphically
+  /// for the user while a plant is being watered.
+  refreshSoilMoisture() async {
+    keepAlive = true;
+    updateKeepAlive();
+
+    while (allPlantsBeingWatered().isNotEmpty) {
+      await Future.delayed(Duration(seconds: 1)).then((value) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+
+    keepAlive = false;
+    updateKeepAlive();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    refreshSoilMoisture();
+  }
+
+  @override
+  bool get wantKeepAlive => keepAlive;
 }
