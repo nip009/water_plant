@@ -22,7 +22,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
   final _formKeyTankPipe = GlobalKey<FormState>();
   final _formKeyPlantType = GlobalKey<FormState>();
 
-  String _plantNickname = 'Plant 1';
+  String _plantNickname = '';
   File pictureFile;
 
   // Needs to be null because the value in DropdownButton needs to be null at first.
@@ -126,7 +126,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     color: Colors.white,
                     child: Form(
                       key: _formKeyPlantName,
-                      autovalidate: true,
                       child: TextFormField(
                         initialValue: _plantNickname,
                         maxLength: Constants.MAX_CHARS_DEVICE_NAME,
@@ -135,7 +134,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                             value.isEmpty ? 'Please select a name' : null,
                         decoration: InputDecoration(
                           //helperText: ' ',
-                          //hintText: 'Default: Plant 1',
+                          hintText: 'Default: Plant 1',
                           border: InputBorder.none,
                           counterText: '',
                           contentPadding: EdgeInsets.all(0),

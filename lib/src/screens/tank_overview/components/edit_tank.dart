@@ -14,7 +14,7 @@ class EditTank extends StatefulWidget {
   String tankName;
 
   EditTank(
-      {this.tankName,
+      {this.tankName = '',
       this.tank,
       this.addTank,
       this.removeTank,
@@ -91,7 +91,7 @@ class _EditTankState extends State<EditTank> {
                     key: _formKey,
                     child: TextFormField(
                       initialValue:
-                          widget.tank != null ? widget.tank.nickname : null,
+                          widget.tank != null ? widget.tank.nickname : '',
                       maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                       onSaved: (value) => widget.tankName = value,
                       validator: (value) =>
