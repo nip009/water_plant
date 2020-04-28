@@ -20,7 +20,7 @@ class AddNewPlant extends StatefulWidget {
 class _AddNewPlantState extends State<AddNewPlant> {
   final _formKeyPlantName = GlobalKey<FormState>();
   final _formKeyTankPipe = GlobalKey<FormState>();
-  final _formKeyPlanType = GlobalKey<FormState>();
+  final _formKeyPlantType = GlobalKey<FormState>();
 
   String _plantNickname = '';
   File pictureFile;
@@ -194,7 +194,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
                     child: Form(
-                      key: _formKeyPlanType,
+                      key: _formKeyPlantType,
                       autovalidate: true,
                       child: DropdownButtonFormField<String>(
                         decoration: InputDecoration(
@@ -277,8 +277,8 @@ class _AddNewPlantState extends State<AddNewPlant> {
       _formKeyPlantName.currentState.save();
       chosenPlantName = true;
     }
-    if (_formKeyPlanType.currentState.validate()) {
-      _formKeyPlanType.currentState.validate();
+    if (_formKeyPlantType.currentState.validate()) {
+      _formKeyPlantType.currentState.validate();
       chosenPlantType = true;
     }
 

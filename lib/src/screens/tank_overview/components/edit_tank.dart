@@ -84,10 +84,12 @@ class _EditTankState extends State<EditTank> {
               Card(
                 elevation: 5,
                 child: Container(
+                  height: 48,
                   padding: EdgeInsets.only(left: 12),
                   color: Colors.white,
                   child: Form(
                     key: _formKey,
+                    autovalidate: true,
                     child: TextFormField(
                       initialValue:
                           widget.tank != null ? widget.tank.nickname : '',
@@ -100,6 +102,7 @@ class _EditTankState extends State<EditTank> {
                             widget.tankName == '' ? 'Default: Device 1' : '',
                         border: InputBorder.none,
                         counterText: '',
+                        contentPadding: EdgeInsets.all(0),
                       ),
                     ),
                   ),
