@@ -179,6 +179,7 @@ class _OverviewBodyState extends State<OverviewBody> {
               tank,
               callback: refresh,
               removeTank: removeTank,
+              addTank: addTank,
             ),
           ),
         ),

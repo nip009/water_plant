@@ -8,10 +8,11 @@ import 'package:water_plant/src/screens/tank_overview/components/add_new_plant.d
 import 'package:water_plant/src/screens/tank_overview/components/edit_tank.dart';
 
 class TankOverview extends StatefulWidget {
-  final WaterTankDevice tank;
+  WaterTankDevice tank;
   final Function callback;
   final Function removeTank;
-  TankOverview(this.tank, {this.callback, this.removeTank});
+  final Function addTank;
+  TankOverview(this.tank, {this.callback, this.removeTank, this.addTank});
 
   @override
   _TankOverviewState createState() => _TankOverviewState();
@@ -87,12 +88,13 @@ class _TankOverviewState extends State<TankOverview>
         Icons.add,
         color: Colors.black,
       ),
-      onPressed: () => _navigateAndDisplaySnackbar(
+      onPressed: () => _navigateAndDisplaySnackbarAddNewPlant(
           context, () => AddNewPlant(widget.tank, addNewPlant)),
     );
   }
 
-  _navigateAndDisplaySnackbar(BuildContext context, Function goToPage) async {
+  _navigateAndDisplaySnackbarAddNewPlant(
+      BuildContext context, Function goToPage) async {
     final result = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -111,6 +113,46 @@ class _TankOverviewState extends State<TankOverview>
     }
   }
 
+  _navigateAndDisplaySnackbarEditTank(
+      BuildContext context, Function goToPage) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => goToPage(),
+        ));
+
+    if (result != null) {
+      String actionPerformed = result[0];
+      WaterTankDevice tank = result[1];
+      if (actionPerformed == 'Remove') {
+        Scaffold.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: Text(
+              'Removed tank ${tank.nickname}',
+            ),
+            backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
+            action: SnackBarAction(
+                label: 'Undo',
+                textColor: Constants.CustomColors.SNACKBAR_ACTION_LABEL_COLOR,
+                onPressed: () {
+                  widget.addTank(tank);
+                  refreshState();
+                }),
+          ));
+      } else if (actionPerformed == 'Edit') {
+        Scaffold.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+            content: Text(
+              'Changes saved',
+            ),
+            backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
+          ));
+      }
+    }
+  }
+
   bool keepAlive = true;
   @override
   Widget build(BuildContext context) {
@@ -126,7 +168,7 @@ class _TankOverviewState extends State<TankOverview>
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              _navigateAndDisplaySnackbar(
+              _navigateAndDisplaySnackbarEditTank(
                 context,
                 () => EditTank(
                   tank: widget.tank,

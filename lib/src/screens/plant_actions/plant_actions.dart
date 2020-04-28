@@ -48,10 +48,11 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         ..removeCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
-            content: Text('Deleted plant ${deletedPlant.nickname}'),
+            content: Text('Removed plant ${deletedPlant.nickname}'),
             backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
             action: SnackBarAction(
               label: 'Undo',
+              textColor: Constants.CustomColors.SNACKBAR_ACTION_LABEL_COLOR,
               onPressed: () {
                 widget.tank.addPlant(deletedPlantPipe, deletedPlant);
                 refreshState();

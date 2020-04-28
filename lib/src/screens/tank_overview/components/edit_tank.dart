@@ -182,7 +182,7 @@ class _EditTankState extends State<EditTank> {
                                 FlatButton(
                                   child: Text('Yes'),
                                   onPressed: () {
-                                    remove();
+                                    removeThisTank();
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -201,13 +201,13 @@ class _EditTankState extends State<EditTank> {
     );
   }
 
-  void remove() {
+  void removeThisTank() {
     assert(widget.tank != null);
     if (widget.removeTank != null) {
       widget.removeTank(widget.tank);
       widget.refreshState();
       // Pop twice to not show the old, now removed tank
-      Navigator.pop(context, 'Removed tank: ${widget.tank.nickname}');
+      Navigator.pop(context, ['Remove', widget.tank]);
       Navigator.pop(context);
     }
   }
@@ -217,7 +217,7 @@ class _EditTankState extends State<EditTank> {
       _formKey.currentState.save();
       tank.nickname = widget.tankName;
       widget.refreshState();
-      Navigator.pop(context, 'Changes saved');
+      Navigator.pop(context, ['Edit', widget.tank]);
     }
   }
 
