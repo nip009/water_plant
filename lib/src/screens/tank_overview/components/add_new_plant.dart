@@ -18,7 +18,9 @@ class AddNewPlant extends StatefulWidget {
 }
 
 class _AddNewPlantState extends State<AddNewPlant> {
-  final _formKey = new GlobalKey<FormState>();
+  final _formKeyPlantName = GlobalKey<FormState>();
+  final _formKeyTankPipe = GlobalKey<FormState>();
+  final _formKeyPlanType = GlobalKey<FormState>();
 
   String _plantNickname = '';
   File pictureFile;
@@ -73,6 +75,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
     );
   }
 
+  final double _formHeight = 48;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -118,28 +121,39 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   elevation: 5,
                   margin: EdgeInsets.all(0),
                   child: Container(
+                    height: _formHeight,
                     padding: EdgeInsets.only(left: 12),
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
-                    child: DropdownButton<String>(
-                      hint: Text('Select a pipe'),
-                      value: _selectedWaterTankPipe,
-                      items: widget.tank
-                          .availablePipes()
-                          .map((e) => e.toString())
-                          .map((String value) {
-                        return new DropdownMenuItem<String>(
-                          value: value,
-                          child: new Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String value) {
-                        setState(() {
-                          _selectedWaterTankPipe = value;
-                        });
-                      },
-                      isExpanded: true,
-                      underline: Container(),
+                    child: Form(
+                      key: _formKeyTankPipe,
+                      autovalidate: true,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          counterText: '',
+                          contentPadding: EdgeInsets.all(0),
+                        ),
+                        hint: Text('Select a pipe'),
+                        value: _selectedWaterTankPipe,
+                        validator: (value) =>
+                            value == null ? 'Please select a pipe' : null,
+                        items: widget.tank
+                            .availablePipes()
+                            .map((e) => e.toString())
+                            .map((String value) {
+                          return new DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String value) {
+                          setState(() {
+                            _selectedWaterTankPipe = value;
+                          });
+                        },
+                        isExpanded: true,
+                      ),
                     ),
                   ),
                 ),
@@ -148,19 +162,23 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   elevation: 5,
                   margin: EdgeInsets.all(0),
                   child: Container(
+                    height: _formHeight,
                     padding: EdgeInsets.only(left: 12),
                     color: Colors.white,
                     child: Form(
-                      key: _formKey,
+                      key: _formKeyPlantName,
+                      autovalidate: true,
                       child: TextFormField(
                         maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                         onSaved: (value) => _plantNickname = value,
                         validator: (value) =>
-                            value.isEmpty ? 'Name cannot be empty' : null,
+                            value.isEmpty ? 'Please select a name' : null,
                         decoration: InputDecoration(
+                          //helperText: ' ',
                           hintText: 'Default: Plant 1',
                           border: InputBorder.none,
                           counterText: '',
+                          contentPadding: EdgeInsets.all(0),
                         ),
                       ),
                     ),
@@ -171,36 +189,48 @@ class _AddNewPlantState extends State<AddNewPlant> {
                   elevation: 5,
                   margin: EdgeInsets.all(0),
                   child: Container(
+                    height: _formHeight,
                     padding: EdgeInsets.only(left: 12),
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
-                    child: DropdownButton<String>(
-                      hint: Text('Select a plant type'),
-                      value: _selectedPlantType,
-                      items: [
-                        'Chinese Evergreen',
-                        'Emerald palm',
-                        'Orchid',
-                        'Yucca Palm',
-                        'Cocos Palm',
-                        'Money Tree',
-                        'Queen Palm',
-                        'Benjamin Fig',
-                        'Bonsai Ficus',
-                        'Janet Lind',
-                      ].map((String value) {
-                        return new DropdownMenuItem<String>(
-                          value: value,
-                          child: new Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String value) {
-                        setState(() {
-                          _selectedPlantType = value;
-                        });
-                      },
-                      isExpanded: true,
-                      underline: Container(),
+                    child: Form(
+                      key: _formKeyPlanType,
+                      autovalidate: true,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          //helperText: ' ',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(0),
+                        ),
+                        hint: Text('Select a plant type'),
+                        value: _selectedPlantType,
+                        validator: (value) => value == null
+                            ? 'Please select type of plant'
+                            : null,
+                        items: [
+                          'Chinese Evergreen',
+                          'Emerald palm',
+                          'Orchid',
+                          'Yucca Palm',
+                          'Cocos Palm',
+                          'Money Tree',
+                          'Queen Palm',
+                          'Benjamin Fig',
+                          'Bonsai Ficus',
+                          'Janet Lind',
+                        ].map((String value) {
+                          return new DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String value) {
+                          setState(() {
+                            _selectedPlantType = value;
+                          });
+                        },
+                        isExpanded: true,
+                      ),
                     ),
                   ),
                 ),
@@ -222,30 +252,6 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       ),
                     ),
                     onPressed: () {
-                      if (_selectedPlantType == null) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            content: Container(
-                              width: 200,
-                              child: Text('Please select a plant type'),
-                            ),
-                            actionsPadding: EdgeInsets.symmetric(
-                              horizontal: 100,
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('Ok'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                            elevation: 10,
-                          ),
-                        );
-                        return;
-                      }
                       _submit();
                     },
                   ),
@@ -259,10 +265,24 @@ class _AddNewPlantState extends State<AddNewPlant> {
   }
 
   void _submit() {
-    assert(_formKey != null);
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    bool chosenTankPipe = false;
+    bool chosenPlantName = false;
+    bool chosenPlantType = false;
 
+    if (_formKeyTankPipe.currentState.validate()) {
+      _formKeyTankPipe.currentState.save();
+      chosenTankPipe = true;
+    }
+    if (_formKeyPlantName.currentState.validate()) {
+      _formKeyPlantName.currentState.save();
+      chosenPlantName = true;
+    }
+    if (_formKeyPlanType.currentState.validate()) {
+      _formKeyPlanType.currentState.validate();
+      chosenPlantType = true;
+    }
+
+    if (chosenTankPipe && chosenPlantName && chosenPlantType) {
       var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION
           .firstWhere((element) => element['name'] == _selectedPlantType);
 

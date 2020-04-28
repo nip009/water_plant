@@ -248,12 +248,11 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
 
     while (widget.plant.isBeingWatered &&
         widget.plant.hydration < widget.plant.idealHydration) {
-      await widget.tank.water(widget.plant).then((value) {
-        if (mounted) {
-          setState(() {});
-        }
-        widget.callback();
-      });
+      await widget.tank.water(widget.plant);
+      if (mounted) {
+        setState(() {});
+      }
+      widget.callback();
     }
 
     widget.plant.isBeingWatered = false;

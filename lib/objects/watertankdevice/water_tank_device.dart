@@ -33,9 +33,11 @@ class WaterTankDevice implements IPlantAndWaterTank {
     return plantsBeingWatered;
   }
 
+  /// Add [plant] to this device, and set it to be connected to [pipe].
   void addPlant(int pipe, Plant plant) {
     assert(plant != null);
     assert(pipe >= 1 && pipe <= 4);
+    assert(!_pipeConnections.containsValue(pipe));
     if (this._pipeConnections.length <
         Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK) {
       _pipeConnections[plant] = pipe;
@@ -60,8 +62,26 @@ class WaterTankDevice implements IPlantAndWaterTank {
     return true;
   }
 
-  /// Waters [plant] (connected by a pipe to this device) until it reaches [plant.idealHydration].
-  Future<int> water(Plant plant) async {
+  /// Water [plant] for a small amount.
+  ///
+  /// This function is typically called until [plant.hydration] has reached
+  /// [plant.idealHydration] and while [plant.isBeingWatered] is true.
+  /// One should update [plant.isBeingWatered] accordingly when watering
+  /// the [plant].
+  /// An example of its use:
+  /// ```
+  /// plant.isBeingWatered = true;
+  ///  while (plant.isBeingWatered && plant.hydration < plant.idealHydration) {
+  ///   await tank.water(plant);
+  ///   if (mounted) {
+  ///     setState(() {});
+  ///   }
+  ///  }
+  /// plant.isBeingWatered = false;
+  /// ```
+  /// In the code example above, calling [setState] will update the use of
+  /// [plant.hydration] in the class [setState] is being called in.
+  Future<void> water(Plant plant) async {
     assert(plant != null);
     await Future.delayed(Duration(seconds: 1))
         .then((value) => plant.hydration += 1);

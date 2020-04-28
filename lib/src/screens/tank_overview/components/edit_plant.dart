@@ -29,7 +29,9 @@ class EditPlant extends StatefulWidget {
 }
 
 class _EditPlantState extends State<EditPlant> {
-  final _formKey = new GlobalKey<FormState>();
+  final _formKeyPlantName = GlobalKey<FormState>();
+  final _formKeyTankPipe = GlobalKey<FormState>();
+  final _formKeyPlantType = GlobalKey<FormState>();
 
   File pictureFile;
 
@@ -104,6 +106,7 @@ class _EditPlantState extends State<EditPlant> {
     return pipes;
   }
 
+  final double _formHeight = 48;
   @override
   Widget build(BuildContext context) {
     bool pressedYes = false;
@@ -151,26 +154,32 @@ class _EditPlantState extends State<EditPlant> {
                   elevation: 5,
                   margin: EdgeInsets.all(0),
                   child: Container(
+                    height: _formHeight,
                     padding: EdgeInsets.only(left: 12),
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
-                    child: DropdownButton<String>(
-                      hint: Text('Select a pipe'),
-                      value: widget._selectedWaterTankPipe,
-                      items: availablePipes(widget.tank, widget.plant)
-                          .map((String value) {
-                        return new DropdownMenuItem<String>(
-                          value: value,
-                          child: new Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String value) {
-                        setState(() {
-                          widget._selectedWaterTankPipe = value;
-                        });
-                      },
-                      isExpanded: true,
-                      underline: Container(),
+                    child: Form(
+                      key: _formKeyTankPipe,
+                      autovalidate: true,
+                      child: DropdownButtonFormField<String>(
+                        hint: Text('Select a pipe'),
+                        value: widget._selectedWaterTankPipe,
+                        validator: (value) =>
+                            value == null ? 'Please select a pipe' : null,
+                        items: availablePipes(widget.tank, widget.plant)
+                            .map((String value) {
+                          return new DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String value) {
+                          setState(() {
+                            widget._selectedWaterTankPipe = value;
+                          });
+                        },
+                        isExpanded: true,
+                      ),
                     ),
                   ),
                 ),
@@ -179,18 +188,21 @@ class _EditPlantState extends State<EditPlant> {
                   elevation: 5,
                   margin: EdgeInsets.all(0),
                   child: Container(
+                    height: _formHeight,
                     padding: EdgeInsets.only(left: 12),
                     color: Colors.white,
                     child: Form(
-                      key: _formKey,
+                      key: _formKeyPlantName,
+                      autovalidate: true,
                       child: TextFormField(
                         maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                         onSaved: (value) => widget._plantNickname = value,
                         validator: (value) =>
-                            value.isEmpty ? 'Name cannot be empty' : null,
+                            value.isEmpty ? 'Please select a name' : null,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           counterText: '',
+                          contentPadding: EdgeInsets.all(0),
                         ),
                         initialValue: widget._plantNickname,
                       ),
@@ -205,32 +217,38 @@ class _EditPlantState extends State<EditPlant> {
                     padding: EdgeInsets.only(left: 12),
                     alignment: Alignment.centerLeft,
                     color: Colors.white,
-                    child: DropdownButton<String>(
-                      value: widget._selectedPlantType,
-                      items: [
-                        'Chinese Evergreen',
-                        'Emerald palm',
-                        'Orchid',
-                        'Yucca Palm',
-                        'Cocos Palm',
-                        'Money Tree',
-                        'Queen Palm',
-                        'Benjamin Fig',
-                        'Bonsai Ficus',
-                        'Janet Lind',
-                      ].map((String value) {
-                        return new DropdownMenuItem<String>(
-                          value: value,
-                          child: new Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String value) {
-                        setState(() {
-                          widget._selectedPlantType = value;
-                        });
-                      },
-                      isExpanded: true,
-                      underline: Container(),
+                    child: Form(
+                      key: _formKeyPlantType,
+                      autovalidate: true,
+                      child: DropdownButtonFormField<String>(
+                        validator: (value) => value == null
+                            ? 'Please select type of plant'
+                            : null,
+                        value: widget._selectedPlantType,
+                        items: [
+                          'Chinese Evergreen',
+                          'Emerald palm',
+                          'Orchid',
+                          'Yucca Palm',
+                          'Cocos Palm',
+                          'Money Tree',
+                          'Queen Palm',
+                          'Benjamin Fig',
+                          'Bonsai Ficus',
+                          'Janet Lind',
+                        ].map((String value) {
+                          return new DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String value) {
+                          setState(() {
+                            widget._selectedPlantType = value;
+                          });
+                        },
+                        isExpanded: true,
+                      ),
                     ),
                   ),
                 ),
@@ -379,10 +397,24 @@ class _EditPlantState extends State<EditPlant> {
 
   /// Confirm the edit.
   void _submit() {
-    assert(_formKey != null);
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    bool chosenTankPipe = false;
+    bool chosenPlantName = false;
+    bool chosenPlantType = false;
 
+    if (_formKeyTankPipe.currentState.validate()) {
+      _formKeyTankPipe.currentState.save();
+      chosenTankPipe = true;
+    }
+    if (_formKeyPlantName.currentState.validate()) {
+      _formKeyPlantName.currentState.save();
+      chosenPlantName = true;
+    }
+    if (_formKeyPlantType.currentState.validate()) {
+      _formKeyPlantType.currentState.validate();
+      chosenPlantType = true;
+    }
+
+    if (chosenTankPipe && chosenPlantName && chosenPlantType) {
       var plantTypeInfo = Constants.ALL_PLANTS_INFORMATION.firstWhere(
           (element) => element['name'] == widget._selectedPlantType);
 

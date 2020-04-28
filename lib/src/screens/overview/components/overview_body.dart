@@ -237,11 +237,10 @@ class _OverviewBodyState extends State<OverviewBody> {
   Future asyncWaterPlant(WaterTankDevice tank, Plant plant) async {
     plant.isBeingWatered = true;
     while (plant.isBeingWatered && plant.hydration < plant.idealHydration) {
-      await tank.water(plant).then((value) {
-        if (mounted) {
-          setState(() {});
-        }
-      });
+      await tank.water(plant);
+      if (mounted) {
+        setState(() {});
+      }
     }
     plant.isBeingWatered = false;
   }
