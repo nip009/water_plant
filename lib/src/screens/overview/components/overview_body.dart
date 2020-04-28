@@ -64,7 +64,7 @@ class _OverviewBodyState extends State<OverviewBody> {
         MaterialPageRoute(
           builder: (context) => goToPage(),
         ));
-    print(result);
+
     if (result != null) {
       Scaffold.of(context)
         ..removeCurrentSnackBar()

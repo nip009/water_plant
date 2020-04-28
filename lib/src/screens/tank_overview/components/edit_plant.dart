@@ -365,8 +365,10 @@ class _EditPlantState extends State<EditPlant> {
                         ),
                       );
                       if (pressedYes) {
-                        Navigator.pop(
-                            context, 'Deleted plant: ${widget.plant.nickname}');
+                        Navigator.pop(context, [
+                          int.parse(widget._selectedWaterTankPipe),
+                          widget.plant
+                        ]);
                         Navigator.pop(context);
                       }
                     },

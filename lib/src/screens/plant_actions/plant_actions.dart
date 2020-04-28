@@ -27,20 +27,38 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
     widget.callback();
   }
 
-  _navigateAndDisplaySnackbar(BuildContext context, Function goToPage) async {
+  /// Navigates to [goToPage] and displays a snackbar with [result] from that
+  /// page when [Navigator.pop(context, result)] is called in that page.
+  _navigateAndDisplaySnackbarForDeletedPlant(
+      BuildContext context, Function goToPage) async {
     final result = await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => goToPage(),
         ));
 
+    // goToPage has called Navigator.pop()
+    // result is either null or it contains the pipe of the deleted plant and
+    // the deleted plant object.
+
     if (result != null) {
+      int deletedPlantPipe = result[0];
+      Plant deletedPlant = result[1];
       Scaffold.of(context)
         ..removeCurrentSnackBar()
-        ..showSnackBar(SnackBar(
-          content: Text("$result"),
-          backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
-        ));
+        ..showSnackBar(
+          SnackBar(
+            content: Text('Deleted plant ${deletedPlant.nickname}'),
+            backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                widget.tank.addPlant(deletedPlantPipe, deletedPlant);
+                refreshState();
+              },
+            ),
+          ),
+        );
     }
   }
 
@@ -63,7 +81,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              _navigateAndDisplaySnackbar(
+              _navigateAndDisplaySnackbarForDeletedPlant(
                 context,
                 () => EditPlant(
                   widget.tank,

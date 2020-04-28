@@ -21,7 +21,9 @@ class OverviewScreen extends StatefulWidget {
 class _OverviewScreenState extends State<OverviewScreen> {
   int _currentIndex = 0;
 
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  //GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Plant> createPlants() {
     List<String> plantNames = [
@@ -71,23 +73,19 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
     return CustomScaffold(
       scaffold: Scaffold(
+        key: _scaffoldKey,
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
-          onTap: (int index) {
-            print('Index $index');
-            if (mounted) {
-              setState(() {
-                _currentIndex = index;
-              });
-            }
-          },
+          onTap: (int index) {},
           items: _items,
         ),
       ),
       children: _pages,
-      onItemTap: (index) {},
+      onItemTap: (index) {
+        _scaffoldKey.currentState.hideCurrentSnackBar();
+      },
     );
   }
 }

@@ -35,7 +35,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
     pictureFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
     );
-    print("You selected gallery image : " + pictureFile.path);
+    //print("You selected gallery image : " + pictureFile.path);
     setState(() {});
   }
 
