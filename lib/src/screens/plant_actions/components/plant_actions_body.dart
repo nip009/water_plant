@@ -121,7 +121,7 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
                         padding: EdgeInsets.only(left: 10, bottom: 10),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Device: ${widget.tank.nickname} (Pipe ${widget.tank.pipeConnections[widget.plant]})',
+                          'Device: ${widget.tank.nickname} [Pipe ${widget.tank.pipeConnections[widget.plant]}]',
                           style: TextStyle(
                             fontSize: 18,
                           ),
