@@ -358,7 +358,7 @@ class PlantNameAndInfoButton extends StatelessWidget {
             ),
             overflow: TextOverflow.ellipsis,
           ),
-        ),
+        )
       ],
     );
   }

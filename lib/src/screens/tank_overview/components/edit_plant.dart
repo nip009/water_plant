@@ -366,6 +366,7 @@ class _EditPlantState extends State<EditPlant> {
                       );
                       if (pressedYes) {
                         Navigator.pop(context, [
+                          'Remove',
                           int.parse(widget._selectedWaterTankPipe),
                           widget.plant
                         ]);
@@ -416,7 +417,7 @@ class _EditPlantState extends State<EditPlant> {
         }
       });
       widget.callback();
-      Navigator.pop(context, 'Changes saved');
+      Navigator.pop(context, ['Edit', widget.plant]);
     }
   }
 }

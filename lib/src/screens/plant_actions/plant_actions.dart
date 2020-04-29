@@ -29,8 +29,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
 
   /// Navigates to [goToPage] and displays a snackbar with [result] from that
   /// page when [Navigator.pop(context, result)] is called in that page.
-  _navigateAndDisplaySnackbarForDeletedPlant(
-      BuildContext context, Function goToPage) async {
+  _navigateAndDisplaySnackbar(BuildContext context, Function goToPage) async {
     final result = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -38,28 +37,41 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         ));
 
     // goToPage has called Navigator.pop()
-    // result is either null or it contains the pipe of the deleted plant and
-    // the deleted plant object.
 
     if (result != null) {
-      int deletedPlantPipe = result[0];
-      Plant deletedPlant = result[1];
-      Scaffold.of(context)
-        ..removeCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            content: Text('Removed plant ${deletedPlant.nickname}'),
-            backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Constants.CustomColors.SNACKBAR_ACTION_LABEL_COLOR,
-              onPressed: () {
-                widget.tank.addPlant(deletedPlantPipe, deletedPlant);
-                refreshState();
-              },
+      String actionHappened = result[0];
+
+      if (actionHappened == 'Remove') {
+        int deletedPlantPipe = result[1];
+        Plant deletedPlant = result[2];
+        Scaffold.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Text('Removed plant ${deletedPlant.nickname}'),
+              backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
+              action: SnackBarAction(
+                label: 'Undo',
+                textColor: Constants.CustomColors.SNACKBAR_ACTION_LABEL_COLOR,
+                onPressed: () {
+                  widget.tank.addPlant(deletedPlantPipe, deletedPlant);
+                  refreshState();
+                },
+              ),
             ),
-          ),
-        );
+          );
+      } else if (actionHappened == 'Edit') {
+        //Plant plant = result[1];
+
+        Scaffold.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Text('Changes saved'),
+              backgroundColor: Constants.CustomColors.WATER_LEVEL_FILL,
+            ),
+          );
+      }
     }
   }
 
@@ -82,7 +94,7 @@ class _PlantActionsScreenState extends State<PlantActionsScreen> {
         actions: <Widget>[
           GestureDetector(
             onTap: () {
-              _navigateAndDisplaySnackbarForDeletedPlant(
+              _navigateAndDisplaySnackbar(
                 context,
                 () => EditPlant(
                   widget.tank,
