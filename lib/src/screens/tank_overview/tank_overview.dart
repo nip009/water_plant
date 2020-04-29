@@ -202,6 +202,8 @@ class _TankOverviewState extends State<TankOverview>
                       style: TextStyle(
                         fontSize: 30,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Container(

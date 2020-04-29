@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 const int ALLOWED_NUMBER_OF_PLANTS_IN_TANK = 4;
 
-const int MAX_CHARS_DEVICE_NAME = 20;
+const int MAX_CHARS_DEVICE_NAME = 13;
 
 class CustomColors {
 //Colors

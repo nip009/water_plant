@@ -125,6 +125,8 @@ class _PlantInfoBodyState extends State<PlantInfoBody>
                           style: TextStyle(
                             fontSize: 18,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
@@ -354,6 +356,7 @@ class PlantNameAndInfoButton extends StatelessWidget {
             style: TextStyle(
               fontSize: 30,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
