@@ -50,4 +50,4 @@ Lastly, there is an about page which displays the logo of the app and which vers
 
 [comment]: # (Gif going into About.)
 
-![](about.gif)
+ ![alt-text](https://github.com/nip009/water_plant/blob/dev/assets/gifs/about.gif)
