@@ -49,3 +49,5 @@ There is also a Notifications section, where the user can choose which notificat
 Lastly, there is an about page which displays the logo of the app and which version it is.
 
 [comment]: # (Gif going into About.)
+
+![](about.gif)
