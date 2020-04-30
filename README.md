@@ -16,3 +16,4 @@ In the plant screen, there is also an information button that one can press, whi
 ## Plant information
 
 ## Settings
+

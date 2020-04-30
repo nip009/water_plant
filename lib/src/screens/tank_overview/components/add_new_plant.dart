@@ -295,7 +295,7 @@ class _AddNewPlantState extends State<AddNewPlant> {
       );
 
       widget.addNewPlant(int.parse(_selectedWaterTankPipe), plant);
-      Navigator.pop(context, 'Added plant: $_plantNickname');
+      Navigator.pop(context, 'Added plant $_plantNickname');
     }
   }
 }

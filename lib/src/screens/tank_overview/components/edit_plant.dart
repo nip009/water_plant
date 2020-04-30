@@ -160,7 +160,6 @@ class _EditPlantState extends State<EditPlant> {
                     color: Colors.white,
                     child: Form(
                       key: _formKeyPlantName,
-                      //autovalidate: true,
                       child: TextFormField(
                         maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                         onSaved: (value) => widget._plantNickname = value,
@@ -189,6 +188,11 @@ class _EditPlantState extends State<EditPlant> {
                       key: _formKeyTankPipe,
                       autovalidate: true,
                       child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          counterText: '',
+                          contentPadding: EdgeInsets.all(0),
+                        ),
                         hint: Text('Select a pipe'),
                         value: widget._selectedWaterTankPipe,
                         validator: (value) =>
@@ -222,6 +226,11 @@ class _EditPlantState extends State<EditPlant> {
                       key: _formKeyPlantType,
                       autovalidate: true,
                       child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          counterText: '',
+                          contentPadding: EdgeInsets.all(0),
+                        ),
                         validator: (value) => value == null
                             ? 'Please select type of plant'
                             : null,

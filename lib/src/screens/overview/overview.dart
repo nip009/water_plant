@@ -52,7 +52,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var tankNames = ['Stue', 'Kjøkken', 'Bad'];
+    var tankNames = ['Living Room', 'Kitchen', 'Bathroom'];
 
     for (int i = 0; i < tankNames.length; i++) {
       var tank = WaterTankDevice(tankNames[i]);
@@ -71,21 +71,23 @@ class _OverviewScreenState extends State<OverviewScreen> {
       SettingsScreen(),
     ];
 
-    return CustomScaffold(
-      scaffold: Scaffold(
-        key: _scaffoldKey,
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _currentIndex,
-          onTap: (int index) {},
-          items: _items,
+    return SafeArea(
+      child: CustomScaffold(
+        scaffold: Scaffold(
+          key: _scaffoldKey,
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            onTap: (int index) {},
+            items: _items,
+          ),
         ),
+        children: _pages,
+        onItemTap: (index) {
+          _scaffoldKey.currentState.hideCurrentSnackBar();
+        },
       ),
-      children: _pages,
-      onItemTap: (index) {
-        _scaffoldKey.currentState.hideCurrentSnackBar();
-      },
     );
   }
 }
