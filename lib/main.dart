@@ -7,15 +7,10 @@ void main() => runApp(PlantWateringApp());
 
 class PlantWateringApp extends StatelessWidget {
   final List<WaterTankDevice> tanks = [];
+  bool doneLoading = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        '/': (context) => OverviewScreen(tanks),
-        /*'/allPlants': (context) => AllPlantsScreen(tanks),
-        '/searchPlantInfo': (context) => SearchPlantInfoScreen(tanks),
-        '/settings': (context) => SettingsScreen(),*/
-      },
       theme: ThemeData(
         textTheme: TextTheme(
           bodyText1: TextStyle(),
@@ -33,6 +28,7 @@ class PlantWateringApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
+      home: OverviewScreen(tanks),
     );
   }
 }
