@@ -58,144 +58,142 @@ class _EditTankState extends State<EditTank> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
-          centerTitle: true,
+    return Scaffold(
+      appBar: AppBar(
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
         ),
-        body: Container(
-          padding: EdgeInsets.all(5),
-          child: ListView(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: Text(
-                  'Device name',
-                  style: TextStyle(
-                    fontSize: 20,
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(5),
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Text(
+                'Device name',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Card(
+              elevation: 5,
+              child: Container(
+                height: 48,
+                padding: EdgeInsets.only(left: 12),
+                color: Colors.white,
+                child: Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    initialValue:
+                        widget.tank != null ? widget.tank.nickname : '',
+                    maxLength: Constants.MAX_CHARS_DEVICE_NAME,
+                    onSaved: (value) => widget.tankName = value,
+                    validator: (value) =>
+                        value.isEmpty ? 'Name cannot be empty' : null,
+                    decoration: InputDecoration(
+                      hintText:
+                          widget.tankName == '' ? 'Default: Device 1' : '',
+                      border: InputBorder.none,
+                      counterText: '',
+                      contentPadding: EdgeInsets.all(0),
+                    ),
                   ),
                 ),
               ),
-              Card(
-                elevation: 5,
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+              child: Text(
+                'Networks',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            WifiCards(wifiInfo),
+            Container(
+              padding: EdgeInsets.only(top: 40),
+              alignment: Alignment.center,
+              child: RaisedButton(
+                elevation: 4,
+                padding: EdgeInsets.all(10),
+                color: Colors.white,
                 child: Container(
-                  height: 48,
-                  padding: EdgeInsets.only(left: 12),
-                  color: Colors.white,
-                  child: Form(
-                    key: _formKey,
-                    child: TextFormField(
-                      initialValue:
-                          widget.tank != null ? widget.tank.nickname : '',
-                      maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                      onSaved: (value) => widget.tankName = value,
-                      validator: (value) =>
-                          value.isEmpty ? 'Name cannot be empty' : null,
-                      decoration: InputDecoration(
-                        hintText:
-                            widget.tankName == '' ? 'Default: Device 1' : '',
-                        border: InputBorder.none,
-                        counterText: '',
-                        contentPadding: EdgeInsets.all(0),
-                      ),
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: Text(
+                    widget.showDeleteButton ? 'Edit Device' : 'Add Device',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey[700],
                     ),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                child: Text(
-                  'Networks',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              WifiCards(wifiInfo),
-              Container(
-                padding: EdgeInsets.only(top: 40),
-                alignment: Alignment.center,
-                child: RaisedButton(
-                  elevation: 4,
-                  padding: EdgeInsets.all(10),
-                  color: Colors.white,
-                  child: Container(
-                    margin: EdgeInsets.only(left: 30, right: 30),
-                    child: Text(
-                      widget.showDeleteButton ? 'Edit Device' : 'Add Device',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (widget.tank == null) {
-                      _addNewTank();
-                    } else {
-                      if (!_formKey.currentState.validate()) {
-                        return;
-                      }
-                      _editTank(widget.tank);
+                onPressed: () {
+                  if (widget.tank == null) {
+                    _addNewTank();
+                  } else {
+                    if (!_formKey.currentState.validate()) {
+                      return;
                     }
-                  },
-                ),
+                    _editTank(widget.tank);
+                  }
+                },
               ),
-              widget.showDeleteButton
-                  ? Container(
-                      padding: EdgeInsets.only(top: 10),
-                      alignment: Alignment.center,
-                      child: RaisedButton(
-                        elevation: 4,
-                        padding: EdgeInsets.all(10),
-                        color: Colors.white,
-                        child: Container(
-                          margin: EdgeInsets.only(left: 30, right: 30),
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.red,
-                            ),
+            ),
+            widget.showDeleteButton
+                ? Container(
+                    padding: EdgeInsets.only(top: 10),
+                    alignment: Alignment.center,
+                    child: RaisedButton(
+                      elevation: 4,
+                      padding: EdgeInsets.all(10),
+                      color: Colors.white,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 30, right: 30),
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.red,
                           ),
                         ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              content: Text('Do you want to remove the tank?'),
-                              actionsPadding: EdgeInsets.symmetric(
-                                horizontal: 60,
-                              ),
-                              actions: <Widget>[
-                                FlatButton(
-                                  child: Text('No'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Text('Yes'),
-                                  onPressed: () {
-                                    removeThisTank();
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                              elevation: 10,
-                            ),
-                          );
-                        },
                       ),
-                    )
-                  : Container(),
-            ],
-          ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            content: Text('Do you want to remove the tank?'),
+                            actionsPadding: EdgeInsets.symmetric(
+                              horizontal: 60,
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('No'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              FlatButton(
+                                child: Text('Yes'),
+                                onPressed: () {
+                                  removeThisTank();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                            elevation: 10,
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                : Container(),
+          ],
         ),
       ),
     );
@@ -260,7 +258,7 @@ class _EditTankState extends State<EditTank> {
       _formKey.currentState.save();
       WaterTankDevice tank = WaterTankDevice(widget.tankName);
       widget.addTank(tank);
-      Navigator.pop(context, 'Added tank: ${tank.nickname}');
+      Navigator.pop(context, 'Added tank ${tank.nickname}');
     }
   }
 }

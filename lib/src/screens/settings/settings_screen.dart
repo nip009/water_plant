@@ -62,8 +62,8 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                     /*ChoiceButton(
-                      text: 'APPEARANCE',
-                    ),*/
+                        text: 'APPEARANCE',
+                      ),*/
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

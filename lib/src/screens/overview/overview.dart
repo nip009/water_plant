@@ -71,23 +71,21 @@ class _OverviewScreenState extends State<OverviewScreen> {
       SettingsScreen(),
     ];
 
-    return SafeArea(
-      child: CustomScaffold(
-        scaffold: Scaffold(
-          key: _scaffoldKey,
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _currentIndex,
-            onTap: (int index) {},
-            items: _items,
-          ),
+    return CustomScaffold(
+      scaffold: Scaffold(
+        key: _scaffoldKey,
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
+          onTap: (int index) {},
+          items: _items,
         ),
-        children: _pages,
-        onItemTap: (index) {
-          _scaffoldKey.currentState.hideCurrentSnackBar();
-        },
       ),
+      children: _pages,
+      onItemTap: (index) {
+        _scaffoldKey.currentState.hideCurrentSnackBar();
+      },
     );
   }
 }

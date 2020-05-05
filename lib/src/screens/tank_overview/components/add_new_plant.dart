@@ -78,186 +78,183 @@ class _AddNewPlantState extends State<AddNewPlant> {
   final double _formHeight = 48;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Container(
-            height: kToolbarHeight,
-            width: kToolbarHeight,
-            child: Image.asset('assets/logo_white_background.png'),
-          ),
-          centerTitle: true,
+    return Scaffold(
+      appBar: AppBar(
+        title: Container(
+          height: kToolbarHeight,
+          width: kToolbarHeight,
+          child: Image.asset('assets/logo_white_background.png'),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.only(
-                      top: 30,
-                    ),
-                    child: displaySelectedFile(pictureFile)),
-                Container(
-                  alignment: Alignment.center,
-                  child: FlatButton(
-                    child: Text(
-                      'Change photo',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    onPressed: () async => await imageSelectorGallery(),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                  padding: EdgeInsets.only(
+                    top: 30,
                   ),
+                  child: displaySelectedFile(pictureFile)),
+              Container(
+                alignment: Alignment.center,
+                child: FlatButton(
+                  child: Text(
+                    'Change photo',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                  onPressed: () async => await imageSelectorGallery(),
                 ),
-                /*RaisedButton(
+              ),
+              /*RaisedButton(
                   child: Text('Select image from camera'),
                   onPressed: () async => await imageSelectorCamera(),
                 ),*/
-                FormTitle('Plant name'),
-                Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(0),
+              FormTitle('Plant name'),
+              Card(
+                elevation: 5,
+                margin: EdgeInsets.all(0),
+                child: Container(
+                  height: _formHeight,
+                  padding: EdgeInsets.only(left: 12),
+                  color: Colors.white,
+                  child: Form(
+                    key: _formKeyPlantName,
+                    child: TextFormField(
+                      initialValue: _plantNickname,
+                      maxLength: Constants.MAX_CHARS_DEVICE_NAME,
+                      onSaved: (value) => _plantNickname = value,
+                      validator: (value) =>
+                          value.isEmpty ? 'Please select a name' : null,
+                      decoration: InputDecoration(
+                        //helperText: ' ',
+                        hintText: 'Default: Plant 1',
+                        border: InputBorder.none,
+                        counterText: '',
+                        contentPadding: EdgeInsets.all(0),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              FormTitle('Tank pipe'),
+              Card(
+                elevation: 5,
+                margin: EdgeInsets.all(0),
+                child: Container(
+                  height: _formHeight,
+                  padding: EdgeInsets.only(left: 12),
+                  alignment: Alignment.centerLeft,
+                  color: Colors.white,
+                  child: Form(
+                    key: _formKeyTankPipe,
+                    //autovalidate: true,
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        counterText: '',
+                        contentPadding: EdgeInsets.all(0),
+                      ),
+                      hint: Text('Select a pipe'),
+                      value: _selectedWaterTankPipe,
+                      validator: (value) =>
+                          value == null ? 'Please select a pipe' : null,
+                      items: widget.tank
+                          .availablePipes()
+                          .map((e) => e.toString())
+                          .map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _selectedWaterTankPipe = value;
+                        });
+                      },
+                      isExpanded: true,
+                    ),
+                  ),
+                ),
+              ),
+              FormTitle('Type of plant'),
+              Card(
+                elevation: 5,
+                margin: EdgeInsets.all(0),
+                child: Container(
+                  height: _formHeight,
+                  padding: EdgeInsets.only(left: 12),
+                  alignment: Alignment.centerLeft,
+                  color: Colors.white,
+                  child: Form(
+                    key: _formKeyPlantType,
+                    //autovalidate: true,
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        //helperText: ' ',
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(0),
+                      ),
+                      hint: Text('Select a plant type'),
+                      value: _selectedPlantType,
+                      validator: (value) =>
+                          value == null ? 'Please select type of plant' : null,
+                      items: [
+                        'Chinese Evergreen',
+                        'Emerald palm',
+                        'Orchid',
+                        'Yucca Palm',
+                        'Cocos Palm',
+                        'Money Tree',
+                        'Queen Palm',
+                        'Benjamin Fig',
+                        'Bonsai Ficus',
+                        'Janet Lind',
+                      ].map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _selectedPlantType = value;
+                        });
+                      },
+                      isExpanded: true,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 35),
+                alignment: Alignment.center,
+                child: RaisedButton(
+                  elevation: 4,
+                  padding: EdgeInsets.all(10),
+                  color: Colors.white,
                   child: Container(
-                    height: _formHeight,
-                    padding: EdgeInsets.only(left: 12),
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKeyPlantName,
-                      child: TextFormField(
-                        initialValue: _plantNickname,
-                        maxLength: Constants.MAX_CHARS_DEVICE_NAME,
-                        onSaved: (value) => _plantNickname = value,
-                        validator: (value) =>
-                            value.isEmpty ? 'Please select a name' : null,
-                        decoration: InputDecoration(
-                          //helperText: ' ',
-                          hintText: 'Default: Plant 1',
-                          border: InputBorder.none,
-                          counterText: '',
-                          contentPadding: EdgeInsets.all(0),
-                        ),
+                    margin: EdgeInsets.only(left: 30, right: 30),
+                    child: Text(
+                      'Add Plant',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.grey[700],
                       ),
                     ),
                   ),
+                  onPressed: () {
+                    _submit();
+                  },
                 ),
-                FormTitle('Tank pipe'),
-                Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(0),
-                  child: Container(
-                    height: _formHeight,
-                    padding: EdgeInsets.only(left: 12),
-                    alignment: Alignment.centerLeft,
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKeyTankPipe,
-                      //autovalidate: true,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          counterText: '',
-                          contentPadding: EdgeInsets.all(0),
-                        ),
-                        hint: Text('Select a pipe'),
-                        value: _selectedWaterTankPipe,
-                        validator: (value) =>
-                            value == null ? 'Please select a pipe' : null,
-                        items: widget.tank
-                            .availablePipes()
-                            .map((e) => e.toString())
-                            .map((String value) {
-                          return new DropdownMenuItem<String>(
-                            value: value,
-                            child: new Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String value) {
-                          setState(() {
-                            _selectedWaterTankPipe = value;
-                          });
-                        },
-                        isExpanded: true,
-                      ),
-                    ),
-                  ),
-                ),
-                FormTitle('Type of plant'),
-                Card(
-                  elevation: 5,
-                  margin: EdgeInsets.all(0),
-                  child: Container(
-                    height: _formHeight,
-                    padding: EdgeInsets.only(left: 12),
-                    alignment: Alignment.centerLeft,
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKeyPlantType,
-                      //autovalidate: true,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                          //helperText: ' ',
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(0),
-                        ),
-                        hint: Text('Select a plant type'),
-                        value: _selectedPlantType,
-                        validator: (value) => value == null
-                            ? 'Please select type of plant'
-                            : null,
-                        items: [
-                          'Chinese Evergreen',
-                          'Emerald palm',
-                          'Orchid',
-                          'Yucca Palm',
-                          'Cocos Palm',
-                          'Money Tree',
-                          'Queen Palm',
-                          'Benjamin Fig',
-                          'Bonsai Ficus',
-                          'Janet Lind',
-                        ].map((String value) {
-                          return new DropdownMenuItem<String>(
-                            value: value,
-                            child: new Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String value) {
-                          setState(() {
-                            _selectedPlantType = value;
-                          });
-                        },
-                        isExpanded: true,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 35),
-                  alignment: Alignment.center,
-                  child: RaisedButton(
-                    elevation: 4,
-                    padding: EdgeInsets.all(10),
-                    color: Colors.white,
-                    child: Container(
-                      margin: EdgeInsets.only(left: 30, right: 30),
-                      child: Text(
-                        'Add Plant',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      _submit();
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

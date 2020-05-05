@@ -385,7 +385,7 @@ class PlantPicture extends StatelessWidget {
             borderRadius: BorderRadius.circular(3),
             border: Border.all(
               color: Constants.CustomColors.BORDER_COLOR,
-              width: 2.5,
+              width: 2,
             ),
           ),
           child: ClipRRect(
