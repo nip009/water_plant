@@ -9,7 +9,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
   String nickname;
 
   /// How much water is in this tank.
-  int waterLevel;
+  double waterLevel;
 
   /// Keeps track of which plant each pipe goes to.
   ///
@@ -19,7 +19,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
   /// 2 is second pipe, and so on.
   Map<Plant, int> _pipeConnections;
 
-  WaterTankDevice(this.nickname, {this.waterLevel = 60}) {
+  WaterTankDevice(this.nickname, {this.waterLevel = 100}) {
     _pipeConnections = <Plant, int>{};
   }
 
@@ -64,7 +64,7 @@ class WaterTankDevice implements IPlantAndWaterTank {
 
   /// Water [plant] for a small amount.
   ///
-  /// This function is typically called until [plant.hydration] has reached
+  /// This function is typically called until [plant.waterLevel] has reached
   /// [plant.idealHydration] and while [plant.isBeingWatered] is true.
   /// One should update [plant.isBeingWatered] accordingly when watering
   /// the [plant].
@@ -80,11 +80,14 @@ class WaterTankDevice implements IPlantAndWaterTank {
   /// plant.isBeingWatered = false;
   /// ```
   /// In the code example above, calling [setState] will update the use of
-  /// [plant.hydration] in the class [setState] is being called in.
+  /// [plant.waterLevel] in the class [setState] is being called in.
   Future<void> water(Plant plant) async {
     assert(plant != null);
     await Future.delayed(Duration(seconds: 1))
         .then((value) => plant.hydration += 1);
+    if (waterLevel > 0.5) {
+      waterLevel -= 0.2;
+    }
   }
 
   /// Get the pipe that [plant] is connected to in this tank.

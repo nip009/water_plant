@@ -1,6 +1,12 @@
 # water_plant
 
-An app that will help you to water your plants!
+An app that will help you keep your plants watered!
+
+You need to have Android Studio, as well as the Dart and Flutter plugins installed to run this application on your machine.
+
+See https://flutter.dev/docs/get-started/install for how to install these.
+
+
 
 ## Overview Screen
 Here you can see an overview of your tanks, each presented in a modern, compact way. Each tank card displays the tanks' water level, and the connected plants that need watering. 

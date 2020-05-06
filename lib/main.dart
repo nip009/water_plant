@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 import 'package:water_plant/src/screens/overview/overview.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 void main() => runApp(PlantWateringApp());
 
 class PlantWateringApp extends StatelessWidget {
-  final List<WaterTankDevice> tanks = [];
-  bool doneLoading = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +25,7 @@ class PlantWateringApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: OverviewScreen(tanks),
+      home: OverviewScreen(),
     );
   }
 }

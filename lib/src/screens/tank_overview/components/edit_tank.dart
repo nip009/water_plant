@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
+import 'package:water_plant/main.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 
 /// Screen for adding/editing a [WaterTankDevice].
@@ -93,8 +94,6 @@ class _EditTankState extends State<EditTank> {
                         widget.tank != null ? widget.tank.nickname : '',
                     maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                     onSaved: (value) => widget.tankName = value,
-                    validator: (value) =>
-                        value.isEmpty ? 'Name cannot be empty' : null,
                     decoration: InputDecoration(
                       hintText:
                           widget.tankName == '' ? 'Default: Device 1' : '',
@@ -213,7 +212,11 @@ class _EditTankState extends State<EditTank> {
   _submit(WaterTankDevice tank) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      tank.nickname = widget.tankName;
+      if (widget.tankName.isEmpty) {
+        tank.nickname = 'Device 1';
+      } else {
+        tank.nickname = widget.tankName;
+      }
       widget.refreshState();
       Navigator.pop(context, ['Edit', widget.tank]);
     }
@@ -256,6 +259,9 @@ class _EditTankState extends State<EditTank> {
     assert(_formKey != null);
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      if (widget.tankName.isEmpty) {
+        widget.tankName = 'Device 1';
+      }
       WaterTankDevice tank = WaterTankDevice(widget.tankName);
       widget.addTank(tank);
       Navigator.pop(context, 'Added tank ${tank.nickname}');

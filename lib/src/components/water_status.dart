@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class WaterStatus extends StatelessWidget {
-  final int hydration;
+  final double waterLevel;
   final double width;
   final double height;
   final double paddingWidth;
 
-  WaterStatus(this.hydration,
+  WaterStatus(this.waterLevel,
       {this.width = 21.0, this.height = 55.0, this.paddingWidth = 4});
 
   List<Widget> createWaterStatusBars(BuildContext context) {
@@ -17,7 +17,7 @@ class WaterStatus extends StatelessWidget {
     Color emptyColor = Constants.CustomColors.WATER_LEVEL_EMPTY;
     Color fillColor = Constants.CustomColors.WATER_LEVEL_FILL;
     for (var i = 0; i < 10; i++) {
-      double hyd = hydration / 10;
+      double hyd = waterLevel / 10;
       hyd > i ? color = fillColor : color = emptyColor;
       bars.add(
         Card(

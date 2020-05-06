@@ -10,15 +10,12 @@ import 'package:water_plant/src/screens/settings/settings_screen.dart';
 import 'package:water_plant/constants.dart' as Constants;
 
 class OverviewScreen extends StatefulWidget {
-  final List<WaterTankDevice> tanks;
-
-  OverviewScreen(this.tanks);
-
   @override
   _OverviewScreenState createState() => _OverviewScreenState();
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  final List<WaterTankDevice> tanks = [];
   int _currentIndex = 0;
 
   //GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -33,10 +30,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
       'Yucca Palm'
     ];
     List<int> hydrationLevels = [
-      24,
-      10,
-      40,
-      60,
+      0,
+      0,
+      0,
+      0,
     ];
     List<Plant> plants = [];
     for (int i = 0; i < plantNames.length; i++) {
@@ -50,24 +47,30 @@ class _OverviewScreenState extends State<OverviewScreen> {
     return plants;
   }
 
+  bool hasAdded = false;
+
   @override
   Widget build(BuildContext context) {
-    var tankNames = ['Living Room', 'Kitchen', 'Bathroom'];
+    if (!hasAdded) {
+      //var tankNames = ['Living Room', 'Kitchen', 'Bathroom'];
+      var tankNames = ['Kitchen'];
 
-    for (int i = 0; i < tankNames.length; i++) {
-      var tank = WaterTankDevice(tankNames[i]);
+      for (int i = 0; i < tankNames.length; i++) {
+        var tank = WaterTankDevice(tankNames[i]);
 
-      var plants = createPlants();
-      for (int i = 0; i < Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK; i++) {
-        tank.addPlant(i + 1, plants[i]);
+        var plants = createPlants();
+        for (int i = 0; i < Constants.ALLOWED_NUMBER_OF_PLANTS_IN_TANK; i++) {
+          tank.addPlant(i + 1, plants[i]);
+        }
+        tanks.add(tank);
       }
-      widget.tanks.add(tank);
+      hasAdded = true;
     }
 
     var _pages = [
-      OverviewBody(widget.tanks),
-      AllPlantsScreen(widget.tanks),
-      SearchPlantInfoScreen(widget.tanks),
+      OverviewBody(tanks),
+      AllPlantsScreen(tanks),
+      SearchPlantInfoScreen(tanks),
       SettingsScreen(),
     ];
 
