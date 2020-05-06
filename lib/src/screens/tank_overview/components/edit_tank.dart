@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:water_plant/constants.dart' as Constants;
-import 'package:water_plant/main.dart';
 import 'package:water_plant/objects/watertankdevice/water_tank_device.dart';
 
 /// Screen for adding/editing a [WaterTankDevice].
@@ -8,11 +7,20 @@ class EditTank extends StatefulWidget {
   final Function addTank;
   final Function removeTank;
 
-  /// To refresh the state of previous pages
+  /// To refresh the state of previous pages.
   final Function refreshState;
+
+  /// Shows a delete button if a tank is being edited (since it can then be deleted).
   final bool showDeleteButton;
+
+  /// This is the tank device being edited or added.
   final WaterTankDevice tank;
+
+  /// The name being changed in the device name form.
   String tankName;
+
+  /// When adding a new tank, the default name should be 'Device i', where i is the number of tanks in the app + 1.
+  int numberOfTanksConnectedToApp;
 
   EditTank(
       {this.tankName = '',
@@ -20,7 +28,8 @@ class EditTank extends StatefulWidget {
       this.addTank,
       this.removeTank,
       this.refreshState,
-      this.showDeleteButton = false});
+      this.showDeleteButton = false,
+      this.numberOfTanksConnectedToApp = 0});
 
   @override
   _EditTankState createState() => _EditTankState();
@@ -33,7 +42,7 @@ class _EditTankState extends State<EditTank> {
     {
       'name': 'Get-69FAF2',
       'showIcons': true,
-      'isSelected': false,
+      'isSelected': true,
     },
     {
       'name': 'Get-6A0442',
@@ -95,8 +104,9 @@ class _EditTankState extends State<EditTank> {
                     maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                     onSaved: (value) => widget.tankName = value,
                     decoration: InputDecoration(
-                      hintText:
-                          widget.tankName == '' ? 'Default: Device 1' : '',
+                      hintText: widget.tankName == ''
+                          ? 'Default: Device ${widget.numberOfTanksConnectedToApp + 1}'
+                          : '',
                       border: InputBorder.none,
                       counterText: '',
                       contentPadding: EdgeInsets.all(0),
@@ -144,56 +154,59 @@ class _EditTankState extends State<EditTank> {
                 },
               ),
             ),
-            widget.showDeleteButton
-                ? Container(
-                    padding: EdgeInsets.only(top: 10),
-                    alignment: Alignment.center,
-                    child: RaisedButton(
-                      elevation: 4,
-                      padding: EdgeInsets.all(10),
-                      color: Colors.white,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 30, right: 30),
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            content: Text('Do you want to remove the tank?'),
-                            actionsPadding: EdgeInsets.symmetric(
-                              horizontal: 60,
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('No'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              FlatButton(
-                                child: Text('Yes'),
-                                onPressed: () {
-                                  removeThisTank();
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                            elevation: 10,
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                : Container(),
+            widget.showDeleteButton ? deleteTankButton(context) : Container(),
           ],
         ),
+      ),
+    );
+  }
+
+  /// Shows the button for deleting this tank.
+  Container deleteTankButton(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 10),
+      alignment: Alignment.center,
+      child: RaisedButton(
+        elevation: 4,
+        padding: EdgeInsets.all(10),
+        color: Colors.white,
+        child: Container(
+          margin: EdgeInsets.only(left: 30, right: 30),
+          child: Text(
+            'Delete',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.red,
+            ),
+          ),
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              content: Text('Do you want to remove the tank?'),
+              actionsPadding: EdgeInsets.symmetric(
+                horizontal: 60,
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text('Yes'),
+                  onPressed: () {
+                    removeThisTank();
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+              elevation: 10,
+            ),
+          );
+        },
       ),
     );
   }
@@ -209,11 +222,11 @@ class _EditTankState extends State<EditTank> {
     }
   }
 
-  _submit(WaterTankDevice tank) {
+  _submitChanges(WaterTankDevice tank) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (widget.tankName.isEmpty) {
-        tank.nickname = 'Device 1';
+        tank.nickname = 'Device ${widget.numberOfTanksConnectedToApp + 1}';
       } else {
         tank.nickname = widget.tankName;
       }
@@ -246,7 +259,7 @@ class _EditTankState extends State<EditTank> {
             child: Text('Yes'),
             onPressed: () {
               Navigator.pop(context);
-              _submit(tank);
+              _submitChanges(tank);
             },
           ),
         ],
@@ -260,7 +273,7 @@ class _EditTankState extends State<EditTank> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (widget.tankName.isEmpty) {
-        widget.tankName = 'Device 1';
+        widget.tankName = 'Device ${widget.numberOfTanksConnectedToApp + 1}';
       }
       WaterTankDevice tank = WaterTankDevice(widget.tankName);
       widget.addTank(tank);
@@ -288,20 +301,20 @@ class _WifiCardsState extends State<WifiCards> {
       children: <Widget>[
         for (var info in widget.wifiInfo)
           Container(
-            child: wifiCard(info, widget.wifiInfo),
+            child: wifiCard(info),
           ),
       ],
     );
   }
 
-  InkWell wifiCard(Map<String, dynamic> info, allInfo) {
+  InkWell wifiCard(Map<String, dynamic> info) {
     return InkWell(
       onTap: () {
         setState(() {
-          for (var i in widget.wifiInfo) {
-            i['isSelected'] = false;
+          for (var card in widget.wifiInfo) {
+            card['isSelected'] = false;
           }
-          info['isSelected'] = !info['isSelected'];
+          info['isSelected'] = true;
         });
       },
       child: Card(
@@ -328,20 +341,22 @@ class _WifiCardsState extends State<WifiCards> {
                 ),
               ),
               info['showIcons']
-                  ? Container(
-                      padding: EdgeInsets.only(right: 5),
-                      alignment: Alignment.centerRight,
-                      child: Icon(Icons.wifi),
-                    )
-                  : Container(),
-              info['showIcons']
-                  ? Container(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.info_outline,
-                        color:
-                            Constants.CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
-                      ),
+                  ? Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(right: 5),
+                          alignment: Alignment.centerRight,
+                          child: Icon(Icons.wifi),
+                        ),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.info_outline,
+                            color: Constants
+                                .CustomColors.BOTTOM_NAVIGATION_BAR_COLOR,
+                          ),
+                        )
+                      ],
                     )
                   : Container(),
             ],

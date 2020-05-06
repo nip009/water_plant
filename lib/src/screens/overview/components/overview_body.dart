@@ -96,7 +96,10 @@ class _OverviewBodyState extends State<OverviewBody> {
             onTap: () {
               _navigateAndDisplaySnackbar(
                 context,
-                () => EditTank(addTank: addTank),
+                () => EditTank(
+                  addTank: addTank,
+                  numberOfTanksConnectedToApp: widget.tanks.length,
+                ),
               );
             },
             child: Container(

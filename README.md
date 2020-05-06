@@ -1,6 +1,6 @@
 # water_plant
 
-An app that will help you keep your plants watered!
+An app that will help keep your plants watered!
 
 You need to have Android Studio, as well as the Dart and Flutter plugins installed to run this application on your machine.
 
