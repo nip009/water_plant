@@ -224,6 +224,14 @@ class _TankOverviewState extends State<TankOverview>
                     )
                   else
                     Container(),
+                  if (widget.tank.plants.isEmpty)
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(top: 35),
+                      child: Text('Press the button above to add a new plant'),
+                    )
+                  else
+                    Container(),
                 ],
               ),
             ),
