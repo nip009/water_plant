@@ -129,11 +129,10 @@ class _AddNewPlantState extends State<AddNewPlant> {
                       initialValue: _plantNickname,
                       maxLength: Constants.MAX_CHARS_DEVICE_NAME,
                       onSaved: (value) => _plantNickname = value,
-                      validator: (value) =>
-                          value.isEmpty ? 'Please select a name' : null,
                       decoration: InputDecoration(
                         //helperText: ' ',
-                        hintText: 'Default: Plant 1',
+                        hintText:
+                            'Default: Plant ${widget.tank.plants.length + 1}',
                         border: InputBorder.none,
                         counterText: '',
                         contentPadding: EdgeInsets.all(0),
@@ -284,6 +283,11 @@ class _AddNewPlantState extends State<AddNewPlant> {
           .firstWhere((element) => element['name'] == _selectedPlantType);
 
       assert(plantTypeInfo != null);
+
+      if (_plantNickname.isEmpty) {
+        _plantNickname = 'Plant ${widget.tank.plants.length + 1}';
+      }
+
       Plant plant = Plant(
         0,
         nickname: _plantNickname,
